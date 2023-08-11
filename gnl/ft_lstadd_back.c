@@ -1,39 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   ft_lstadd_back.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/09 13:10:00 by gde-souz          #+#    #+#             */
-/*   Updated: 2023/08/11 17:58:55 by gde-souz         ###   ########.fr       */
+/*   Created: 2023/08/08 13:01:10 by root              #+#    #+#             */
+/*   Updated: 2023/08/11 17:55:53 by gde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-char	*get_next_line(int fd)
+static t_list	*ft_lstlast(t_list *lst)
 {
-	static t_list	**list;
-	int				file;
-	size_t			rd;
-	char			*buffer[BUFF_SIZE];
-
-	list = NULL;
-	file = open("file.txt", O_RDONLY);
-	if (file == -1)
+	if (lst == NULL)
 		return (NULL);
-	rd = read(file, buffer, BUFF_SIZE);
-	while (read(file, buffer, BUFF_SIZE))
-	{
-		ft_lstadd(list, buffer);
-		printf("%s", buffer);
-	}
-	close(file);
-	return (*buffer);
+	while (lst->next != NULL)
+		lst = lst->next;
+	return (lst);
 }
 
-int	main(void)
+void	ft_lstadd(t_list **lst, void *content)
 {
-	get_next_line(9);
+	t_list	*last;
+	t_list	*new_node;
+
+	new_node = (t_list *)malloc(sizeof(t_list));
+	if (!new_node)
+		return ;
+	new_node->content = content;
+	new_node->next = NULL;
+	if (*lst == NULL)
+		*lst = new_node;
+	else
+	{
+		last = ft_lstlast(lst);
+		last->next = new_node;
+	}
 }
