@@ -6,7 +6,7 @@
 /*   By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 13:01:10 by root              #+#    #+#             */
-/*   Updated: 2023/08/11 17:55:53 by gde-souz         ###   ########.fr       */
+/*   Updated: 2023/08/11 18:12:13 by gde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	ft_lstadd(t_list **lst, void *content)
 		*lst = new_node;
 	else
 	{
-		last = ft_lstlast(lst);
+		last = ft_lstlast(*lst);
 		last->next = new_node;
 	}
 }

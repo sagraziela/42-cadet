@@ -6,7 +6,7 @@
 /*   By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 13:10:00 by gde-souz          #+#    #+#             */
-/*   Updated: 2023/08/11 17:58:55 by gde-souz         ###   ########.fr       */
+/*   Updated: 2023/08/11 18:14:29 by gde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,13 @@ char	*get_next_line(int fd)
 	char			*buffer[BUFF_SIZE];
 
 	list = NULL;
-	file = open("file.txt", O_RDONLY);
+	file = open(fd, O_RDONLY);
 	if (file == -1)
 		return (NULL);
 	rd = read(file, buffer, BUFF_SIZE);
 	while (read(file, buffer, BUFF_SIZE))
 	{
+		buffer[rd] = '\0';
 		ft_lstadd(list, buffer);
 		printf("%s", buffer);
 	}
