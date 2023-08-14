@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 13:10:00 by gde-souz          #+#    #+#             */
-/*   Updated: 2023/08/14 16:08:05 by root             ###   ########.fr       */
+/*   Updated: 2023/08/14 20:01:49 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,35 +55,18 @@ t_list	**create_list(t_list **list, int fd)
 		if (!buffer)
 			return (NULL);
 		rd = read(fd, buffer, BUFF_SIZE);
+		if (!rd)
+		{
+			free(buffer);
+			return (NULL);
+		}
 		buffer[rd] = '\0';
 		ft_lstadd(list, buffer);
 	}
 	return (list);
 }
 
-char	*ft_strchr(const char *s, int c)
-{
-	int		i;
-	int		length;
-
-	i = 0;
-	length = 0;
-	while (s[length] != '\0')
-		length++;
-	if ((unsigned char) c == '\0')
-	{
-		return ((char *)s + length);
-	}
-	while (s[i] != '\0')
-	{
-		if (s[i] == (unsigned char) c)
-			return ((char *)s + i);
-		i++;
-	}
-	return (NULL);
-}
-
-void	find_next_line(t_list *list)
+t_list	*find_next_line(t_list *list)
 {
 	int	i;
 	int	bf;
@@ -91,14 +74,11 @@ void	find_next_line(t_list *list)
 	i = 0;
 	while (list != NULL)
 	{
-		while (i < BUFF_SIZE)
+		while (i <= BUFF_SIZE)
 		{
-			if (list->content[i] == '\n')
-			{
-				printf("\nEND\n");
-				return ;
-			}
 			printf("%c", list->content[i]);
+			if (list->content[i] == '\n')
+				return (list);
 			i++;
 		}
 		i = 0;
@@ -106,16 +86,63 @@ void	find_next_line(t_list *list)
 	}
 }
 
+void	update_list(t_list **list)
+{
+	t_list	*temp;
+	t_list	*new_node;
+	t_list	*aux_next;
+	char	*aux_buffer;
+	int		i;
+	int		j;
+
+	i = 0;
+	j = 0;
+	while (*list != NULL)
+	{
+		while ((*list)->content[i])
+		{
+			if ((*list)->content[i] == '\n')
+			{
+				i++;
+				aux_buffer = malloc(BUFF_SIZE - i + 2);
+				while ((*list)->content[i])
+				{
+					aux_buffer[j] = (*list)->content[i + j];
+					j++;
+				}
+				aux_buffer = '\0';
+				aux_next = (*list)->next;
+				free(*list);
+				new_node->content = aux_buffer;
+				new_node->next = aux_next;
+				return ;
+			}
+			i++;
+		}
+		if ((*list)->content[i] == '\0')
+		{
+			temp = (*list)->next;
+			free((*list)->content);
+			free(*list);
+		}
+		*list = temp;
+	}
+}
+
 char	*get_next_line(int fd)
 {
 	static t_list	**list;
-	char			*buff;
-	int				i;
 
-	i = 0;
-	list = malloc(0);
-	list = create_list(list, fd);
-	find_next_line(*list);
+	if (*list)
+	{
+		*list = find_next_line(*list);
+		update_list(list);
+	}
+	else {
+		list = malloc(0);
+		list = create_list(list, fd);
+	}
+	
 	return ((*list)->content);
 }
 
@@ -124,6 +151,7 @@ int	main(void)
 	int	file;
 
 	file = open("file.txt", O_RDONLY);
+	get_next_line(file);
 	get_next_line(file);
 	close(file);
 }
