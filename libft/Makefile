@@ -6,7 +6,7 @@
 #    By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/19 11:35:37 by gde-souz          #+#    #+#              #
-#    Updated: 2023/08/09 10:27:08 by gde-souz         ###   ########.fr        #
+#    Updated: 2023/08/15 15:25:14 by gde-souz         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -79,6 +79,6 @@ fclean: clean
 	rm -f $(NAME)
 	rm -f $(HD)*.gch
 
-re: fclean, all
+re: fclean all
 
 .PHONY: all clean fclean re bonus

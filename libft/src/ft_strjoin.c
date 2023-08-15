@@ -6,13 +6,13 @@
 /*   By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 14:40:25 by root              #+#    #+#             */
-/*   Updated: 2023/08/02 10:50:31 by gde-souz         ###   ########.fr       */
+/*   Updated: 2023/08/15 15:25:29 by gde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft.h"
 
-void	fill_mem(char *mem, const char *str1, const char *str2, int total_len)
+static void	fill_mem(char *mem, const char *str1, const char *str2, int total_len)
 {
 	int		i;
 	int		j;
