@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 13:10:39 by gde-souz          #+#    #+#             */
-/*   Updated: 2023/08/14 12:43:30 by root             ###   ########.fr       */
+/*   Updated: 2023/08/15 17:01:10 by gde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,5 @@ typedef struct s_list
 }	t_list;
 
 char	*get_next_line(int fd);
-void	ft_lstadd(t_list **lst, void *content);
 
 #endif
