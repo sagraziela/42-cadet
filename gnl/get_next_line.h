@@ -6,7 +6,7 @@
 /*   By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 13:10:39 by gde-souz          #+#    #+#             */
-/*   Updated: 2023/08/15 17:01:10 by gde-souz         ###   ########.fr       */
+/*   Updated: 2023/08/16 11:18:42 by gde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define GET_NEXT_LINE_H
 
 # ifndef BUFF_SIZE
-#  define BUFF_SIZE 30
+#  define BUFF_SIZE 17
 # endif
 
 # include <unistd.h>

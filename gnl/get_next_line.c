@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 13:10:00 by gde-souz          #+#    #+#             */
-/*   Updated: 2023/08/14 20:01:49 by root             ###   ########.fr       */
+/*   Updated: 2023/08/16 10:42:39 by gde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,11 +138,11 @@ char	*get_next_line(int fd)
 		*list = find_next_line(*list);
 		update_list(list);
 	}
-	else {
+	else
+	{
 		list = malloc(0);
 		list = create_list(list, fd);
 	}
-	
 	return ((*list)->content);
 }
 
