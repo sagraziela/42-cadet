@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 13:01:10 by root              #+#    #+#             */
-/*   Updated: 2023/08/14 09:54:16 by root             ###   ########.fr       */
+/*   Updated: 2023/08/17 16:38:20 by gde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-static t_list	*ft_lstlast(t_list *lst)
+t_list	*ft_lstlast(t_list *lst)
 {
 	if (lst == NULL)
 		return (NULL);
@@ -38,5 +38,21 @@ void	ft_lstadd(t_list **lst, void *content)
 		last = ft_lstlast(*lst);
 		last->next = new_node;
 	}
+}
+
+int	find_line_break(char *buffer)
+{
+	int	i;
+
+	i = 0;
+	while (buffer[i])
+	{
+		if (buffer[i] == '\n')
+		{
+			return (i);
+		}
+		i++;
+	}
+	return (-1);
 }
 //cc get_next_line.c get_next_line_utils.c get_next_line.h
