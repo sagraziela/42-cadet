@@ -5,155 +5,99 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/09 13:10:00 by gde-souz          #+#    #+#             */
-/*   Updated: 2023/08/16 10:42:39 by gde-souz         ###   ########.fr       */
+/*   Created: 2023/08/18 17:38:30 by gde-souz          #+#    #+#             */
+/*   Updated: 2023/08/18 18:29:19 by gde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-static t_list	*ft_lstlast(t_list *lst)
+static char	*join_buffers(t_list **list, int line_len)
 {
-	if (lst == NULL)
-		return (NULL);
-	while (lst->next != NULL)
-		lst = lst->next;
-	return (lst);
-}
-
-void	ft_lstadd(t_list **lst, void *content)
-{
-	t_list	*last;
-	t_list	*new_node;
-
-	new_node = (t_list *)malloc(sizeof(t_list));
-	if (!new_node)
-		return ;
-	new_node->content = content;
-	new_node->next = NULL;
-	if (*lst == NULL)
-		*lst = new_node;
-	else
-	{
-		last = ft_lstlast(*lst);
-		last->next = new_node;
-	}
-}
-
-t_list	**create_list(t_list **list, int fd)
-{
-	char			*first_buffer;
-	char			*buffer;
-	size_t			rd;
-
-	if (fd < 0 || BUFF_SIZE <= 0 || read(fd, buffer, 0) < 0)
-		return (NULL);
-	rd = 1;
-	while (rd > 0)
-	{
-		buffer = malloc(BUFF_SIZE + 1);
-		if (!buffer)
-			return (NULL);
-		rd = read(fd, buffer, BUFF_SIZE);
-		if (!rd)
-		{
-			free(buffer);
-			return (NULL);
-		}
-		buffer[rd] = '\0';
-		ft_lstadd(list, buffer);
-	}
-	return (list);
-}
-
-t_list	*find_next_line(t_list *list)
-{
-	int	i;
-	int	bf;
-
-	i = 0;
-	while (list != NULL)
-	{
-		while (i <= BUFF_SIZE)
-		{
-			printf("%c", list->content[i]);
-			if (list->content[i] == '\n')
-				return (list);
-			i++;
-		}
-		i = 0;
-		list = list->next;
-	}
-}
-
-void	update_list(t_list **list)
-{
-	t_list	*temp;
-	t_list	*new_node;
-	t_list	*aux_next;
-	char	*aux_buffer;
+	char	*line;
 	int		i;
 	int		j;
 
 	i = 0;
 	j = 0;
-	while (*list != NULL)
+	line = (char *)malloc((line_len + 1) * sizeof(char));
+	if (!line)
+		return (NULL);
+	while (i < line_len)
 	{
-		while ((*list)->content[i])
+		while ((*list)->content[j] != '\0' && i < line_len)
 		{
-			if ((*list)->content[i] == '\n')
-			{
-				i++;
-				aux_buffer = malloc(BUFF_SIZE - i + 2);
-				while ((*list)->content[i])
-				{
-					aux_buffer[j] = (*list)->content[i + j];
-					j++;
-				}
-				aux_buffer = '\0';
-				aux_next = (*list)->next;
-				free(*list);
-				new_node->content = aux_buffer;
-				new_node->next = aux_next;
-				return ;
-			}
+			line[i] = (*list)->content[j];
 			i++;
+			j++;
 		}
-		if ((*list)->content[i] == '\0')
-		{
-			temp = (*list)->next;
-			free((*list)->content);
-			free(*list);
-		}
-		*list = temp;
+		*list = (*list)->next;
+		j = 0;
 	}
+	line[i] = '\0';
+	return (line);
+}
+
+static int	increment_list(t_list **list, char *buffer)
+{
+	char	*line_break;
+	int		line_len;
+
+	line_len = 17;
+	line_break = ft_strchr((*list)->content, '\n');
+	ft_lstadd(list, buffer);
+	if (line_break)
+	{
+		while (list)
+		{
+			printf("%s\n", (*list)->content);
+			printf("END NODE\n");
+			*list = (*list)->next;
+		}
+	}
+	printf("%d\n", line_len);
+	return (line_len);
 }
 
 char	*get_next_line(int fd)
 {
 	static t_list	**list;
+	char			buffer[BUFF_SIZE + 1];
+	char			*line;
+	int				line_len;
+	int				rd;
 
-	if (*list)
+	if (fd < 0 || BUFF_SIZE <= 0 || read(fd, buffer, 0) < 0)
+		return (NULL);
+	if (!list)
+		list = (t_list **)malloc(sizeof(t_list **));
+	rd = 1;
+	while (rd > 0)
 	{
-		*list = find_next_line(*list);
-		update_list(list);
+		rd = read(fd, buffer, BUFF_SIZE);
+		buffer[BUFF_SIZE] = '\0';
+		if (rd == -1)
+			return (0);
+		line_len = increment_list(list, buffer);
 	}
-	else
-	{
-		list = malloc(0);
-		list = create_list(list, fd);
-	}
-	return ((*list)->content);
+	line = join_buffers(list, line_len);
+	return (line);
 }
 
 int	main(void)
 {
-	int	file;
+	int		file;
+	char	*line;
 
-	file = open("file.txt", O_RDONLY);
-	get_next_line(file);
-	get_next_line(file);
+	file = open("../file.txt", O_RDONLY);
+	while (1)
+	{
+		line = get_next_line(file);
+		if (line == NULL)
+			break ;
+		printf("%s", line);
+		free(line);
+	}
 	close(file);
 }
-
 //cc get_next_line.c get_next_line_utils.c get_next_line.h

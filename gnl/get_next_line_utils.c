@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_utils.c                              :+:      :+:    :+:   */
+/*   gnl_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/08 13:01:10 by root              #+#    #+#             */
-/*   Updated: 2023/08/17 16:38:20 by gde-souz         ###   ########.fr       */
+/*   Created: 2023/08/18 17:39:10 by gde-souz          #+#    #+#             */
+/*   Updated: 2023/08/18 18:28:25 by gde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,4 +55,25 @@ int	find_line_break(char *buffer)
 	}
 	return (-1);
 }
-//cc get_next_line.c get_next_line_utils.c get_next_line.h
+
+char	*ft_strchr(const char *s, int c)
+{
+	int		i;
+	int		len_s;
+
+	i = 0;
+	len_s = 0;
+	while (s[len_s] != '\0')
+		len_s++;
+	if ((unsigned char) c == '\0')
+	{
+		return ((char *)s + len_s);
+	}
+	while (s[i] != '\0')
+	{
+		if (s[i] == (unsigned char) c)
+			return ((char *)s + i);
+		i++;
+	}
+	return (NULL);
+}
