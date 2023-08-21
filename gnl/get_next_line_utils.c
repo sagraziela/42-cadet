@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   gnl_utils.c                                        :+:      :+:    :+:   */
+/*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 17:39:10 by gde-souz          #+#    #+#             */
-/*   Updated: 2023/08/18 18:28:25 by gde-souz         ###   ########.fr       */
+/*   Updated: 2023/08/21 12:36:30 by gde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,14 @@ void	ft_lstadd(t_list **lst, void *content)
 	new_node->content = content;
 	new_node->next = NULL;
 	if (*lst == NULL)
+	{
+		new_node->prev = NULL;
 		*lst = new_node;
+	}
 	else
 	{
 		last = ft_lstlast(*lst);
+		new_node->prev = last;
 		last->next = new_node;
 	}
 }
