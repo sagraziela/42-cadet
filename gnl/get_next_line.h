@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/09 13:10:39 by gde-souz          #+#    #+#             */
-/*   Updated: 2023/08/21 13:35:47 by gde-souz         ###   ########.fr       */
+/*   Created: 2023/08/22 18:44:16 by root              #+#    #+#             */
+/*   Updated: 2023/08/22 20:41:19 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 
 typedef struct s_list
 {
-	char			content;
+	unsigned char	content;
 	struct s_list	*next;
 }	t_list;
 

@@ -1,6 +1,6 @@
-Lorem Ipsum
-"Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit..."
-"There is no one who loves pain itself, who seeks after it and wants to have it, simply because it is pain..."
+*1ST LINE START - Lorem Ipsum
+2ND LINE START - "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet consectetur, adipisci velit..."
+3RD LINE START - "There is no one who loves pain itself, who seeks after it and wants to have it, simply because it is pain..."
 
 What is Lorem Ipsum?
 Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever 

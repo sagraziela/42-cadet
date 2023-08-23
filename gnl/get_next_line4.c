@@ -1,76 +1,80 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line3.c                                   :+:      :+:    :+:   */
+/*   get_next_line4.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/21 16:51:32 by gde-souz          #+#    #+#             */
-/*   Updated: 2023/08/22 20:05:15 by root             ###   ########.fr       */
+/*   Created: 2023/08/22 20:04:06 by root              #+#    #+#             */
+/*   Updated: 2023/08/22 22:46:38 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-static t_list	*ft_lstadd(t_list **lst, char content)
+void	*ft_memset(void *s, int c, size_t n)
+{
+	size_t			i;
+
+	i = 0;
+	if (!s)
+	{
+		return (NULL);
+	}
+	while (i < n)
+	{
+		((unsigned char *)s)[i] = (unsigned char) c;
+		i++;
+	}
+	return (s);
+}
+
+static void	ft_lstadd(t_list *lst, char content)
 {
 	t_list	*last;
 	t_list	*new_node;
-	t_list	*head;
 
-	head = *lst;
 	new_node = (t_list *)malloc(sizeof(t_list));
 	if (!new_node)
-		return (NULL);
+		return ;
 	new_node->content = content;
 	new_node->next = NULL;
-	printf("%c", new_node->content);
-	if (*lst == NULL)
+	if (lst == NULL)
 	{
-		*lst = new_node;
-		head = *lst;
+		lst = new_node;
+		head = &lst;
 	}
 	else
 	{
-		while ((*lst)->next)
-			*lst = (*lst)->next;
-		last = *lst;
+		while (lst->next)
+			lst = lst->next;
+		last = lst;
 		last->next = new_node;
 	}
-	return (head);
+	return ;
 }
 
-static t_list	*create_nodes(t_list **list, char *buffer)
-{
-	size_t	i;
-	t_list	*head;
-
-	i = 0;
-	if (*list)
-		head = *list;
-	else
-	{
-		head = ft_lstadd(list, buffer[i]);
-		i++;
-	}
-	while (buffer[i] != '\0')
-	{
-		ft_lstadd(list, buffer[i]);
-		i++;
-	}
-	return (head);
-}
-
-static size_t	find_line_break(char *buffer)
+static void	create_nodes(t_list *list, char *buffer)
 {
 	size_t	i;
 
 	i = 0;
+	//printf("--create_nodes--\n");
 	while (buffer[i] != '\0')
 	{
-		if (buffer[i] == '\n')
+		ft_lstadd(list, buffer[i], head);
+		i++;
+	}
+	return ;
+}
+
+static int	find_line_break(char *buffer)
+{
+	while (*buffer)
+	{
+		if (*buffer == '\n')
 			return (1);
-		i++;
+		buffer++;
 	}
 	return (0);
 }
@@ -81,12 +85,13 @@ static size_t	find_line_len(t_list *list)
 	t_list	*aux_list;
 
 	counter = 0;
-	printf("ln 82: %c\n", list->content);
 	aux_list = list;
+	printf("--find_line_len--\n");
 	while (aux_list)
 	{
+		printf("%c", aux_list->content);
 		counter++;
-		if (aux_list->content == '\n')
+		if (aux_list->content == '\n' || aux_list->content == '\0')
 			break ;
 		aux_list = aux_list->next;
 	}
@@ -98,35 +103,19 @@ static char	*save_line(t_list *list)
 	size_t	i;
 	size_t	line_len;
 	char	*line;
-	t_list	*aux_node;
 
 	line_len = find_line_len(list);
-	printf("ln 103: %c\n", list->content);
 	printf("LINE_LEN: %zu\n", line_len);
 	line = (char *)malloc(sizeof(char) * (line_len + 1));
 	if (!line)
 		return (NULL);
 	i = 0;
-	while (i < line_len)
-	{
-		line[i] = list->content;
-		aux_node = list->next;
-		free(list);
-		list = aux_node;
-		i++;
-	}
-	line[i] = '\0';
-	while (list)
-	{
-		printf("--in_save_line-- %c", list->content);
-		list = list->next;
-	}
 	return (line);
 }
 
 char	*get_next_line(int fd)
 {
-	static t_list	**list;
+	static t_list	*list;
 	t_list			*head;
 	char			*buffer;
 	char			*line;
@@ -138,25 +127,20 @@ char	*get_next_line(int fd)
 	if (fd < 0 || BUFF_SIZE <= 0 || read(fd, buffer, 0) < 0)
 		return (NULL);
 	if (!list)
-		list = (t_list **)malloc(sizeof(t_list **));
+		list = (t_list *)malloc(sizeof(t_list));
+	head = 
 	rd = 1;
-	head = *list;
 	while (rd > 0)
 	{
-		read(fd, buffer, BUFF_SIZE);
-		*list = create_nodes(list, buffer);
-		if ((*list)->next == NULL)
-			head = *list;
+		rd = read(fd, buffer, BUFF_SIZE);
+		printf("buffer: %s\n", buffer);
+		create_nodes(*list, buffer);
 		if (find_line_break(buffer) == 1)
-		{
-			free(buffer);
 			break ;
-		}
-		free(buffer);
+		ft_memset(buffer, 0, BUFF_SIZE);
 	}
+	free(buffer);
 	line = save_line(head);
-	//printf("--in_gnl-- %c\n", (*list)->content);
-	return (line);
 }
 
 int	main(void)
@@ -175,5 +159,3 @@ int	main(void)
 	}
 	close(file);
 }
-
-//cc get_next_line3.c get_next_line.h
