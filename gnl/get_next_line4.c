@@ -6,7 +6,7 @@
 /*   By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 20:04:06 by root              #+#    #+#             */
-/*   Updated: 2023/08/23 12:20:59 by gde-souz         ###   ########.fr       */
+/*   Updated: 2023/08/23 17:33:43 by gde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,13 +51,13 @@ static t_list	*ft_lstadd(t_list *lst, char content)
 	return (lst);
 }
 
-static t_list	*create_nodes(t_list *list, char *buffer)
+static t_list	*create_nodes(t_list *list, char *buffer, int rd)
 {
 	size_t	i;
 	t_list	*node;
 
 	i = 0;
-	while (buffer[i] != '\0')
+	while (buffer[i] != '\0' && i < rd)
 	{
 		node = ft_lstadd(list, buffer[i]);
 		i++;
@@ -69,7 +69,7 @@ static int	find_line_break(char *buffer)
 {
 	while (*buffer)
 	{
-		if (*buffer == '\n')
+		if (*buffer == '\n' || *buffer == '\0')
 			return (1);
 		buffer++;
 	}
@@ -95,7 +95,7 @@ static char	*save_line(t_list *list)
 {
 	size_t	i;
 	size_t	line_len;
-	char	line[line_len];
+	char	*line;
 
 	line_len = find_line_len(list);
 	line = (char *)malloc(sizeof(char) * (line_len + 1));
@@ -147,21 +147,32 @@ char	*get_next_line(int fd)
 	if (!head)
 		return (NULL);
 	if (list)
+	{
+		//VERIFICAR SE NA LISTA JÁ NÃO TEM '\n' ANTES DE DAR READ DE NOVO
 		*head = list;
+		while (list)
+		{
+			if (list->content == '\n')
+				return ;
+			list = list->next;
+		}
+	}
 	else
 	{
 		list = NULL;
 		rd = read(fd, buffer, BUFF_SIZE);
 		list = ft_lstadd(list, buffer[0]);
 		*head = list;
-		list = create_nodes(list, (buffer + 1));
+		list = create_nodes(list, (buffer + 1), rd);
 		if (find_line_break(buffer) == 1)
 			rd = 0;
 	}
 	while (rd > 0)
 	{
 		rd = read(fd, buffer, BUFF_SIZE);
-		create_nodes(list, buffer);
+		if (rd == 0)
+			return (NULL);
+		create_nodes(list, buffer, rd);
 		if (find_line_break(buffer) == 1)
 			break ;
 		ft_memset(buffer, 0, BUFF_SIZE);
