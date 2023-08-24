@@ -3,16 +3,16 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+         #
+#    By: root <root@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/19 11:35:37 by gde-souz          #+#    #+#              #
-#    Updated: 2023/08/18 15:05:30 by gde-souz         ###   ########.fr        #
+#    Updated: 2023/08/24 18:51:34 by root             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = cc -Wall -Wextra -Werror
 AR = ar -rcs
-NAME = gnl.a
+NAME = get_next_line.a
 SRC = get_next_line.c \
 		get_next_line_utils.c
 OBJ = $(SRC:%.c=%.o)
@@ -24,7 +24,7 @@ $(NAME): $(OBJ)
 	$(AR) $(NAME) $(OBJ)
 
 %.o: %.c
-	$(CC) -c $< -o $@ -I $(HD)
+	$(CC) -c $< -o $@
 
 clean:
 	rm -f $(OBJ)

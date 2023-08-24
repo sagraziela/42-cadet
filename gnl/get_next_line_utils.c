@@ -3,81 +3,84 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 17:39:10 by gde-souz          #+#    #+#             */
-/*   Updated: 2023/08/21 12:36:30 by gde-souz         ###   ########.fr       */
+/*   Updated: 2023/08/24 19:31:58 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+// #include "get_next_line.h"
 
-t_list	*ft_lstlast(t_list *lst)
-{
-	if (lst == NULL)
-		return (NULL);
-	while (lst->next != NULL)
-		lst = lst->next;
-	return (lst);
-}
-
-void	ft_lstadd(t_list **lst, void *content)
+t_list	*ft_lstadd(t_list *lst, char content)
 {
 	t_list	*last;
 	t_list	*new_node;
 
 	new_node = (t_list *)malloc(sizeof(t_list));
 	if (!new_node)
-		return ;
+		return ((t_list *)0);
 	new_node->content = content;
 	new_node->next = NULL;
-	if (*lst == NULL)
-	{
-		new_node->prev = NULL;
-		*lst = new_node;
-	}
+	if (lst == NULL)
+		lst = new_node;
 	else
 	{
-		last = ft_lstlast(*lst);
-		new_node->prev = last;
+		while (lst->next)
+			lst = lst->next;
+		last = lst;
 		last->next = new_node;
 	}
+	return (lst);
 }
 
-int	find_line_break(char *buffer)
-{
-	int	i;
-
-	i = 0;
-	while (buffer[i])
-	{
-		if (buffer[i] == '\n')
-		{
-			return (i);
-		}
-		i++;
-	}
-	return (-1);
-}
-
-char	*ft_strchr(const char *s, int c)
+t_list	*create_nodes(t_list *list, char *buffer, int rd)
 {
 	int		i;
-	int		len_s;
+	t_list	*node;
 
 	i = 0;
-	len_s = 0;
-	while (s[len_s] != '\0')
-		len_s++;
-	if ((unsigned char) c == '\0')
+	while (buffer[i] != '\0' && i < rd)
 	{
-		return ((char *)s + len_s);
-	}
-	while (s[i] != '\0')
-	{
-		if (s[i] == (unsigned char) c)
-			return ((char *)s + i);
+		node = ft_lstadd(list, buffer[i]);
 		i++;
 	}
-	return (NULL);
+	return (node);
+}
+
+int	find_line_break_buffer(char *buffer)
+{
+	while (*buffer)
+	{
+		if (*buffer == '\n' || *buffer == '\0')
+			return (1);
+		buffer++;
+	}
+	return (0);
+}
+
+int	find_line_break_list(t_list *list)
+{
+	while (list)
+	{
+		if (list->content == '\n')
+			return (1);
+		list = list->next;
+	}
+	return (0);
+}
+
+size_t	find_line_len(t_list *list)
+{
+	size_t	counter;
+
+	counter = 0;
+	while (list)
+	{
+		counter++;
+		if (list->content == '\n' || list->content == '\0')
+			break ;
+		list = list->next;
+	}
+	return (counter);
 }
