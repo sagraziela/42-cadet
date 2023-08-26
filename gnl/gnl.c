@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 19:13:22 by root              #+#    #+#             */
-/*   Updated: 2023/08/24 20:28:33 by root             ###   ########.fr       */
+/*   Updated: 2023/08/26 12:48:49 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,10 +91,8 @@ static char	*save_line(t_list *list)
 	size_t	line_len;
 	char	*line;
 
-	printf("--save_line--: %c\n", list->content);
-	//IT IS NOT STOPPING ON THE LAST LINE!
 	line_len = find_line_len(list);
-	line = (char *)malloc(sizeof(char) * (line_len));
+	line = (char *)malloc(sizeof(char) * (line_len + 1));
 	if (!line)
 		return (NULL);
 	i = 0;
@@ -104,6 +102,7 @@ static char	*save_line(t_list *list)
 		list = list->next;
 		i++;
 	}
+	line[i] = '\0';
 	return (line);
 }
 
@@ -113,13 +112,13 @@ static t_list	*update_list(t_list *list)
 
 	while (list)
 	{
-		temp = list;
+		temp = list->next;
 		if (list->content == '\n')
 			break ;
-		if (list->content == '\0')
+		if (!temp)
 			return (NULL);
 		free(list);
-		list = temp->next;
+		list = temp;
 	}
 	free(list);
 	list = temp;
@@ -134,15 +133,22 @@ static t_list	**read_line(t_list *list, t_list **head, char *buffer, int fd)
 	{
 		list = NULL;
 		rd = read(fd, buffer, BUFF_SIZE);
+		if (rd == 0)
+		{
+			free(head);
+			return (NULL);
+		}
+		if (find_line_break_buffer(buffer) == 1)
+			rd = 0;
 		list = ft_lstadd(list, buffer[0]);
 		*head = list;
 		list = create_nodes(list, (buffer + 1), rd);
-		if (find_line_break_buffer(buffer) == 1)
-			rd = 0;
 	}
 	else
+	{
 		*head = list;
-	rd = 1;
+		rd = 1;
+	}
 	while (rd > 0)
 	{
 		rd = read(fd, buffer, BUFF_SIZE);
@@ -172,10 +178,17 @@ char	*get_next_line(int fd)
 		return (NULL);
 	if ((list && !find_line_break_list(list)) || !list)
 		head = read_line(list, head, buffer, fd);
+	else if (find_line_break_list(list))
+		*head = list;
 	free(buffer);
-	list = *head;
-	line = save_line(list);
-	list = update_list(list);
+	if (!head)
+		return (NULL);
+	else
+	{
+		list = *head;
+		line = save_line(list);
+		list = update_list(list);
+	}
 	return (line);
 }
 
