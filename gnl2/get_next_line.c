@@ -6,76 +6,92 @@
 /*   By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 15:42:54 by root              #+#    #+#             */
-/*   Updated: 2023/08/30 15:17:23 by gde-souz         ###   ########.fr       */
+/*   Updated: 2023/08/31 18:12:54 by gde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-static t_list	*create_node(char c)
-{
-	t_list	*new_node;
+// t_list	*create_node(char c)
+// {
+// 	t_list	*new_node;
 
-	if (!c)
-		return (NULL);
-	new_node = (t_list *)malloc(sizeof(t_list));
-	if (!new_node)
-		return (NULL);
-	new_node->content = c;
-	new_node->next = NULL;
-	return (new_node);
-}
+// 	if (!c)
+// 		return (NULL);
+// 	new_node = (t_list *)malloc(sizeof(t_list));
+// 	if (!new_node)
+// 		return (NULL);
+// 	new_node->content = c;
+// 	new_node->next = NULL;
+// 	return (new_node);
+// }
 
-static t_list	*ft_lstadd(t_list *lst, char *buffer, t_list *head)
-{
-	t_list	*last;
-	int		i;
+// t_list	*ft_lstadd(t_list *lst, char *buffer, t_list *head)
+// {
+// 	t_list	*last;
+// 	int		i;
 
-	i = 0;
-	while (buffer[i])
-	{
-		if (!lst)
-		{
-			lst = create_node(buffer[i]);
-			head = lst;
-		}
-		else
-		{
-			while ((lst)->next)
-				lst = (lst)->next;
-			last = lst;
-			last->next = create_node(buffer[i]);
-		}
-		i++;
-	}
-	return (head);
-}
+// 	i = 0;
+// 	while (buffer[i] != '\0')
+// 	{
+// 		if (!lst)
+// 		{
+// 			lst = create_node(buffer[i]);
+// 			head = lst;
+// 		}
+// 		else
+// 		{
+// 			while ((lst)->next)
+// 				lst = (lst)->next;
+// 			last = lst;
+// 			last->next = create_node(buffer[i]);
+// 		}
+// 		i++;
+// 	}
+// 	return (head);
+// }
 
-static int	find_line_break(t_list *list)
-{
-	while (list)
-	{
-		if (list->content == '\n')
-			return (1);
-		list = list->next;
-	}
-	return (0);
-}
+// int	find_line_break(t_list *list)
+// {
+// 	while (list)
+// 	{
+// 		if (list->content == '\n')
+// 			return (1);
+// 		list = list->next;
+// 	}
+// 	return (0);
+// }
 
-static size_t	find_line_len(t_list *list)
-{
-	size_t	counter;
+// size_t	find_line_len(t_list *list)
+// {
+// 	size_t	counter;
 
-	counter = 0;
-	while (list)
-	{
-		counter++;
-		if (list->content == '\n' || list->content == '\0')
-			break ;
-		list = list->next;
-	}
-	return (counter);
-}
+// 	counter = 0;
+// 	while (list)
+// 	{
+// 		counter++;
+// 		if (list->content == '\n' || list->content == '\0')
+// 			break ;
+// 		list = list->next;
+// 	}
+// 	return (counter);
+// }
+
+// void	dealloc(t_list **head, char *buffer)
+// {
+// 	t_list	*temp;
+
+// 	temp = NULL;
+// 	while (*head)
+// 	{
+// 		temp = (*head)->next;
+// 		free(*head);
+// 		*head = temp;
+// 	}
+// 	free(buffer);
+// 	free(head);
+// 	return ;
+// }
 
 static t_list	*update_list(t_list *list)
 {
@@ -86,10 +102,8 @@ static t_list	*update_list(t_list *list)
 	while (list)
 	{
 		temp = list->next;
-		if (list->content == '\n')
+		if (list->content == '\n' || !temp)
 			break ;
-		if (!temp)
-			return (NULL);
 		free(list);
 		list = temp;
 	}
@@ -141,12 +155,14 @@ static t_list	**read_file(t_list *list, int fd, t_list **head)
 		buffer[rd] = '\0';
 		*head = ft_lstadd(list, buffer, *head);
 		list = *head;
+		if (!head)
+		{
+			dealloc(head, buffer);
+			return (NULL);
+		}
 		free(buffer);
 	}
-	if (head)
-		return (head);
-	else
-		return (NULL);
+	return (head);
 }
 
 char	*get_next_line(int fd)
@@ -170,12 +186,14 @@ char	*get_next_line(int fd)
 	else
 		head = read_file(list, fd, head);
 	if (!head)
+	{
+		free(head);
 		return (NULL);
+	}
 	list = *head;
 	line = save_line(list);
-	list = *head;
+	list = update_list(*head);
 	free(head);
-	list = update_list(list);
 	return (line);
 }
 
@@ -189,12 +207,57 @@ int	main(void)
 	{
 		line = get_next_line(file);
 		printf("LINE: %s", line);
+		free(line);
 		if (line == NULL)
 			break ;
-		free(line);
 	}
 	close(file);
 }
 
-// cc get_next_line.c
-// valgrind --leak-check=full --track-origins=yes ./a.out
+// int	main(void)
+// {
+// 	int		file;
+// 	char	*line;
+
+// 	printf("%lu\n", sizeof(t_list *));
+// 	file = open("file.txt", O_RDONLY);
+// 	line = get_next_line(file);
+// 	printf("LINE: %s", line);
+// 	free(line);
+// 	line = get_next_line(file);
+// 	printf("LINE: %s", line);
+// 	free(line);
+// 	line = get_next_line(file);
+// 	printf("LINE: %s", line);
+// 	free(line);
+// 	line = get_next_line(file);
+// 	printf("LINE: %s", line);
+// 	free(line);
+// 	line = get_next_line(file);
+// 	printf("LINE: %s", line);
+// 	free(line);
+// 	line = get_next_line(file);
+// 	printf("LINE: %s", line);
+// 	free(line);
+// 	line = get_next_line(file);
+// 	printf("LINE: %s", line);
+// 	free(line);
+// 	line = get_next_line(file);
+// 	printf("LINE: %s", line);
+// 	free(line);
+// 	line = get_next_line(file);
+// 	printf("LINE: %s", line);
+// 	free(line);
+// 	line = get_next_line(file);
+// 	printf("LINE: %s", line);
+// 	free(line);
+// 	line = get_next_line(file);
+// 	printf("LINE: %s", line);
+// 	free(line);
+// 	line = get_next_line(file);
+// 	printf("LINE: %s", line);
+// 	close(file);
+// }
+
+// cc -g -O0 get_next_line.c get_next_line_utils.c
+// valgrind --leak-check=full --track-origins=yes --show-leak-kinds=all ./a.out
