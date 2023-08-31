@@ -6,7 +6,7 @@
 /*   By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/31 13:59:55 by gde-souz          #+#    #+#             */
-/*   Updated: 2023/08/31 16:58:20 by gde-souz         ###   ########.fr       */
+/*   Updated: 2023/08/31 18:38:05 by gde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,26 +26,29 @@ t_list	*create_node(char c)
 	return (new_node);
 }
 
-t_list	*ft_lstadd(t_list *lst, char *buffer, t_list *head)
+t_list	*ft_lstadd(t_list *lst, char *buffer)
 {
 	t_list	*last;
+	t_list	*head;
 	int		i;
 
 	i = 0;
+	head = (t_list *)malloc(sizeof(t_list));
+	if (!head)
+		return (NULL);
 	while (buffer[i] != '\0')
 	{
 		if (!lst)
 		{
-            lst = create_node(buffer[i]);
+			lst = create_node(buffer[i]);
+			i++;
+		}
+		if (!(head->content))
 			head = lst;
-		}
-		else
-		{
-			while ((lst)->next)
-				lst = (lst)->next;
-			last = lst;
-			last->next = create_node(buffer[i]);
-		}
+		while ((lst)->next)
+			lst = (lst)->next;
+		last = lst;
+		last->next = create_node(buffer[i]);
 		i++;
 	}
 	return (head);
@@ -77,16 +80,16 @@ size_t	find_line_len(t_list *list)
 	return (counter);
 }
 
-void	dealloc(t_list **head, char *buffer)
+void	dealloc(t_list *head, char *buffer)
 {
 	t_list	*temp;
 
 	temp = NULL;
-	while (*head)
+	while (head)
 	{
-		temp = (*head)->next;
-		free(*head);
-		*head = temp;
+		temp = (head)->next;
+		free(head);
+		head = temp;
 	}
 	free(buffer);
 	free(head);

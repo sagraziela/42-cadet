@@ -6,7 +6,7 @@
 /*   By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 18:44:16 by root              #+#    #+#             */
-/*   Updated: 2023/08/31 16:09:46 by gde-souz         ###   ########.fr       */
+/*   Updated: 2023/08/31 18:29:38 by gde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,9 @@ typedef struct s_list
 
 char	*get_next_line(int fd);
 t_list	*create_node(char c);
-t_list	*ft_lstadd(t_list *lst, char *buffer, t_list *head);
+t_list	*ft_lstadd(t_list *lst, char *buffer);
 int		find_line_break(t_list *list);
 size_t	find_line_len(t_list *list);
-void	dealloc(t_list **head, char *buffer);
+void	dealloc(t_list *head, char *buffer);
 
 #endif
