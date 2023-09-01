@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 15:42:54 by root              #+#    #+#             */
-/*   Updated: 2023/09/01 11:30:30 by root             ###   ########.fr       */
+/*   Updated: 2023/09/01 11:41:32 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,13 +78,13 @@ static t_list	*read_file(t_list *list, int fd, t_list *head)
 		}
 		if (rd == -1)
 		{
-			free(buffer);
+			dealloc(list, buffer);
 			return (NULL);
 		}
 		buffer[rd] = '\0';
 		head = ft_lstadd(list, buffer, head);
 		list = head;
-		if (!head)
+		if (!head || rd == -1)
 		{
 			dealloc(head, buffer);
 			return (NULL);

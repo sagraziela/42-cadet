@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/31 13:59:55 by gde-souz          #+#    #+#             */
-/*   Updated: 2023/09/01 11:15:19 by root             ###   ########.fr       */
+/*   Updated: 2023/09/01 11:42:26 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,12 +80,16 @@ void	dealloc(t_list *head, char *buffer)
 	t_list	*temp;
 
 	temp = NULL;
-	while (head)
+	if (head)
 	{
-		temp = (head)->next;
-		free(head);
-		head = temp;
+		while (head)
+		{
+			temp = (head)->next;
+			free(head);
+			head = temp;
+		}
 	}
+	head = NULL;
 	free(buffer);
 	return ;
 }
