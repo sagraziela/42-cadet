@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 15:42:54 by root              #+#    #+#             */
-/*   Updated: 2023/09/01 00:17:02 by root             ###   ########.fr       */
+/*   Updated: 2023/09/01 11:30:30 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,11 @@ static char	*save_line(t_list *list)
 		i++;
 	}
 	line[i] = '\0';
+	if (!line)
+	{
+		free(line);
+		return (NULL);
+	}
 	return (line);
 }
 
@@ -66,10 +71,15 @@ static t_list	*read_file(t_list *list, int fd, t_list *head)
 		if (!buffer)
 			return (NULL);
 		rd = read(fd, buffer, BUFFER_SIZE);
-		if (!rd)
+		if (rd == 0)
 		{
 			free(buffer);
 			return (head);
+		}
+		if (rd == -1)
+		{
+			free(buffer);
+			return (NULL);
 		}
 		buffer[rd] = '\0';
 		head = ft_lstadd(list, buffer, head);
@@ -90,7 +100,8 @@ char	*get_next_line(int fd)
 	t_list			*head;
 	char			*line;
 
-	if (fd <= 0 || BUFFER_SIZE <= 0)
+	line = NULL;
+	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
 	if (!list)
 		list = NULL;
@@ -114,6 +125,7 @@ char	*get_next_line(int fd)
 	free(head);
 	return (line);
 }
+
 
 // cc -g3 get_next_line.c get_next_line_utils.c
 // valgrind --leak-check=full --track-origins=yes --show-leak-kinds=all ./a.out

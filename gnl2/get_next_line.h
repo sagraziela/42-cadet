@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 18:44:16 by root              #+#    #+#             */
-/*   Updated: 2023/08/31 23:02:28 by root             ###   ########.fr       */
+/*   Updated: 2023/09/01 10:14:41 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define GET_NEXT_LINE_H
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 17
+#  define BUFFER_SIZE 10
 # endif
 
 # include <unistd.h>
