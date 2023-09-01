@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/31 13:59:55 by gde-souz          #+#    #+#             */
-/*   Updated: 2023/09/01 11:42:26 by root             ###   ########.fr       */
+/*   Updated: 2023/09/01 12:10:18 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,21 +75,17 @@ size_t	find_line_len(t_list *list)
 	return (counter);
 }
 
-void	dealloc(t_list *head, char *buffer)
+t_list	*dealloc(t_list *head, char *buffer)
 {
 	t_list	*temp;
 
 	temp = NULL;
-	if (head)
+	while (head)
 	{
-		while (head)
-		{
-			temp = (head)->next;
-			free(head);
-			head = temp;
-		}
+		temp = (head)->next;
+		free(head);
+		head = temp;
 	}
-	head = NULL;
 	free(buffer);
-	return ;
+	return (NULL);
 }

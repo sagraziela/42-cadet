@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 15:42:54 by root              #+#    #+#             */
-/*   Updated: 2023/09/01 11:41:32 by root             ###   ########.fr       */
+/*   Updated: 2023/09/01 12:09:50 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,18 +77,12 @@ static t_list	*read_file(t_list *list, int fd, t_list *head)
 			return (head);
 		}
 		if (rd == -1)
-		{
-			dealloc(list, buffer);
-			return (NULL);
-		}
+			return (dealloc(list, buffer));
 		buffer[rd] = '\0';
 		head = ft_lstadd(list, buffer, head);
 		list = head;
-		if (!head || rd == -1)
-		{
-			dealloc(head, buffer);
-			return (NULL);
-		}
+		if (!head)
+			return (dealloc(head, buffer));
 		free(buffer);
 	}
 	return (head);
@@ -125,7 +119,6 @@ char	*get_next_line(int fd)
 	free(head);
 	return (line);
 }
-
 
 // cc -g3 get_next_line.c get_next_line_utils.c
 // valgrind --leak-check=full --track-origins=yes --show-leak-kinds=all ./a.out
