@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/31 13:59:55 by gde-souz          #+#    #+#             */
-/*   Updated: 2023/08/31 18:38:05 by gde-souz         ###   ########.fr       */
+/*   Updated: 2023/08/31 23:42:22 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,25 +26,20 @@ t_list	*create_node(char c)
 	return (new_node);
 }
 
-t_list	*ft_lstadd(t_list *lst, char *buffer)
+t_list	*ft_lstadd(t_list *lst, char *buffer, t_list *head)
 {
 	t_list	*last;
-	t_list	*head;
 	int		i;
 
 	i = 0;
-	head = (t_list *)malloc(sizeof(t_list));
-	if (!head)
-		return (NULL);
+	if (head == NULL)
+	{
+		lst = create_node(buffer[i]);
+		head = lst;
+		i++;
+	}
 	while (buffer[i] != '\0')
 	{
-		if (!lst)
-		{
-			lst = create_node(buffer[i]);
-			i++;
-		}
-		if (!(head->content))
-			head = lst;
 		while ((lst)->next)
 			lst = (lst)->next;
 		last = lst;
