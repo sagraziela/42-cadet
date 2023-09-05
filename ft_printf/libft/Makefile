@@ -6,7 +6,7 @@
 #    By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/19 11:35:37 by gde-souz          #+#    #+#              #
-#    Updated: 2023/09/04 17:56:01 by gde-souz         ###   ########.fr        #
+#    Updated: 2023/09/05 13:50:59 by gde-souz         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -66,21 +66,21 @@ HD = ./libft.h
 all: $(NAME)
 
 $(BUILD)%.o:%.c
-	mkdir -p $(BUILD)
-	$(CC) -c $< -o $@ -I $(HD)
+	@mkdir -p $(BUILD)
+	@$(CC) -c $< -o $@ -I $(HD)
 
 $(NAME): $(OBJ)
-	$(AR) $(NAME) $(OBJ)
+	@$(AR) $(NAME) $(OBJ)
 
 bonus: $(BONUS_OBJ)
-	$(AR) $(NAME) $(BONUS_OBJ)
+	@$(AR) $(NAME) $(BONUS_OBJ)
 
 clean:
-	rm -f $(OBJ) $(BONUS_OBJ)
+	@rm -f $(OBJ) $(BONUS_OBJ)
 
 fclean: clean
-	rm -f $(NAME)
-	rm -f $(HD)*.gch
+	@rm -f $(NAME)
+	@rm -f $(HD)*.gch
 
 re: fclean all
 
