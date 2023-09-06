@@ -6,7 +6,7 @@
 #    By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/19 11:35:37 by gde-souz          #+#    #+#              #
-#    Updated: 2023/09/05 13:50:59 by gde-souz         ###   ########.fr        #
+#    Updated: 2023/09/06 12:17:20 by gde-souz         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,7 +33,6 @@ SRC = ft_isalpha.c \
 		ft_strncmp.c \
 		ft_memchr.c \
 		ft_memcmp.c \
-		ft_strnstr.c \
 		ft_atoi.c \
 		ft_calloc.c \
 		ft_strdup.c \
