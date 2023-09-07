@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*   ft_printf_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 10:34:51 by gde-souz          #+#    #+#             */
-/*   Updated: 2023/09/07 16:22:41 by gde-souz         ###   ########.fr       */
+/*   Updated: 2023/09/07 16:57:35 by gde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./ft_printf.h"
+#include "./ft_printf_bonus.h"
 
 static int	ft_putnbr_base(long long nbr, char *base)
 {

@@ -6,7 +6,7 @@
 #    By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/04 16:42:26 by gde-souz          #+#    #+#              #
-#    Updated: 2023/09/07 16:36:36 by gde-souz         ###   ########.fr        #
+#    Updated: 2023/09/07 17:10:36 by gde-souz         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,11 +21,17 @@ AR = ar -rcs
 PATH_LIBFT = ./libft/
 LIBFT = $(addprefix $(PATH_LIBFT), libft.a)
 
-# Printf
+# Printf mandatory
 MANDATORY_BUILD = ./build_mandatory/
 MANDATORY_SRC = ./ft_printf.c
 MANDATORY_OBJ = $(addprefix $(MANDATORY_BUILD), $(MANDATORY_SRC:%.c=%.o))
 HD = ./ft_printf.h
+
+# Printf bonus
+BONUS_BUILD = ./build_bonus/
+BONUS_SRC = ./ft_printf_bonus.c
+BONUS_OBJ = $(addprefix $(BONUS_BUILD), $(BONUS_SRC:%.c=%.o))
+BONUS_HD = ./ft_printf_bonus.h
 
 # Color codes of output on terminal
 PURPLE = \033[1;35m
@@ -35,10 +41,15 @@ CYAN= \033[0;36m
 # Default target to compile the mandatory part
 all: $(NAME)
 
-# Builds object files
+# Builds mandatory object files
 $(MANDATORY_BUILD)%.o:%.c
 	@mkdir -p $(MANDATORY_BUILD)
 	@$(CC) -I $(HD) -c $< -o $@
+
+# Builds bonus object files
+$(BONUS_BUILD)%.o:%.c
+	@mkdir -p $(BONUS_BUILD)
+	@$(CC) -I $(BONUS_HD) -c $< -o $@
 
 # Builds dependencies
 $(LIBFT):
@@ -49,14 +60,27 @@ $(NAME): $(LIBFT) $(MANDATORY_OBJ)
 	@cp $(LIBFT) $(NAME)
 	@$(AR) $(NAME) $(MANDATORY_OBJ)
 	@echo "$(PURPLE)--------------------------------------------------"
-	@echo "$(PURPLE)The Makefile of [$(CYAN)FT_PRINTF$(PURPLE)] has been compiled! 🤠"
+	@echo "$(PURPLE)The Makefile of [$(CYAN)FT_PRINTF_MANDATORY$(PURPLE)] has been compiled! 🤠"
+	@echo "$(PURPLE)--------------------------------------------------"
+
+# Target to build the bonus part
+bonus: $(LIBFT) $(BONUS_OBJ)
+	@cp $(LIBFT) $(NAME)
+	@$(AR) $(NAME) $(BONUS_OBJ)
+	@echo "$(PURPLE)--------------------------------------------------"
+	@echo "$(PURPLE)The Makefile of [$(CYAN)FT_PRINTF_BONUS$(PURPLE)] has been compiled! 🤠"
 	@echo "$(PURPLE)--------------------------------------------------"
 
 # Cleans object files and dependencies
 clean:
 	@make clean -C $(PATH_LIBFT)
-	@rm -f $(MANDATORY_OBJ)
-	@rmdir $(MANDATORY_BUILD)
+	ifeq ($(MANDATORY_BUILD))
+		@rm -f $(MANDATORY_OBJ)
+		@rmdir $(MANDATORY_BUILD)
+	else ($(BONUS_BUILD))
+		@rm -f $(BONUS_OBJ)
+		@rmdir $(BONUS_BUILD)
+	endif
 
 # Cleans the executable file and pre-compiled header
 fclean: clean
@@ -74,4 +98,4 @@ fclean: clean
 re: fclean all
 
 # Phony targets
-.PHONY: all clean fclean re
+.PHONY: all clean fclean re bonus

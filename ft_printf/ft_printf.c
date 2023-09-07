@@ -6,7 +6,7 @@
 /*   By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 10:34:51 by gde-souz          #+#    #+#             */
-/*   Updated: 2023/09/07 16:22:41 by gde-souz         ###   ########.fr       */
+/*   Updated: 2023/09/07 16:43:39 by gde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,15 +111,3 @@ int	ft_printf(const char *str, ...)
 	va_end(args);
 	return (length);
 }
-
-// int	main(void)
-// {
-// 	int	res;
-
-// 	res = ft_printf(" NULL %s NULL ", NULL);
-// 	printf("%i\n", res);
-// 	res = printf(" NULL %s NULL ", NULL);
-// 	printf("%i\n", res);
-// }
-// cc ft_printf.c
-// cc *c -g3 -o ft_printf (para debugar)
