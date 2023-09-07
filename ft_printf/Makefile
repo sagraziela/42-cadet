@@ -6,7 +6,7 @@
 #    By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/04 16:42:26 by gde-souz          #+#    #+#              #
-#    Updated: 2023/09/05 16:30:26 by gde-souz         ###   ########.fr        #
+#    Updated: 2023/09/07 16:36:36 by gde-souz         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -55,7 +55,7 @@ $(NAME): $(LIBFT) $(MANDATORY_OBJ)
 # Cleans object files and dependencies
 clean:
 	@make clean -C $(PATH_LIBFT)
-	@rm -rf $(MANDATORY_OBJ)
+	@rm -f $(MANDATORY_OBJ)
 	@rmdir $(MANDATORY_BUILD)
 
 # Cleans the executable file and pre-compiled header
@@ -74,4 +74,4 @@ fclean: clean
 re: fclean all
 
 # Phony targets
-.PHONY: all clean fclean clean_libft fclean_libft re
+.PHONY: all clean fclean re
