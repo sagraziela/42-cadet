@@ -1,29 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf_bonus.h                                  :+:      :+:    :+:   */
+/*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/04 10:09:57 by gde-souz          #+#    #+#             */
-/*   Updated: 2023/09/07 16:46:03 by gde-souz         ###   ########.fr       */
+/*   Created: 2023/07/25 17:32:41 by gde-souz          #+#    #+#             */
+/*   Updated: 2023/08/09 12:22:18 by gde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_PRINTF_BONUS_H
-# define FT_PRINTF_BONUS_H
+#include "libft.h"
 
-# include <unistd.h>
-# include <stdlib.h>
-# include <stdio.h>
-# include <limits.h>
-# include <stdarg.h>
-# include "./libft/libft.h"
+char	*ft_strchr(const char *s, int c)
+{
+	int		i;
 
-# define DECIMAL    "0123456789"
-# define HEXALOW    "0123456789abcdef"
-# define HEXAUP     "0123456789ABCDEF"
-
-int	ft_printf(const char *str, ...);
-
-#endif
+	i = 0;
+	if ((unsigned char) c == '\0')
+	{
+		return ((char *)s + ft_strlen(s));
+	}
+	while (s[i] != '\0')
+	{
+		if (s[i] == (unsigned char) c)
+			return ((char *)s + i);
+		i++;
+	}
+	return (NULL);
+}

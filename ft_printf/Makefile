@@ -6,7 +6,7 @@
 #    By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/04 16:42:26 by gde-souz          #+#    #+#              #
-#    Updated: 2023/09/07 17:10:36 by gde-souz         ###   ########.fr        #
+#    Updated: 2023/09/13 11:09:56 by gde-souz         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,17 +21,22 @@ AR = ar -rcs
 PATH_LIBFT = ./libft/
 LIBFT = $(addprefix $(PATH_LIBFT), libft.a)
 
-# Printf mandatory
-MANDATORY_BUILD = ./build_mandatory/
-MANDATORY_SRC = ./ft_printf.c
-MANDATORY_OBJ = $(addprefix $(MANDATORY_BUILD), $(MANDATORY_SRC:%.c=%.o))
-HD = ./ft_printf.h
+# ft_printf mandatory
+MANDATORY_PATH = ./mandatory/
+MANDATORY_SRC = ./mandatory/ft_printf.c
+MANDATORY_OBJ = $(MANDATORY_SRC:%.c=%.o)
+HD = ./mandatory/ft_printf.h
+MANDATORY = ft_printf.o
+MANDATORY_CHECK = $(shell ar -t $(NAME) $(MANDATORY) 2>&1)
 
-# Printf bonus
-BONUS_BUILD = ./build_bonus/
-BONUS_SRC = ./ft_printf_bonus.c
-BONUS_OBJ = $(addprefix $(BONUS_BUILD), $(BONUS_SRC:%.c=%.o))
-BONUS_HD = ./ft_printf_bonus.h
+# ft_printf_bonus
+BONUS_PATH = ./bonus/
+BONUS_SRC = ./bonus/ft_printf_bonus.c \
+			./bonus/treat_flags.c
+BONUS_OBJ = $(BONUS_SRC:%.c=%.o)
+BONUS_HD = ./bonus/ft_printf_bonus.h
+BONUS = bonus/ft_printf_bonus.o
+BONUS_CHECK = $(shell ar -t $(NAME) $(BONUS) 2>&1)
 
 # Color codes of output on terminal
 PURPLE = \033[1;35m
@@ -39,17 +44,17 @@ WHITE = \033[1;37m
 CYAN= \033[0;36m
 
 # Default target to compile the mandatory part
+ifneq ($(BONUS_CHECK), $(BONUS))
 all: $(NAME)
+endif
 
 # Builds mandatory object files
-$(MANDATORY_BUILD)%.o:%.c
-	@mkdir -p $(MANDATORY_BUILD)
-	@$(CC) -I $(HD) -c $< -o $@
+$(MANDATORY_PATH)%.o:%.c
+	@$(CC) -c $< -o $@ -I $(HD)
 
 # Builds bonus object files
-$(BONUS_BUILD)%.o:%.c
-	@mkdir -p $(BONUS_BUILD)
-	@$(CC) -I $(BONUS_HD) -c $< -o $@
+$(BONUS_PATH)%.o:%.c
+	@$(CC) -c $< -o $@ -I $(BONUS_HD)
 
 # Builds dependencies
 $(LIBFT):
@@ -73,14 +78,8 @@ bonus: $(LIBFT) $(BONUS_OBJ)
 
 # Cleans object files and dependencies
 clean:
-	@make clean -C $(PATH_LIBFT)
-	ifeq ($(MANDATORY_BUILD))
-		@rm -f $(MANDATORY_OBJ)
-		@rmdir $(MANDATORY_BUILD)
-	else ($(BONUS_BUILD))
-		@rm -f $(BONUS_OBJ)
-		@rmdir $(BONUS_BUILD)
-	endif
+	@rm -f $(MANDATORY_OBJ)
+	@rm -f $(BONUS_OBJ)
 
 # Cleans the executable file and pre-compiled header
 fclean: clean
