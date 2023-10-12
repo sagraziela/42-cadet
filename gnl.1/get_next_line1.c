@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line1.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 13:43:39 by gde-souz          #+#    #+#             */
-/*   Updated: 2023/08/30 14:18:02 by gde-souz         ###   ########.fr       */
+/*   Updated: 2023/08/30 13:44:06 by gde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,10 +70,9 @@ static t_list	**read_line(t_list *list, t_list **head, char *buffer, int fd)
 	int		rd;
 	char	*buff;
 
-	rd = 1;
-	buff = NULL;
 	if (!list)
 	{
+		list = NULL;
 		rd = read(fd, buffer, BUFFER_SIZE);
 		if (rd == 0)
 		{
@@ -88,7 +87,10 @@ static t_list	**read_line(t_list *list, t_list **head, char *buffer, int fd)
 		list = create_nodes(list, buff, rd);
 	}
 	else
+	{
 		*head = list;
+		rd = 1;
+	}
 	while (rd > 0)
 	{
 		rd = read(fd, buffer, BUFFER_SIZE);
@@ -111,11 +113,6 @@ char	*get_next_line(int fd)
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-	head = NULL;
-	buffer = NULL;
-	line = NULL;
-	if (!list)
-		list = NULL;
 	buffer = (char *)ft_malloc((BUFFER_SIZE + 1) * sizeof(char));
 	head = (t_list **)ft_malloc(sizeof(t_list *));
 	if ((list && !find_line_break_list(list)) || !list)
@@ -142,21 +139,21 @@ char	*get_next_line(int fd)
 	return (line);
 }
 
-// int	main(void)
-// {
-// 	int		file;
-// 	char	*line;
+int	main(void)
+{
+	int		file;
+	char	*line;
 
-// 	file = open("file.txt", O_RDONLY);
-// 	while (1)
-// 	{
-// 		line = get_next_line(file);
-// 		printf("LINE: %s", line);
-// 		if (line == NULL)
-// 			break ;
-// 		free(line);
-// 	}
-// 	close(file);
-// }
-// cc get_next_line.c get_next_line_utils.c
+	file = open("file.txt", O_RDONLY);
+	while (1)
+	{
+		line = get_next_line(file);
+		printf("LINE: %s", line);
+		if (line == NULL)
+			break ;
+		free(line);
+	}
+	close(file);
+}
+// cc get_next_line1.c get_next_line_utils.c
 // valgrind --leak-check=full --track-origins=yes ./a.out

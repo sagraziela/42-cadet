@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   treat_flags.c                                      :+:      :+:    :+:   */
+/*   handle_flags.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 17:37:02 by gde-souz          #+#    #+#             */
-/*   Updated: 2023/09/13 17:55:05 by gde-souz         ###   ########.fr       */
+/*   Updated: 2023/09/15 15:07:42 by gde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf_bonus.h"
 
-int	apply_plus_space(char **flag)
+static int	apply_plus_space(char **flag)
 {
 	if (*flag[0] == '+')
 	{
@@ -28,7 +28,7 @@ int	apply_plus_space(char **flag)
 	return (1);
 }
 
-int	apply_hash(char data, va_list args)
+static int	apply_hash(char data, va_list args)
 {
 	int				length;
 	unsigned int	arg;
@@ -53,7 +53,7 @@ int	apply_hash(char data, va_list args)
 	return (length);
 }
 
-int	check_flags(char *flag, va_list args)
+int	handle_flags(char *flag, va_list args)
 {
 	int		length;
 	int		i;

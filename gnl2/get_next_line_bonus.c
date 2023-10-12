@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 15:42:54 by root              #+#    #+#             */
-/*   Updated: 2023/09/01 16:37:32 by gde-souz         ###   ########.fr       */
+/*   Updated: 2023/09/01 16:58:01 by gde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,28 +92,28 @@ static char	*quit(t_list **head, t_list **list)
 
 char	*get_next_line(int fd)
 {
-	static t_list	*list;
+	static t_list	*list[1024];
 	t_list			*head;
 	char			*line;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
 	head = create_node('*');
-	if (list)
+	if (list[fd])
 	{
-		head->next = list;
-		list = read_file(list, fd, head->next);
-		if (list == NULL)
-			return (quit(&head, &list));
+		head->next = list[fd];
+		list[fd] = read_file(list[fd], fd, head->next);
+		if (list[fd] == NULL)
+			return (quit(&head, &list[fd]));
 	}
-	else if (!list)
-		head->next = read_file(list, fd, head->next);
-	list = head->next;
+	else if (!list[fd])
+		head->next = read_file(list[fd], fd, head->next);
+	list[fd] = head->next;
 	if (!head->next)
-		return (quit(&head, &list));
-	line = save_line(list);
-	list = head->next;
-	list = update_list(&list);
+		return (quit(&head, &list[fd]));
+	line = save_line(list[fd]);
+	list[fd] = head->next;
+	list[fd] = update_list(&list[fd]);
 	free(head);
 	return (line);
 }

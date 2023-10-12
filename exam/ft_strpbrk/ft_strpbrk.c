@@ -1,27 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.h                                        :+:      :+:    :+:   */
+/*   ft_strpbrk.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/04 10:09:57 by gde-souz          #+#    #+#             */
-/*   Updated: 2023/09/22 11:12:55 by gde-souz         ###   ########.fr       */
+/*   Created: 2023/09/27 10:41:47 by gde-souz          #+#    #+#             */
+/*   Updated: 2023/09/27 10:45:16 by gde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_PRINTF_H
-# define FT_PRINTF_H
+#include <stdio.h>
 
-# include <unistd.h>
-# include <stdlib.h>
-# include <stdarg.h>
-# include "../libft/libft.h"
+char	*ft_strpbrk(const char *s1, const char *s2)
+{
+    
+}
 
-# define DECIMAL    "0123456789"
-# define HEXALOW    "0123456789abcdef"
-# define HEXAUP     "0123456789ABCDEF"
+int	main(void)
+{
+	unsigned char	ch;
 
-int	ft_printf(const char *str, ...);
-
-#endif
+	ch = 'a';
+	printf("%u\n", ch);
+	swap_bits(ch);
+}

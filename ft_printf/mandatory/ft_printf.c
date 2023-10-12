@@ -6,7 +6,7 @@
 /*   By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 10:34:51 by gde-souz          #+#    #+#             */
-/*   Updated: 2023/09/07 16:43:39 by gde-souz         ###   ########.fr       */
+/*   Updated: 2023/09/15 13:10:21 by gde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,8 @@ int	ft_printf(const char *str, ...)
 	va_start(args, str);
 	length = 0;
 	i = 0;
+	if (!str)
+		return (-1);
 	while (str[i] != '\0')
 	{
 		if (str[i] == '%')
