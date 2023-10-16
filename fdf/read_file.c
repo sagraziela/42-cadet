@@ -6,7 +6,7 @@
 /*   By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/16 10:23:59 by gde-souz          #+#    #+#             */
-/*   Updated: 2023/10/16 16:43:28 by gde-souz         ###   ########.fr       */
+/*   Updated: 2023/10/16 18:02:44 by gde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,8 @@ int	fill_line(char *fd_line, int *matrix_line, int length)
 		return (0);
 	while (fd_line != '\0')
 	{
-		matrix_line[i] = fd_line[i];
+		matrix_line[i] = atoi(fd_line[i]); //trocar pela minha atoi();
+		i++;
 	}
 }
 
