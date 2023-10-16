@@ -6,11 +6,11 @@
 /*   By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 15:42:54 by root              #+#    #+#             */
-/*   Updated: 2023/09/01 17:12:40 by gde-souz         ###   ########.fr       */
+/*   Updated: 2023/10/16 17:51:16 by gde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 static t_list	*update_list(t_list **list)
 {
