@@ -6,7 +6,7 @@
 #    By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/04 16:42:26 by gde-souz          #+#    #+#              #
-#    Updated: 2023/10/16 14:23:05 by gde-souz         ###   ########.fr        #
+#    Updated: 2023/10/18 11:13:45 by gde-souz         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,12 +19,12 @@ AR = ar -rcs
 INCLUDES = ./includes
 
 # fdf
-MANDATORY_SRC = ./gnl/get_next_line.c \
-				./gnl/get_next_line_utils.c \
-				./read_file.c \
-				./main
-MANDATORY_OBJ = $(MANDATORY_SRC:%.c=%.o)
-MANDATORY = fdf.o
+SRC = ./main.c \
+		./gnl/get_next_line.c \
+		./gnl/get_next_line_utils.c \
+		./read_file.c \
+		./ft_split.c
+OBJ = $(SRC:%.c=%.o)
 
 # Color codes of output on terminal
 PURPLE = \033[1;35m
@@ -34,35 +34,20 @@ CYAN= \033[0;36m
 # Default target to compile the mandatory part
 all: $(NAME)
 
-# Builds dependencies
-$(LIBFT):
-	@make -C $(PATH_LIBFT)
-
 # Builds mandatory object files
 %.o:%.c 
 	$(CC) -c $< -o $@ -I $(dir $@)
 
 # Target to build the mandatory part
-$(NAME): $(LIBFT) $(MANDATORY_OBJ)
-	@cp $(LIBFT) $(NAME)
-	$(AR) $(NAME) $(MANDATORY_OBJ)
+$(NAME): $(OBJ)
+	$(AR) $(NAME) $(OBJ)
 	@echo "$(PURPLE)--------------------------------------------------"
-	@echo "$(PURPLE)The [$(CYAN)FT_PRINTF_MANDATORY$(PURPLE)] has been compiled! 🤠"
-	@echo "$(PURPLE)--------------------------------------------------"
-
-# Target to build the bonus part
-bonus: $(LIBFT) $(BONUS_OBJ)
-	@cp $(LIBFT) $(NAME)
-	$(AR) $(NAME) $(BONUS_OBJ)
-	@echo "$(PURPLE)--------------------------------------------------"
-	@echo "$(PURPLE)The [$(CYAN)FT_PRINTF_BONUS$(PURPLE)] has been compiled! 🏅"
+	@echo "$(PURPLE)The [$(CYAN)FDF$(PURPLE)] has been compiled! 🤠"
 	@echo "$(PURPLE)--------------------------------------------------"
 
 # Cleans object files and dependencies
 clean:
-	@rm -f $(MANDATORY_OBJ)
-	@rm -f $(BONUS_OBJ)
-	@make clean -C $(PATH_LIBFT)
+	@rm -f $(OBJ)
 	@echo "$(WHITE)-----------------------------------"
 	@echo "$(WHITE)    Object files were cleaned!"
 	@echo "$(WHITE)-----------------------------------"
@@ -72,7 +57,6 @@ fclean: clean
 	@echo "$(WHITE)-----------------------------------"
 	@echo "$(WHITE)        Cleaning all... 🧹"
 	@echo "$(WHITE)-----------------------------------"
-	@make fclean -C $(PATH_LIBFT)
 	@rm -f $(NAME)
 	@rm -f $(HD)*.gch
 	@echo "$(WHITE)-----------------------------------"
@@ -83,4 +67,4 @@ fclean: clean
 re: fclean all
 
 # Phony targets
-.PHONY: all clean fclean re bonus
+.PHONY: all clean fclean re

@@ -6,7 +6,7 @@
 /*   By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/16 10:24:02 by gde-souz          #+#    #+#             */
-/*   Updated: 2023/10/16 18:02:26 by gde-souz         ###   ########.fr       */
+/*   Updated: 2023/10/17 18:10:51 by gde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,13 @@
 
 typedef struct s_struct
 {
-	int	length;
+	int	width;
 	int	height;
 	int	depth;
 	int	**matrix;
 }	t_struct;
+
+char	**ft_split(char const *s, char c);
+int		read_map(char *file, t_struct *fdf);
 
 #endif

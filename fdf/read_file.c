@@ -6,11 +6,11 @@
 /*   By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/16 10:23:59 by gde-souz          #+#    #+#             */
-/*   Updated: 2023/10/16 18:02:44 by gde-souz         ###   ########.fr       */
+/*   Updated: 2023/10/18 13:00:44 by gde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/fdf.h"
+#include "./includes/fdf.h"
 
 int	count_words(char *str)
 {
@@ -49,37 +49,24 @@ int	get_height(char *file_name)
 		line = get_next_line(fd);
 	}
 	close(fd);
-	//printf("%d\n", width);
 	return (height);
 }
 
-int	get_width(char *file_name)
+void	fill_matrix(char *fd_line, int *matrix_line)
 {
-	int		fd;
-	int		width;
-	char	*line;
+	int		i;
+	char	**splited;
 
-	fd = open(file_name, O_RDONLY);
-	line = get_next_line(fd);
-	width = count_words(line);
-	free(line);
-	close(fd);
-	//printf("%d\n", width);
-	return (width);
-}
-
-int	fill_line(char *fd_line, int *matrix_line, int length)
-{
-	int	i;
-
-	matrix_line = (int *)malloc(sizeof(int) * (length + 1));
-	if (!matrix_line)
-		return (0);
-	while (fd_line != '\0')
+	i = 0;
+	splited = ft_split(fd_line, ' ');
+	while (splited[i])
 	{
-		matrix_line[i] = atoi(fd_line[i]); //trocar pela minha atoi();
+		matrix_line[i] = atoi(splited[i]);
+		free(splited[i]);
 		i++;
 	}
+	free(splited);
+	matrix_line[i] = '\0';
 }
 
 int	read_map(char *file, t_struct *fdf)
@@ -90,17 +77,23 @@ int	read_map(char *file, t_struct *fdf)
 
 	i = 0;
 	fdf->height = get_height(file);
-	fdf->length = get_width(file);
-	fdf->matrix = (int **)malloc(sizeof(int *) * fdf->height + 1);
+	fdf->matrix = (int **)malloc(sizeof(int *) * (fdf->height + 1));
 	if (!fdf->matrix)
 		return (0);
 	fd = open(file, O_RDONLY);
 	line = get_next_line(fd);
-	while (line != NULL)
+	fdf->width = count_words(line);
+	while (i < fdf->height)
 	{
-		fill_line(&line, &fdf->matrix[i], fdf->length);
+		fdf->matrix[i] = (int *)malloc(sizeof(int) * (fdf->width + 1));
+		if (!fdf->matrix)
+			return (0);
+		fill_matrix(line, fdf->matrix[i]);
 		free(line);
 		line = get_next_line(fd);
 		i++;
 	}
+	fdf->matrix[i] = NULL;
+	close(fd);
+	return (fdf->height * fdf->width);
 }
