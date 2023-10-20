@@ -6,7 +6,7 @@
 /*   By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 16:57:36 by gde-souz          #+#    #+#             */
-/*   Updated: 2023/10/18 17:43:33 by gde-souz         ###   ########.fr       */
+/*   Updated: 2023/10/20 09:28:17 by gde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,4 +101,4 @@ int	main(int argc, const char *argv[])
 }
 
 // COMPILATION WITH MLX
-// cc ./test.c ./MLX42/build/libmlx42.a -Iinclude -ldl -lglfw -pthread -lm  
+// cc ./test.c ./MLX42/build/libmlx42.a -Iinclude -ldl -lglfw -pthread -lm
