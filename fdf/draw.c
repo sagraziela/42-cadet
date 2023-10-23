@@ -6,7 +6,7 @@
 /*   By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 17:35:01 by gde-souz          #+#    #+#             */
-/*   Updated: 2023/10/20 18:28:46 by gde-souz         ###   ########.fr       */
+/*   Updated: 2023/10/23 17:14:51 by gde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,17 +18,8 @@
 #define WIDTH 1320
 #define HEIGHT 860
 
-typedef struct s_data {
-	void	*img;
-	char	*addr;
-	int		bits_per_pixel;
-	int		line_length;
-	int		endian;
-}				t_data;
-
 static mlx_image_t	*g_image;
 
-//breseham is not working yet
 void	bresenham(float x1, float y1, float x2, float y2)
 {
 	float	x_len;
@@ -43,7 +34,7 @@ void	bresenham(float x1, float y1, float x2, float y2)
 		steps = y_len;
 	x_len /= steps;
 	y_len /= steps;
-	while (x_len <= x2 || y_len <= y2)
+	while (x1 <= x2 && y1 <= y2)
 	{
 		mlx_put_pixel(g_image, x1, y1, 0xffffff);
 		x1 += x_len;
@@ -51,33 +42,66 @@ void	bresenham(float x1, float y1, float x2, float y2)
 	}
 }
 
+void	fill_matrix(int *matrix)
+{
+	int	i;
+
+	i = 0;
+	printf("Linha 50\n");
+	matrix = (int *)malloc(sizeof(int) * 5);
+	matrix[4] = '\0';
+	while (matrix[i] != '\0')
+	{
+		matrix[i] = 1;
+		i++;
+	}
+}
+
 void	ft_render(void *param)
 {
 	int	x;
 	int	y;
-	int	color;
+	int	i;
+	int	j;
+	int	matrix[7][7] = {{1, 1, 1, 1, 1, 1}, {1, 1, 1, 1, 1, 1}, {1, 1, 1, 1, 1, 1}, {1, 1, 1, 1, 1, 1}, {1, 1, 1, 1, 1, 1}, {1, 1, 1, 1, 1, 1}};
 
 	param = 0;
 	x = 0;
 	y = 0;
-	color = 353935;
 	while (y < (int)g_image->height)
 	{
 		while (x < (int)g_image->width)
 		{
-			mlx_put_pixel(g_image, x, y, color);
+			mlx_put_pixel(g_image, x, y, 353935);
 			x++;
 		}
 		x = 0;
 		y++;
 	}
-	mlx_put_pixel(g_image, 10, 10, 0xffffff);
-	mlx_put_pixel(g_image, 11, 10, 0xffffff);
-	mlx_put_pixel(g_image, 12, 10, 0xffffff);
-	mlx_put_pixel(g_image, 13, 10, 0xffffff);
-	mlx_put_pixel(g_image, 14, 10, 0xffffff);
-	mlx_put_pixel(g_image, 15, 10, 0xffffff);
-	mlx_put_pixel(g_image, 16, 10, 0xffffff);
+	i = 0;
+	j = 0;
+	x = 50;
+	y = 50;
+	while (matrix[i + 1][j])
+	{
+		while (matrix[i][j + 1] != '\0')
+		{
+			bresenham(x, y, x, y + 100);
+			bresenham(x, y, x + 100, y);
+			j++;
+			x += 100;
+			printf("passou aqui [%d][%d]\n", i, j);
+		}
+		bresenham(x, y, x, y + 100);
+		j = 0;
+		i++;
+		y += 100;
+		if (!matrix[i + 1][j])
+		{
+			bresenham(50, y, x, y);
+		}
+		x = 50;
+	}
 }
 
 // void	ft_keyboard(void *param)
@@ -105,9 +129,9 @@ int	main(int argc, char **argv)
 	argv[0] = "**";
 	mlx = mlx_init(WIDTH, HEIGHT, "MLX-TEST", true);
 	g_image = mlx_new_image(mlx, WIDTH, HEIGHT);
+	printf("width: %d || height: %d\n", g_image->width, g_image->height);
 	mlx_image_to_window(mlx, g_image, 0, 0);
 	mlx_loop_hook(mlx, ft_render, mlx);
-	//mlx_loop_hook(mlx, ft_keyboard, mlx);
 	mlx_loop(mlx);
 	mlx_terminate(mlx);
 	return (EXIT_SUCCESS);
