@@ -6,7 +6,7 @@
 /*   By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/16 10:23:59 by gde-souz          #+#    #+#             */
-/*   Updated: 2023/10/18 13:00:44 by gde-souz         ###   ########.fr       */
+/*   Updated: 2023/10/26 12:36:33 by gde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,31 +69,31 @@ void	fill_matrix(char *fd_line, int *matrix_line)
 	matrix_line[i] = '\0';
 }
 
-int	read_map(char *file, t_struct *fdf)
+t_map	*read_map(char *file, t_map *map)
 {
 	char	*line;
 	int		fd;
 	int		i;
 
 	i = 0;
-	fdf->height = get_height(file);
-	fdf->matrix = (int **)malloc(sizeof(int *) * (fdf->height + 1));
-	if (!fdf->matrix)
+	map->height = get_height(file);
+	map->matrix = (int **)malloc(sizeof(int *) * (map->height + 1));
+	if (!map->matrix)
 		return (0);
 	fd = open(file, O_RDONLY);
 	line = get_next_line(fd);
-	fdf->width = count_words(line);
-	while (i < fdf->height)
+	map->width = count_words(line);
+	while (i < map->height)
 	{
-		fdf->matrix[i] = (int *)malloc(sizeof(int) * (fdf->width + 1));
-		if (!fdf->matrix)
+		map->matrix[i] = (int *)malloc(sizeof(int) * (map->width + 1));
+		if (!map->matrix)
 			return (0);
-		fill_matrix(line, fdf->matrix[i]);
+		fill_matrix(line, map->matrix[i]);
 		free(line);
 		line = get_next_line(fd);
 		i++;
 	}
-	fdf->matrix[i] = NULL;
+	map->matrix[i] = NULL;
 	close(fd);
-	return (fdf->height * fdf->width);
+	return (map);
 }
