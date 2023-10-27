@@ -6,7 +6,7 @@
 /*   By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 17:35:01 by gde-souz          #+#    #+#             */
-/*   Updated: 2023/10/26 18:39:30 by gde-souz         ###   ########.fr       */
+/*   Updated: 2023/10/27 18:29:04 by gde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,33 +44,43 @@ void	isometric(float *x, float *y, int z)
 
 void	bresenham(t_fdf *fdf)
 {
+	int		i;
+	int		j;
 	float	x_len;
 	float	y_len;
 	float	steps;
 
-	fdf->cords->x1 = 50;
-	fdf->cords->y1 = 50;
+	fdf->cords->x1 = 100;
+	fdf->cords->y1 = 100;
+	fdf->cords->x2 = fdf->cords->x1 + fdf->map->width;
+	fdf->cords->y2 = fdf->cords->y1 + fdf->map->height;
 	x_len = fdf->cords->x2 - fdf->cords->x1;
 	y_len = fdf->cords->y2 - fdf->cords->y1;
-	fdf->cords->x2 = fdf->cords->x1 + x_len;
-	fdf->cords->y2 = fdf->cords->y1 + y_len;
+	printf("y2: %f\n", fdf->cords->y2);
+	printf("y_len1: %f\n", y_len);
 	if (x_len > y_len)
 		steps = x_len;
 	else
 		steps = y_len;
-	x_len /= steps;
-	y_len /= steps;
+	printf("steps: %f\n", steps);
+	x_len = 820 / (x_len / steps);
+	y_len = 480 / (y_len / steps);
+	i = 0;
+	j = 0;
+	printf("y_len2: %f\n", y_len);
 	printf("map_w: %i || map_h: %i\n", fdf->map->width, fdf->map->height);
-	// ADD VERIFICAÇÃO DO TAMANHO DO MAPA
-	while (fdf->cords->x1 <= fdf->cords->x2 - 1)
+	while (i < steps)
 	{
-		while (fdf->cords->y1 <= fdf->cords->y2)
+		printf("i: %d\n", i);
+		fdf->cords->x2 = fdf->cords->x1 + x_len;
+		fdf->cords->y2 = fdf->cords->y1 + y_len;
+		while (fdf->cords->y1 < fdf->cords->y2 && fdf->cords->y1 < 480)
 		{
-			mlx_put_pixel(fdf->img, fdf->cords->x1, fdf->cords->y1, 0xffffff77);
-			fdf->cords->y1 += y_len;
+			mlx_put_pixel(fdf->img, fdf->cords->x1, fdf->cords->y1++, 0xffffff77);
+			j++;
 		}
-		mlx_put_pixel(fdf->img, fdf->cords->x1, fdf->cords->y1, 0xffffff77);
-		fdf->cords->x1 += x_len;
+		j = 0;
+		i++;
 	}
 }
 
@@ -141,4 +151,23 @@ int	main(int argc, char **argv)
 	// 		//bresenham(50, y, x, y);
 	// 	}
 	// 	fdf->x += (fdf->x * i);
+	// }
+
+
+
+
+	// while (i < fdf->map->height && fdf->cords->y1 <= fdf->cords->x2)
+	// {
+	// 	while (j < fdf->map->width && fdf->cords->x1 <= fdf->cords->x2)
+	// 	{
+	// 		mlx_put_pixel(fdf->img, fdf->cords->x1, fdf->cords->y1, 0xffffff77);
+	// 		fdf->cords->x1 += x_len;
+	// 		j++;
+	// 	}
+	// 	fdf->cords->x1 -= steps * x_len;
+	// 	fdf->cords->x2 += x_len;
+	// 	mlx_put_pixel(fdf->img, fdf->cords->x1, fdf->cords->y1, 0xffffff77);
+	// 	fdf->cords->y1 += y_len;
+	// 	fdf->cords->x2 += x_len;
+	// 	i++;
 	// }
