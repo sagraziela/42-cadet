@@ -6,7 +6,7 @@
 /*   By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 17:35:01 by gde-souz          #+#    #+#             */
-/*   Updated: 2023/10/27 18:29:04 by gde-souz         ###   ########.fr       */
+/*   Updated: 2023/10/30 18:13:04 by gde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,24 +63,31 @@ void	bresenham(t_fdf *fdf)
 	else
 		steps = y_len;
 	printf("steps: %f\n", steps);
-	x_len = 820 / (x_len / steps);
-	y_len = 480 / (y_len / steps);
+	x_len = 800 / (int)x_len;
+	y_len = 480 / (int)y_len;
 	i = 0;
 	j = 0;
 	printf("y_len2: %f\n", y_len);
 	printf("map_w: %i || map_h: %i\n", fdf->map->width, fdf->map->height);
 	while (i < steps)
 	{
-		printf("i: %d\n", i);
-		fdf->cords->x2 = fdf->cords->x1 + x_len;
-		fdf->cords->y2 = fdf->cords->y1 + y_len;
-		while (fdf->cords->y1 < fdf->cords->y2 && fdf->cords->y1 < 480)
+		while (fdf->cords->x1 <= (steps * x_len) && fdf->cords->y1 <= (steps * y_len))
 		{
-			mlx_put_pixel(fdf->img, fdf->cords->x1, fdf->cords->y1++, 0xffffff77);
-			j++;
+			fdf->cords->x2 = fdf->cords->x1 + x_len;
+			fdf->cords->y2 = fdf->cords->y1 + y_len;
+			while (fdf->cords->y1 <= fdf->cords->y2)
+			{
+				mlx_put_pixel(fdf->img, fdf->cords->x1, fdf->cords->y1++, 0xffffff77);
+			}
+			fdf->cords->y1 -= (int)y_len + 1;
+			while (fdf->cords->x1 <= fdf->cords->x2)
+			{
+				mlx_put_pixel(fdf->img, fdf->cords->x1++, fdf->cords->y1, 0xffffff77);
+			}
 		}
-		j = 0;
 		i++;
+		fdf->cords->y1 = 100 + (y_len * i);
+		fdf->cords->x1 = 100;
 	}
 }
 
