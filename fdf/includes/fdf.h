@@ -6,7 +6,7 @@
 /*   By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/16 10:24:02 by gde-souz          #+#    #+#             */
-/*   Updated: 2023/10/26 17:59:51 by gde-souz         ###   ########.fr       */
+/*   Updated: 2023/11/01 14:02:10 by gde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ typedef struct s_point
 	float	x2;
 	float	y1;
 	float	y2;
+	int		steps;
 }	t_point;
 
 typedef struct s_map
@@ -52,6 +53,7 @@ typedef struct s_fdf
 	mlx_t		*mlx;
 	mlx_image_t	*img;
 	t_point		*cords;
+	int			color;
 	float		z;
 	float		zoom;
 	t_map		*map;

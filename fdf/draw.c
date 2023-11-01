@@ -6,7 +6,7 @@
 /*   By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 17:35:01 by gde-souz          #+#    #+#             */
-/*   Updated: 2023/10/30 18:13:04 by gde-souz         ###   ########.fr       */
+/*   Updated: 2023/11/01 14:18:12 by gde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,10 @@ t_fdf	*fdf_init(int n_args, char *map_name)
 	fdf = malloc(sizeof(t_fdf));
 	if (!fdf)
 		return (NULL);
+	fdf->name = map_name;
+	fdf->argc = n_args;
+	fdf->zoom = 20;
+	fdf->color = 0;
 	fdf->map = malloc(sizeof(t_map));
 	if (!fdf->map)
 		return (NULL);
@@ -29,10 +33,9 @@ t_fdf	*fdf_init(int n_args, char *map_name)
 	fdf->cords->y1 = 0;
 	fdf->cords->x2 = 0;
 	fdf->cords->y2 = 0;
-	fdf->name = map_name;
+	fdf->cords->steps = 0;
 	if (fdf->name == NULL)
 		fdf->name = "error";
-	fdf->argc = n_args;
 	return (fdf);
 }
 
@@ -42,53 +45,81 @@ void	isometric(float *x, float *y, int z)
 	*y = (*x + *y) * sin(0.8) - z;
 }
 
-void	bresenham(t_fdf *fdf)
+void	check_z(t_fdf *fdf, int i, int j, char axis)
+{
+	if (axis == 'x')
+	{
+		while (fdf->cords->x1 <= fdf->cords->x2)
+		{
+			if ((fdf->map->matrix[i][j] > 0) ||
+				(i > 0 && fdf->map->matrix[i - 1][j] > 0))
+				fdf->color = 0xF842E4;
+			else
+				fdf->color = 0xffffff77;
+			mlx_put_pixel(fdf->img, fdf->cords->x1++, fdf->cords->y1, fdf->color);
+		}
+	}
+	else if (axis == 'y')
+	{
+		while (fdf->cords->y1 <= fdf->cords->y2)
+		{
+			if ((fdf->map->matrix[i][j] > 0) ||
+				(j > 0 && fdf->map->matrix[i][j - 1] > 0))
+				fdf->color = 0xF842E4;
+			else
+				fdf->color = 0xffffff77;
+			mlx_put_pixel(fdf->img, fdf->cords->x1, fdf->cords->y1++, fdf->color);
+		}
+	}
+}
+
+void	draw_lines(t_fdf *fdf, int x_len, int y_len)
 {
 	int		i;
 	int		j;
+
+	i = -1;
+	j = 0;
+	while (++i < fdf->cords->steps - 1)
+	{
+		while (i < fdf->map->height - 1 && j < fdf->map->width - 1)
+		{
+			fdf->cords->x2 = fdf->cords->x1 + x_len;
+			fdf->cords->y2 = fdf->cords->y1 + y_len;
+			check_z(fdf, i, j, 'y');
+			fdf->cords->y1 -= (int)y_len + 1;
+			check_z(fdf, i, j, 'x');
+			j++;
+		}
+		j = 0;
+		fdf->cords->y1 = fdf->zoom + (y_len * i);
+		fdf->cords->x1 = fdf->zoom;
+	}
+	while (fdf->cords->x1 <= fdf->cords->x2)
+		mlx_put_pixel(fdf->img, fdf->cords->x1++, fdf->cords->y2, fdf->color);
+	fdf->cords->y1 = fdf->zoom;
+	while (fdf->cords->y1 <= fdf->cords->y2)
+		mlx_put_pixel(fdf->img, fdf->cords->x2, fdf->cords->y1++, fdf->color);
+}
+
+void	bresenham(t_fdf *fdf)
+{
 	float	x_len;
 	float	y_len;
-	float	steps;
 
-	fdf->cords->x1 = 100;
-	fdf->cords->y1 = 100;
+	fdf->cords->x1 = fdf->zoom;
+	fdf->cords->y1 = fdf->zoom;
 	fdf->cords->x2 = fdf->cords->x1 + fdf->map->width;
 	fdf->cords->y2 = fdf->cords->y1 + fdf->map->height;
 	x_len = fdf->cords->x2 - fdf->cords->x1;
 	y_len = fdf->cords->y2 - fdf->cords->y1;
-	printf("y2: %f\n", fdf->cords->y2);
-	printf("y_len1: %f\n", y_len);
 	if (x_len > y_len)
-		steps = x_len;
+		fdf->cords->steps = x_len;
 	else
-		steps = y_len;
-	printf("steps: %f\n", steps);
+		fdf->cords->steps = y_len;
 	x_len = 800 / (int)x_len;
 	y_len = 480 / (int)y_len;
-	i = 0;
-	j = 0;
-	printf("y_len2: %f\n", y_len);
-	printf("map_w: %i || map_h: %i\n", fdf->map->width, fdf->map->height);
-	while (i < steps)
-	{
-		while (fdf->cords->x1 <= (steps * x_len) && fdf->cords->y1 <= (steps * y_len))
-		{
-			fdf->cords->x2 = fdf->cords->x1 + x_len;
-			fdf->cords->y2 = fdf->cords->y1 + y_len;
-			while (fdf->cords->y1 <= fdf->cords->y2)
-			{
-				mlx_put_pixel(fdf->img, fdf->cords->x1, fdf->cords->y1++, 0xffffff77);
-			}
-			fdf->cords->y1 -= (int)y_len + 1;
-			while (fdf->cords->x1 <= fdf->cords->x2)
-			{
-				mlx_put_pixel(fdf->img, fdf->cords->x1++, fdf->cords->y1, 0xffffff77);
-			}
-		}
-		i++;
-		fdf->cords->y1 = 100 + (y_len * i);
-		fdf->cords->x1 = 100;
-	}
+	draw_lines(fdf, x_len, y_len);
 }
 
 void	ft_render(void *param)
@@ -104,7 +135,7 @@ void	ft_render(void *param)
 	{
 		while (j < HEIGHT)
 		{
-			mlx_put_pixel(fdf->img, i, j, 353935);
+			mlx_put_pixel(fdf->img, i, j, 0x0000077);
 			j++;
 		}
 		j = 0;
@@ -137,44 +168,3 @@ int	main(int argc, char **argv)
 }
 // cc ./draw.c ./MLX42/build/libmlx42.a -Iinclude -ldl -lglfw -pthread -lm
 //cc ./*.c ./gnl/*.c ./MLX42/build/libmlx42.a -Iinclude -ldl -lglfw -pthread -lm
-
-	// printf("map_w: %i || map_h: %i\n", fdf->map->width, fdf->map->height);
-	// while (i < fdf->map->height)
-	// {
-	// 	while (j < fdf->map->width)
-	// 	{
-	// 		//printf("matrix[%d][%d]: %d\n", i, j, fdf->map->matrix[i][j]);
-	// 		bresenham(fdf, fdf->x, fdf->y + 100);
-	// 		bresenham(fdf, fdf->x + 100, fdf->y);
-	// 		j++;
-	// 		fdf->x += 100;
-	// 	}
-	// 	bresenham(fdf, fdf->x, fdf->y + 100);
-	// 	j = 0;
-	// 	i++;
-	// 	fdf->y += 100;
-	// 	if (!fdf->map->matrix[i + 1][j])
-	// 	{
-	// 		//bresenham(50, y, x, y);
-	// 	}
-	// 	fdf->x += (fdf->x * i);
-	// }
-
-
-
-
-	// while (i < fdf->map->height && fdf->cords->y1 <= fdf->cords->x2)
-	// {
-	// 	while (j < fdf->map->width && fdf->cords->x1 <= fdf->cords->x2)
-	// 	{
-	// 		mlx_put_pixel(fdf->img, fdf->cords->x1, fdf->cords->y1, 0xffffff77);
-	// 		fdf->cords->x1 += x_len;
-	// 		j++;
-	// 	}
-	// 	fdf->cords->x1 -= steps * x_len;
-	// 	fdf->cords->x2 += x_len;
-	// 	mlx_put_pixel(fdf->img, fdf->cords->x1, fdf->cords->y1, 0xffffff77);
-	// 	fdf->cords->y1 += y_len;
-	// 	fdf->cords->x2 += x_len;
-	// 	i++;
-	// }
