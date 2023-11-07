@@ -6,7 +6,7 @@
 /*   By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 17:35:01 by gde-souz          #+#    #+#             */
-/*   Updated: 2023/11/01 14:18:12 by gde-souz         ###   ########.fr       */
+/*   Updated: 2023/11/07 18:10:02 by gde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ t_fdf	*fdf_init(int n_args, char *map_name)
 		return (NULL);
 	fdf->name = map_name;
 	fdf->argc = n_args;
-	fdf->zoom = 20;
+	fdf->zoom = 30;
 	fdf->color = 0;
 	fdf->map = malloc(sizeof(t_map));
 	if (!fdf->map)
@@ -45,103 +45,88 @@ void	isometric(float *x, float *y, int z)
 	*y = (*x + *y) * sin(0.8) - z;
 }
 
-void	check_z(t_fdf *fdf, int i, int j, char axis)
+void	draw_line(t_fdf *fdf)
 {
-	if (axis == 'x')
+	int	i;
+
+	i = 0;
+	fdf->color = 0xffffff77;
+	while (fdf->cords->x1 <= fdf->cords->x2 && fdf->cords->y1 <= fdf->cords->y2)
 	{
-		while (fdf->cords->x1 <= fdf->cords->x2)
-		{
-			if ((fdf->map->matrix[i][j] > 0) ||
-				(i > 0 && fdf->map->matrix[i - 1][j] > 0))
-				fdf->color = 0xF842E4;
-			else
-				fdf->color = 0xffffff77;
-			mlx_put_pixel(fdf->img, fdf->cords->x1++, fdf->cords->y1, fdf->color);
-		}
-	}
-	else if (axis == 'y')
-	{
-		while (fdf->cords->y1 <= fdf->cords->y2)
-		{
-			if ((fdf->map->matrix[i][j] > 0) ||
-				(j > 0 && fdf->map->matrix[i][j - 1] > 0))
-				fdf->color = 0xF842E4;
-			else
-				fdf->color = 0xffffff77;
-			mlx_put_pixel(fdf->img, fdf->cords->x1, fdf->cords->y1++, fdf->color);
-		}
+		mlx_put_pixel(fdf->img, fdf->cords->x1, fdf->cords->y1, fdf->color);
+		fdf->cords->x1 += fdf->cords->x_len;
+		fdf->cords->y1 += fdf->cords->y_len;
 	}
 }
 
-void	draw_lines(t_fdf *fdf, int x_len, int y_len)
+void	zoom(t_point *cords, int zoom)
 {
-	int		i;
-	int		j;
-
-	i = -1;
-	j = 0;
-	while (++i < fdf->cords->steps - 1)
-	{
-		while (i < fdf->map->height - 1 && j < fdf->map->width - 1)
-		{
-			fdf->cords->x2 = fdf->cords->x1 + x_len;
-			fdf->cords->y2 = fdf->cords->y1 + y_len;
-			check_z(fdf, i, j, 'y');
-			fdf->cords->y1 -= (int)y_len + 1;
-			check_z(fdf, i, j, 'x');
-			j++;
-		}
-		j = 0;
-		fdf->cords->y1 = fdf->zoom + (y_len * i);
-		fdf->cords->x1 = fdf->zoom;
-	}
-	while (fdf->cords->x1 <= fdf->cords->x2)
-		mlx_put_pixel(fdf->img, fdf->cords->x1++, fdf->cords->y2, fdf->color);
-	fdf->cords->y1 = fdf->zoom;
-	while (fdf->cords->y1 <= fdf->cords->y2)
-		mlx_put_pixel(fdf->img, fdf->cords->x2, fdf->cords->y1++, fdf->color);
+	cords->x1 *= zoom;
+	cords->y1 *= zoom;
+	cords->x2 *= zoom;
+	cords->y2 *= zoom;
 }
 
 void	bresenham(t_fdf *fdf)
 {
-	float	x_len;
-	float	y_len;
-
-	fdf->cords->x1 = fdf->zoom;
-	fdf->cords->y1 = fdf->zoom;
-	fdf->cords->x2 = fdf->cords->x1 + fdf->map->width;
-	fdf->cords->y2 = fdf->cords->y1 + fdf->map->height;
-	x_len = fdf->cords->x2 - fdf->cords->x1;
-	y_len = fdf->cords->y2 - fdf->cords->y1;
-	if (x_len > y_len)
-		fdf->cords->steps = x_len;
+	fdf->cords->x_len = fdf->cords->x2 - fdf->cords->x1;
+	fdf->cords->y_len = fdf->cords->y2 - fdf->cords->y1;
+	if (fdf->cords->x_len > fdf->cords->y_len)
+		fdf->cords->steps = fdf->cords->x_len;
 	else
-		fdf->cords->steps = y_len;
-	x_len = 800 / (int)x_len;
-	y_len = 480 / (int)y_len;
-	draw_lines(fdf, x_len, y_len);
+		fdf->cords->steps = fdf->cords->y_len;
+	fdf->cords->x_len = fdf->cords->x_len / fdf->cords->steps;
+	fdf->cords->y_len = fdf->cords->y_len / fdf->cords->steps;
+}
+
+void	set_start(t_fdf *fdf, int x1, int y1)
+{
+	fdf->cords->x1 = x1;
+	fdf->cords->y1 = y1;
+}
+void	set_end(t_fdf *fdf, int x2, int y2)
+{
+	fdf->cords->x2 = x2;
+	fdf->cords->y2 = y2;
 }
 
 void	ft_render(void *param)
 {
-	int		i;
-	int		j;
+	int		x;
+	int		y;
 	t_fdf	*fdf;
 
-	i = 0;
-	j = 0;
+	y = 0;
 	fdf = (t_fdf *)param;
-	while (i < WIDTH)
+	while (y < fdf->map->height - 1)
 	{
-		while (j < HEIGHT)
+		x = 0;
+		while (x < fdf->map->width - 1)
 		{
-			mlx_put_pixel(fdf->img, i, j, 0x0000077);
-			j++;
+			set_start(fdf, x, y);
+			set_end(fdf, x + 1, y);
+			bresenham(fdf);
+			zoom(fdf->cords, fdf->zoom);
+			draw_line(fdf);
+			// -------------------------
+			set_start(fdf, x, y);
+			set_end(fdf, x, y + 1);
+			bresenham(fdf);
+			zoom(fdf->cords, fdf->zoom);
+			draw_line(fdf);
+			x++;
 		}
-		j = 0;
-		i++;
+		y++;
 	}
-	bresenham((t_fdf *)param);
+	set_start(fdf, 0, fdf->cords->y2);
+	set_end(fdf, fdf->cords->x2 + fdf->zoom, fdf->cords->y2);
+	printf("x1 = %f || y1 = %f || x2 = %f || y2 = %f\n\n", fdf->cords->x1, fdf->cords->y1, fdf->cords->x2, fdf->cords->y2);
+	bresenham(fdf);
+	draw_line(fdf);
+	set_start(fdf, fdf->cords->x2, 0);
+	set_end(fdf, fdf->cords->x2, fdf->cords->y2);
+	bresenham(fdf);
+	draw_line(fdf);
 }
 
 int	main(int argc, char **argv)
@@ -166,5 +151,4 @@ int	main(int argc, char **argv)
 	mlx_terminate(fdf->mlx);
 	return (EXIT_SUCCESS);
 }
-// cc ./draw.c ./MLX42/build/libmlx42.a -Iinclude -ldl -lglfw -pthread -lm
 //cc ./*.c ./gnl/*.c ./MLX42/build/libmlx42.a -Iinclude -ldl -lglfw -pthread -lm

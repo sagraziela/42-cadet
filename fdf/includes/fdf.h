@@ -6,7 +6,7 @@
 /*   By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/16 10:24:02 by gde-souz          #+#    #+#             */
-/*   Updated: 2023/11/01 14:02:10 by gde-souz         ###   ########.fr       */
+/*   Updated: 2023/11/06 18:01:56 by gde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,10 @@ typedef struct s_point
 	float	x2;
 	float	y1;
 	float	y2;
+	float	z1;
+	float	z2;
+	float	x_len;
+	float	y_len;
 	int		steps;
 }	t_point;
 
