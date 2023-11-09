@@ -6,7 +6,7 @@
 #    By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/04 16:42:26 by gde-souz          #+#    #+#              #
-#    Updated: 2023/10/18 11:13:45 by gde-souz         ###   ########.fr        #
+#    Updated: 2023/11/09 17:41:56 by gde-souz         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,14 +16,21 @@ NAME = fdf.a
 # Compilation flags
 CC = cc -Wall -Wextra -Werror
 AR = ar -rcs
+MLX_FLAGS =
 INCLUDES = ./includes
+
+#MLX
+MLX = ./MLX42
 
 # fdf
 SRC = ./main.c \
 		./gnl/get_next_line.c \
 		./gnl/get_next_line_utils.c \
 		./read_file.c \
-		./ft_split.c
+		./ft_split.c \
+		./draw.c \
+		./draw_utils.c \
+		./calc.c
 OBJ = $(SRC:%.c=%.o)
 
 # Color codes of output on terminal
@@ -35,11 +42,12 @@ CYAN= \033[0;36m
 all: $(NAME)
 
 # Builds mandatory object files
-%.o:%.c 
+%.o:%.c
 	$(CC) -c $< -o $@ -I $(dir $@)
 
 # Target to build the mandatory part
-$(NAME): $(OBJ)
+$(NAME): $(OBJ) $(MLX)
+	$(CC) $(OBJ) ./MLX42/build/libmlx42.a -Iinclude -ldl -lglfw -pthread -lm
 	$(AR) $(NAME) $(OBJ)
 	@echo "$(PURPLE)--------------------------------------------------"
 	@echo "$(PURPLE)The [$(CYAN)FDF$(PURPLE)] has been compiled! 🤠"
