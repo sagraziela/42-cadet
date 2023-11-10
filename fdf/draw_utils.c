@@ -6,7 +6,7 @@
 /*   By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 16:14:01 by gde-souz          #+#    #+#             */
-/*   Updated: 2023/11/09 16:24:11 by gde-souz         ###   ########.fr       */
+/*   Updated: 2023/11/10 17:37:47 by gde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,4 @@ void	set_end(t_fdf *fdf, int x2, int y2)
 {
 	fdf->cords->x2 = x2;
 	fdf->cords->y2 = y2;
-}
-
-void	set_z(t_fdf *fdf, int x, int y)
-{
-	fdf->cords->z1 = fdf->map->matrix[y][x];
-	x += fdf->cords->x_len;
-	y += fdf->cords->y_len;
-	fdf->cords->z2 = fdf->map->matrix[y][x];
 }
