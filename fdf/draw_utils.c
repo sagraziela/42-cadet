@@ -6,7 +6,7 @@
 /*   By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 16:14:01 by gde-souz          #+#    #+#             */
-/*   Updated: 2023/11/10 17:37:47 by gde-souz         ###   ########.fr       */
+/*   Updated: 2023/11/13 12:20:39 by gde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ void	zoom(t_point *cords, int zoom)
 	cords->y1 *= zoom;
 	cords->x2 *= zoom;
 	cords->y2 *= zoom;
+	cords->z1 *= zoom;
+	cords->z2 *= zoom;
 }
 
 void	set_start(t_fdf *fdf, int x1, int y1)

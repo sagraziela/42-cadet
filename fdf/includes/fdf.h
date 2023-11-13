@@ -6,7 +6,7 @@
 /*   By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/16 10:24:02 by gde-souz          #+#    #+#             */
-/*   Updated: 2023/11/10 17:33:38 by gde-souz         ###   ########.fr       */
+/*   Updated: 2023/11/13 16:10:57 by gde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,20 +25,20 @@
 # include "../MLX42/include/MLX42/MLX42.h"
 # include "./get_next_line.h"
 
-# define WIDTH 1320
-# define HEIGHT 860
+# define WIDTH 1980
+# define HEIGHT 980
 
 typedef struct s_point
 {
-	float	x1;
-	float	x2;
-	float	y1;
-	float	y2;
-	int		z1;
-	int		z2;
-	float	x_len;
-	float	y_len;
-	int		steps;
+	float			x1;
+	float			x2;
+	float			y1;
+	float			y2;
+	int				z1;
+	int				z2;
+	float			x_len;
+	float			y_len;
+	unsigned int	steps;
 }	t_point;
 
 typedef struct s_map

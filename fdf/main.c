@@ -6,7 +6,7 @@
 /*   By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 15:51:51 by gde-souz          #+#    #+#             */
-/*   Updated: 2023/11/10 15:42:51 by gde-souz         ###   ########.fr       */
+/*   Updated: 2023/11/13 16:11:42 by gde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ t_fdf	*fdf_init(int n_args, char *map_name)
 		return (NULL);
 	fdf->name = map_name;
 	fdf->argc = n_args;
-	fdf->zoom = 30;
+	fdf->zoom = 12;
 	fdf->color = 0;
 	fdf->map = malloc(sizeof(t_map));
 	if (!fdf->map)
