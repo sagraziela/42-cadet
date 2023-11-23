@@ -6,7 +6,7 @@
 /*   By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/16 10:24:02 by gde-souz          #+#    #+#             */
-/*   Updated: 2023/11/13 16:10:57 by gde-souz         ###   ########.fr       */
+/*   Updated: 2023/11/23 15:43:46 by gde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,11 @@
 # include <stdbool.h>
 # include <math.h>
 # include "../MLX42/include/MLX42/MLX42.h"
+# include "./libft.h"
 # include "./get_next_line.h"
 
-# define WIDTH 1980
-# define HEIGHT 980
+# define WIDTH 800
+# define HEIGHT 400
 
 typedef struct s_point
 {
@@ -39,6 +40,8 @@ typedef struct s_point
 	float			x_len;
 	float			y_len;
 	unsigned int	steps;
+	int				pos_x;
+	int				pos_y;
 }	t_point;
 
 typedef struct s_map
@@ -46,8 +49,9 @@ typedef struct s_map
 	int		height;
 	int		width;
 	int		**matrix;
-	int		z_max;
-	int		z_min;
+	float	angle;
+	float	min_angle;
+	float	max_angle;
 }	t_map;
 
 typedef struct s_fdf
@@ -58,12 +62,13 @@ typedef struct s_fdf
 	mlx_image_t	*img;
 	t_point		*cords;
 	int			color;
+	int			z_max;
+	int			z_min;
 	float		z;
 	float		zoom;
 	t_map		*map;
 }	t_fdf;
 
-char	**ft_split(char const *s, char c);
 t_map	*read_map(char *file, t_map *map);
 void	ft_render(void *param);
 void	set_start(t_fdf *fdf, int x1, int y1);
@@ -72,6 +77,9 @@ void	bresenham(t_fdf *fdf);
 void	centralize(t_fdf *fdf);
 void	zoom(t_point *cords, int zoom);
 void	set_color(t_fdf *fdf, int x, int y);
-void	isometric(float *x, float *y, int z);
+void	isometric(t_fdf *fdf, float *x, float *y, int z);
+void	handle_keyboard(mlx_key_data_t keydata, void *param);
+void	handle_mouse(double xdelta, double ydelta, void *param);
+void	exit_fdf(void *param, char *filename);
 
 #endif

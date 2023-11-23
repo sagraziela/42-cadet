@@ -6,34 +6,11 @@
 /*   By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/02 12:27:46 by gde-souz          #+#    #+#             */
-/*   Updated: 2023/10/17 15:52:50 by gde-souz         ###   ########.fr       */
+/*   Updated: 2023/11/21 13:34:03 by gde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./includes/fdf.h"
-
-size_t	ft_strlcpy(char *dst, const char *src, size_t size)
-{
-	size_t	i;
-	size_t	src_len;
-
-	i = 0;
-	src_len = 0;
-	while (src[src_len])
-		src_len++;
-	if (size == 0)
-		return (src_len);
-	else
-	{
-		while ((i < size - 1) && (src[i] != '\0'))
-		{
-			dst[i] = src[i];
-			i++;
-		}
-		dst[i] = '\0';
-		return (src_len);
-	}
-}
+#include "../includes/libft.h"
 
 static int	count_words(const char *str, char c)
 {
