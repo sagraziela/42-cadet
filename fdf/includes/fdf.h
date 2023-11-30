@@ -6,7 +6,7 @@
 /*   By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/16 10:24:02 by gde-souz          #+#    #+#             */
-/*   Updated: 2023/11/23 15:43:46 by gde-souz         ###   ########.fr       */
+/*   Updated: 2023/11/30 17:49:00 by gde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,23 @@
 # include "./libft.h"
 # include "./get_next_line.h"
 
-# define WIDTH 800
-# define HEIGHT 400
+# define WIDTH 1910
+# define HEIGHT 990
+
+# define DOWN0 0x000ed1
+# define DOWN1 0x1c29d6
+# define DOWN2 0x3944db
+# define DOWN3 0x555ee0
+# define DOWN4 0x8e94eb
+# define DOWN5 0xc6c9f5
+
+# define WHITE 0xffffff
+
+# define UP1 0xff730077
+# define UP2 0xe3830377
+# define UP3 0xaaa20a77
+# define UP4 0x71c11177
+# define UP5 0x1cef1b77
 
 typedef struct s_point
 {
@@ -52,7 +67,15 @@ typedef struct s_map
 	float	angle;
 	float	min_angle;
 	float	max_angle;
+	int		mid_h;
+	int		mid_w;
 }	t_map;
+
+typedef struct s_cam
+{
+	float	x_pos;
+	float	y_pos;
+}	t_cam;
 
 typedef struct s_fdf
 {
@@ -64,22 +87,27 @@ typedef struct s_fdf
 	int			color;
 	int			z_max;
 	int			z_min;
-	float		z;
-	float		zoom;
+	int			z_scale;
+	int			z_pos;
+	int			zoom;
 	t_map		*map;
 }	t_fdf;
 
+void	init_fdf_variables(t_fdf *fdf, char *map_name, int n_args);
+t_map	*map_init(t_map *map);
+t_point	*cords_init(t_point *cords);
 t_map	*read_map(char *file, t_map *map);
 void	ft_render(void *param);
 void	set_start(t_fdf *fdf, int x1, int y1);
 void	set_end(t_fdf *fdf, int x2, int y2);
+void	set_z(t_fdf *fdf, t_point *cords, t_map *map);
 void	bresenham(t_fdf *fdf);
 void	centralize(t_fdf *fdf);
-void	zoom(t_point *cords, int zoom);
+void	zoom(t_fdf *fdf, int *zoom);
 void	set_color(t_fdf *fdf, int x, int y);
 void	isometric(t_fdf *fdf, float *x, float *y, int z);
 void	handle_keyboard(mlx_key_data_t keydata, void *param);
 void	handle_mouse(double xdelta, double ydelta, void *param);
-void	exit_fdf(void *param, char *filename);
+void	exit_fdf(void *param);
 
 #endif

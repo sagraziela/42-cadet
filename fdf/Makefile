@@ -6,32 +6,41 @@
 #    By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/04 16:42:26 by gde-souz          #+#    #+#              #
-#    Updated: 2023/11/09 17:41:56 by gde-souz         ###   ########.fr        #
+#    Updated: 2023/11/30 15:28:07 by gde-souz         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # Name of the executable
-NAME = fdf.a
+NAME = fdf
 
 # Compilation flags
-CC = cc -Wall -Wextra -Werror
-AR = ar -rcs
-MLX_FLAGS =
+CFLAGS = -Wall -Wextra -Werror
 INCLUDES = ./includes
 
-#MLX
-MLX = ./MLX42
+# Libft
+PATH_LIBFT = ./libft/
+LIBFT = $(addprefix $(PATH_LIBFT), libft.a)
+
+# GNL
+PATH_GNL = ./gnl/
+GNL = $(addprefix $(PATH_GNL), gnl.a)
+
+# MLX
+MLX = ./MLX42/build/libmlx42.a
+MLX_FLAGS = -IMLX42/include/MLX42 -ldl -lglfw -pthread -lm -Ofast -flto
 
 # fdf
-SRC = ./main.c \
-		./gnl/get_next_line.c \
-		./gnl/get_next_line_utils.c \
-		./read_file.c \
-		./ft_split.c \
-		./draw.c \
-		./draw_utils.c \
-		./calc.c
-OBJ = $(SRC:%.c=%.o)
+SRC = main.c \
+		init.c \
+		read_file.c \
+		draw.c \
+		draw_utils.c \
+		controls.c \
+		calc.c \
+
+# Objects
+OBJ_PATH = ./build/
+OBJ = $(addprefix $(OBJ_PATH), $(SRC:.c=.o))
 
 # Color codes of output on terminal
 PURPLE = \033[1;35m
@@ -41,14 +50,23 @@ CYAN= \033[0;36m
 # Default target to compile the mandatory part
 all: $(NAME)
 
+# Builds dependencies
+$(LIBFT):
+	@make -C $(PATH_LIBFT)
+
+$(GNL):
+	@make -C $(PATH_GNL)
+
 # Builds mandatory object files
-%.o:%.c
-	$(CC) -c $< -o $@ -I $(dir $@)
+$(OBJ_PATH)%.o:%.c
+	@mkdir -p $(OBJ_PATH)
+	$(CC) $(CFLAGS) -c $< -o $@ -I $(dir $@)
 
 # Target to build the mandatory part
-$(NAME): $(OBJ) $(MLX)
-	$(CC) $(OBJ) ./MLX42/build/libmlx42.a -Iinclude -ldl -lglfw -pthread -lm
-	$(AR) $(NAME) $(OBJ)
+$(NAME): $(LIBFT) $(GNL) $(OBJ)
+	@cp $(LIBFT) $(NAME)
+	@cp $(GNL) $(NAME)
+	$(CC) $(OBJ) $(LIBFT) $(GNL) $(MLX) -L$(PATH_LIBFT) -L$(PATH_GNL) -lft $(MLX_FLAGS) -o $(NAME)
 	@echo "$(PURPLE)--------------------------------------------------"
 	@echo "$(PURPLE)The [$(CYAN)FDF$(PURPLE)] has been compiled! 🤠"
 	@echo "$(PURPLE)--------------------------------------------------"
@@ -56,6 +74,9 @@ $(NAME): $(OBJ) $(MLX)
 # Cleans object files and dependencies
 clean:
 	@rm -f $(OBJ)
+	@rm -rf $(OBJ_PATH)
+	@make clean -C $(PATH_LIBFT)
+	@make clean -C $(PATH_GNL)
 	@echo "$(WHITE)-----------------------------------"
 	@echo "$(WHITE)    Object files were cleaned!"
 	@echo "$(WHITE)-----------------------------------"
@@ -67,6 +88,8 @@ fclean: clean
 	@echo "$(WHITE)-----------------------------------"
 	@rm -f $(NAME)
 	@rm -f $(HD)*.gch
+	@make fclean -C $(PATH_LIBFT)
+	@make fclean -C $(PATH_GNL)
 	@echo "$(WHITE)-----------------------------------"
 	@echo "$(WHITE)    ✨ Cleaning complete! ✨"
 	@echo "$(WHITE)-----------------------------------"

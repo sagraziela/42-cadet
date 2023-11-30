@@ -6,7 +6,7 @@
 /*   By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 15:51:51 by gde-souz          #+#    #+#             */
-/*   Updated: 2023/11/23 15:24:03 by gde-souz         ###   ########.fr       */
+/*   Updated: 2023/11/30 17:49:34 by gde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,26 +19,16 @@ t_fdf	*fdf_init(int n_args, char *map_name)
 	fdf = malloc(sizeof(t_fdf));
 	if (!fdf)
 		return (NULL);
-	fdf->name = map_name;
-	fdf->argc = n_args;
-	fdf->zoom = 5;
-	fdf->color = 0;
-	fdf->map = malloc(sizeof(t_map));
+	init_fdf_variables(fdf, map_name, n_args);
+	fdf->map = map_init(fdf->map);
 	if (!fdf->map)
-		return (NULL);
-	fdf->map->angle = 0.8;
-	fdf->map->min_angle = 0.0;
-	fdf->map->max_angle = 1.2;
-	fdf->cords = malloc(sizeof(t_point));
+		free(fdf);
+	fdf->cords = cords_init(fdf->cords);
 	if (!fdf->cords)
-		return (NULL);
-	fdf->cords->x1 = 0;
-	fdf->cords->y1 = 0;
-	fdf->cords->x2 = 0;
-	fdf->cords->y2 = 0;
-	fdf->cords->steps = 0;
-	fdf->cords->pos_x = 0;
-	fdf->cords->pos_y = 0;
+	{
+		free(fdf->map);
+		free(fdf->cords);
+	}
 	if (fdf->name == NULL)
 		fdf->name = "error";
 	return (fdf);
@@ -54,51 +44,64 @@ int	check_file_format(const char *filename)
 	return (1);
 }
 
-void	exit_fdf(void *param, char *filename)
+void	error_message(void)
+{
+	ft_putstr_fd("---------- This is gde-souz's FDF! ----------\n\n", 1);
+	ft_putstr_fd("HOW TO RUN:\n", 1);
+	ft_putstr_fd("'./fdf  [map file]'		|		", 1);
+	ft_putstr_fd("ATENTION: the file must end with '.fdf'\n\n", 1);
+	ft_putstr_fd("EXAMPLE: ./fdf ./test_maps/42.fdf\n", 1);
+	ft_putstr_fd("---------- ----------------------- ----------\n", 1);
+}
+
+void	exit_fdf(void *param)
 {
 	t_fdf	*fdf;
 	int		i;
 
 	fdf = (t_fdf *)param;
-	i = 0;
-	mlx_terminate(fdf->mlx);
-	free(filename);
-	free(fdf->cords);
-	while (fdf->map->matrix[i])
+	if (fdf->map->matrix)
 	{
-		free(fdf->map->matrix[i]);
-		fdf->map->matrix[i] = NULL;
-		++i;
+		i = 0;
+		while (fdf->map->matrix[i])
+		{
+			free(fdf->map->matrix[i]);
+			fdf->map->matrix[i] = NULL;
+			++i;
+		}
+		free(fdf->map->matrix);
+		free(fdf->name);
+		mlx_terminate(fdf->mlx);
 	}
-	free(fdf->map->matrix);
 	free(fdf->map);
+	free(fdf->cords);
 	free(fdf);
 }
 
 int	main(int argc, char **argv)
 {
 	t_fdf	*fdf;
-	char	*filename;
 
-	if (!check_file_format(argv[1]))
-		return (EXIT_FAILURE);
 	fdf = fdf_init(argc, argv[1]);
-	if (argc != 2 || !fdf)
-		return (EXIT_FAILURE);
-	filename = ft_strjoin("FDF - ", ft_strrchr(argv[1], '/'));
-	fdf->mlx = mlx_init(WIDTH, HEIGHT, filename, true);
-	if (fdf->mlx)
+	if (argv[1])
 	{
+		fdf->mlx = mlx_init(WIDTH, HEIGHT, fdf->name, true);
 		fdf->img = mlx_new_image(fdf->mlx, WIDTH, HEIGHT);
-		fdf->map = read_map(argv[1], fdf->map);
-		printf("img_w: %d || img_h: %d\n", fdf->img->width, fdf->img->height);
-		mlx_image_to_window(fdf->mlx, fdf->img, 0, 0);
-		ft_render(fdf);
-		mlx_scroll_hook(fdf->mlx, handle_mouse, fdf);
-		mlx_key_hook(fdf->mlx, handle_keyboard, fdf);
-		mlx_loop(fdf->mlx);
-		exit_fdf(fdf, filename);
+		if (check_file_format(fdf->name) && fdf->mlx && fdf->img)
+		{
+			fdf->map = read_map(argv[1], fdf->map);
+			mlx_image_to_window(fdf->mlx, fdf->img, 0, 0);
+			ft_render(fdf);
+			mlx_scroll_hook(fdf->mlx, handle_mouse, fdf);
+			mlx_key_hook(fdf->mlx, handle_keyboard, fdf);
+			mlx_loop(fdf->mlx);
+			exit_fdf(fdf);
+			return (EXIT_SUCCESS);
+		}
+		mlx_terminate(fdf->mlx);
 	}
-	return (EXIT_SUCCESS);
+	error_message();
+	exit_fdf(fdf);
+	return (EXIT_FAILURE);
 }
-//cc ./*.c ./gnl/*.c ./libft/*.c ./MLX42/build/libmlx42.a -Iinclude -ldl -lglfw -pthread -lm
+//cc ./*.c ./gnl/*.c ./libft/*.c ./MLX42/build/libmlx42.a -Iinclude -ldl -lglfw -pthread -lm -Ofast -flto
