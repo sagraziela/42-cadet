@@ -6,7 +6,7 @@
 /*   By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 16:14:01 by gde-souz          #+#    #+#             */
-/*   Updated: 2023/12/04 15:33:38 by gde-souz         ###   ########.fr       */
+/*   Updated: 2023/12/04 16:18:56 by gde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,9 @@ void	set_end(t_fdf *fdf, int x2, int y2)
 
 void	set_z(t_fdf *fdf, t_point *cords, t_map *map)
 {
-	fdf->cords->z1 = map->matrix[(int)cords->y1][(int)cords->x1] * 1;
-	fdf->cords->z2 = map->matrix[(int)cords->y2][(int)cords->x2] * 1;
+	//printf("x2: %f  |  y2: %f  |  point: %d\n", fdf->cords->x2, fdf->cords->y2, map->matrix[(int)cords->y2][(int)cords->x2]);
+	// printf("z1: %d  |  z2: %d  |  scale: %d\n", fdf->cords->z1, fdf->cords->z2, fdf->z_scale);
+	fdf->cords->z1 = map->matrix[(int)cords->y1][(int)cords->x1] * fdf->z_scale;
+	fdf->cords->z2 = map->matrix[(int)cords->y2][(int)cords->x2] * fdf->z_scale;
+	//printf("z1: %d  |  z2: %d  |  scale: %d\n\n\n\n", fdf->cords->z1, fdf->cords->z2, fdf->z_scale);
 }

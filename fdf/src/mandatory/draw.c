@@ -6,7 +6,7 @@
 /*   By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 17:35:01 by gde-souz          #+#    #+#             */
-/*   Updated: 2023/12/04 15:18:13 by gde-souz         ###   ########.fr       */
+/*   Updated: 2023/12/04 16:58:33 by gde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,19 @@
 
 void	draw_line(t_fdf *fdf, int x, int y)
 {
-	while ((fdf->cords->x1 > fdf->cords->x2 || fdf->cords->x1 < fdf->cords->x2)
-		&& fdf->cords->y1 < fdf->cords->y2)
+	unsigned int	i;
+
+	i = 0;
+	while (i < fdf->cords->steps)
 	{
-		// if (x == fdf->map->width - 2)
-		// 	printf("point: %d\n", fdf->map->matrix[x][y]);
 		set_color(fdf, x, y);
 		if ((fdf->cords->x1 < WIDTH && fdf->cords->x1 > MENU_WIDTH
 				&& fdf->cords->x1 > 0)
 			&& (fdf->cords->y1 > 0 && fdf->cords->y1 < HEIGHT))
-		mlx_put_pixel(fdf->img, fdf->cords->x1, fdf->cords->y1, fdf->color);
+			mlx_put_pixel(fdf->img, fdf->cords->x1, fdf->cords->y1, fdf->color);
 		fdf->cords->x1 += fdf->cords->x_len;
 		fdf->cords->y1 += fdf->cords->y_len;
+		i++;
 	}
 }
 
@@ -36,6 +37,14 @@ void	handle_axis(t_fdf *fdf, int x, int y)
 		set_start(fdf, x, y);
 		set_end(fdf, x + 1, y);
 		set_z(fdf, fdf->cords, fdf->map);
+		if (x == 0 && y == 1)
+		{
+			printf("x_len: %f  |  y_len: %f \n", fdf->cords->x_len, fdf->cords->y_len);
+			printf("\nx2: %f  |  y2: %f  |  point: %d\n", fdf->cords->x2, fdf->cords->y2, fdf->map->matrix[(int)fdf->cords->y2][(int)fdf->cords->x2]);
+			printf("z1: %d  |  z2: %d  |  scale: %d\n", fdf->cords->z1, fdf->cords->z2, fdf->z_scale);
+		}
+		else
+			printf("-");
 		bresenham(fdf);
 		centralize(fdf);
 		draw_line(fdf, x, y);
@@ -45,6 +54,14 @@ void	handle_axis(t_fdf *fdf, int x, int y)
 		set_start(fdf, x, y);
 		set_end(fdf, x, y + 1);
 		set_z(fdf, fdf->cords, fdf->map);
+		if (x == 3 && y == 3)
+		{
+			printf("x_len: %f  |  y_len: %f \n", fdf->cords->x_len, fdf->cords->y_len);
+			printf("\nx2: %f  |  y2: %f  |  point: %d\n", fdf->cords->x2, fdf->cords->y2, fdf->map->matrix[(int)fdf->cords->y2][(int)fdf->cords->x2]);
+			printf("z1: %d  |  z2: %d  |  scale: %d\n", fdf->cords->z1, fdf->cords->z2, fdf->z_scale);
+		}
+		else
+			printf("-");
 		bresenham(fdf);
 		centralize(fdf);
 		draw_line(fdf, x, y);
