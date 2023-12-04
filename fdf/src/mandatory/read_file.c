@@ -6,13 +6,14 @@
 /*   By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/16 10:23:59 by gde-souz          #+#    #+#             */
-/*   Updated: 2023/11/21 14:13:51 by gde-souz         ###   ########.fr       */
+/*   Updated: 2023/12/04 13:19:36 by gde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./includes/fdf.h"
+#include "../../includes/fdf.h"
 
 int	count_words(char *str)
+
 {
 	int	i;
 	int	counter;
@@ -86,7 +87,7 @@ t_map	*read_map(char *file, t_map *map)
 	while (i < map->height)
 	{
 		map->matrix[i] = (int *)malloc(sizeof(int) * (map->width + 1));
-		if (!map->matrix)
+		if (!map->matrix || count_words(line) > map->width)
 			return (0);
 		fill_matrix(line, map->matrix[i]);
 		free(line);

@@ -6,7 +6,7 @@
 #    By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/04 16:42:26 by gde-souz          #+#    #+#              #
-#    Updated: 2023/11/30 15:28:07 by gde-souz         ###   ########.fr        #
+#    Updated: 2023/12/04 11:23:14 by gde-souz         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,17 +30,28 @@ MLX = ./MLX42/build/libmlx42.a
 MLX_FLAGS = -IMLX42/include/MLX42 -ldl -lglfw -pthread -lm -Ofast -flto
 
 # fdf
-SRC = main.c \
-		init.c \
-		read_file.c \
-		draw.c \
-		draw_utils.c \
-		controls.c \
-		calc.c \
+PATH_MANDATORY = ./src/mandatory/
+SRC = ./src/mandatory/main.c \
+		./src/mandatory/init.c \
+		./src/mandatory/read_file.c \
+		./src/mandatory/draw.c \
+		./src/mandatory/draw_utils.c \
+		./src/mandatory/controls.c \
+		./src/mandatory/calc.c \
 
+PATH_BONUS = ./src/bonus/
+SRC_BONUS = main_bonus.c \
+			init_bonus.c \
+			read_file_bonus.c \
+			draw_bonus.c \
+			draw_utils_bonus.c \
+			controls_bonus.c \
+			calc_bonus.c \
 # Objects
 OBJ_PATH = ./build/
-OBJ = $(addprefix $(OBJ_PATH), $(SRC:.c=.o))
+OBJ = $(addprefix $(OBJ_PATH), $(notdir $(SRC:.c=.o)))
+OBJ_PATH_BONUS = ./build_bonus/
+OBJ_BONUS = $(addprefix $(OBJ_PATH_BONUS), $(notdir $(SRC_BONUS:.c=.o)))
 
 # Color codes of output on terminal
 PURPLE = \033[1;35m
@@ -58,8 +69,13 @@ $(GNL):
 	@make -C $(PATH_GNL)
 
 # Builds mandatory object files
-$(OBJ_PATH)%.o:%.c
+$(OBJ_PATH)%.o: src/mandatory/%.c
 	@mkdir -p $(OBJ_PATH)
+	$(CC) $(CFLAGS) -c $< -o $@ -I $(dir $@)
+
+# Builds bonus object files
+$(OBJ_PATH_BONUS)%.o: src/bonus/%.c
+	@mkdir -p $(OBJ_PATH_BONUS)
 	$(CC) $(CFLAGS) -c $< -o $@ -I $(dir $@)
 
 # Target to build the mandatory part
@@ -71,10 +87,21 @@ $(NAME): $(LIBFT) $(GNL) $(OBJ)
 	@echo "$(PURPLE)The [$(CYAN)FDF$(PURPLE)] has been compiled! 🤠"
 	@echo "$(PURPLE)--------------------------------------------------"
 
+# Target to build the bonus part
+bonus: $(LIBFT) $(GNL) $(OBJ_BONUS)
+	@cp $(LIBFT) $(NAME)
+	@cp $(GNL) $(NAME)
+	$(CC) $(OBJ_BONUS) $(LIBFT) $(GNL) $(MLX) -L$(PATH_LIBFT) -L$(PATH_GNL) -lft $(MLX_FLAGS) -o $(NAME)
+	@echo "$(PURPLE)--------------------------------------------------"
+	@echo "$(PURPLE)The [$(CYAN)FDF_BONUS$(PURPLE)] has been compiled! 🤠"
+	@echo "$(PURPLE)--------------------------------------------------"
+
 # Cleans object files and dependencies
 clean:
 	@rm -f $(OBJ)
+	@rm -f $(OBJ_BONUS)
 	@rm -rf $(OBJ_PATH)
+	@rm -rf $(OBJ_PATH_BONUS)
 	@make clean -C $(PATH_LIBFT)
 	@make clean -C $(PATH_GNL)
 	@echo "$(WHITE)-----------------------------------"
@@ -98,4 +125,4 @@ fclean: clean
 re: fclean all
 
 # Phony targets
-.PHONY: all clean fclean re
+.PHONY: all bonus clean fclean re

@@ -1,16 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init.c                                             :+:      :+:    :+:   */
+/*   init_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 15:31:26 by gde-souz          #+#    #+#             */
-/*   Updated: 2023/11/30 17:49:47 by gde-souz         ###   ########.fr       */
+/*   Updated: 2023/12/04 11:25:42 by gde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./includes/fdf.h"
+#include "../../includes/fdf_bonus.h"
+
+int	get_highest_z(t_fdf *fdf)
+{
+	int	i;
+	int	j;
+	int	z_highest;
+
+	i = 0;
+	z_highest = 0;
+	while (i < fdf->map->height)
+	{
+		j = 0;
+		while (j < fdf->map->width)
+		{
+			if (fdf->map->matrix[i][j] > z_highest)
+				z_highest = fdf->map->matrix[i][j];
+			j++;
+		}
+		i++;
+	}
+	return (z_highest);
+}
 
 void	init_fdf_variables(t_fdf *fdf, char *map_name, int n_args)
 {
@@ -25,6 +47,7 @@ void	init_fdf_variables(t_fdf *fdf, char *map_name, int n_args)
 	fdf->z_max = 100;
 	fdf->z_min = 1;
 	fdf->z_pos = 0;
+	fdf->z_highest = 0;
 }
 
 t_map	*map_init(t_map *map)

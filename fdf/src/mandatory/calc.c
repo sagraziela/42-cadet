@@ -6,11 +6,11 @@
 /*   By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 16:18:47 by gde-souz          #+#    #+#             */
-/*   Updated: 2023/11/30 17:43:56 by gde-souz         ###   ########.fr       */
+/*   Updated: 2023/12/04 15:36:36 by gde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./includes/fdf.h"
+#include "../../includes/fdf.h"
 
 void	zoom(t_fdf *fdf, int *zoom)
 {

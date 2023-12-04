@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fdf.h                                              :+:      :+:    :+:   */
+/*   fdf_bonus.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/16 10:24:02 by gde-souz          #+#    #+#             */
-/*   Updated: 2023/12/04 12:53:31 by gde-souz         ###   ########.fr       */
+/*   Created: 2023/12/04 11:24:25 by gde-souz          #+#    #+#             */
+/*   Updated: 2023/12/04 11:25:12 by gde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FDF_H
-# define FDF_H
+#ifndef FDF_BONUS_H
+# define FDF_BONUS_H
 
 # include <unistd.h>
 # include <stddef.h>
@@ -21,7 +21,6 @@
 # include <stdlib.h>
 # include <stdbool.h>
 # include <math.h>
-#include <stdio.h>
 # include "../MLX42/include/MLX42/MLX42.h"
 # include "./libft.h"
 # include "./get_next_line.h"

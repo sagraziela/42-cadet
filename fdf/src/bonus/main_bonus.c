@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   main_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 15:51:51 by gde-souz          #+#    #+#             */
-/*   Updated: 2023/11/30 17:49:34 by gde-souz         ###   ########.fr       */
+/*   Updated: 2023/12/04 11:22:29 by gde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./includes/fdf.h"
+#include "../../includes/fdf.h"
 
 t_fdf	*fdf_init(int n_args, char *map_name)
 {
@@ -104,4 +104,3 @@ int	main(int argc, char **argv)
 	exit_fdf(fdf);
 	return (EXIT_FAILURE);
 }
-//cc ./*.c ./gnl/*.c ./libft/*.c ./MLX42/build/libmlx42.a -Iinclude -ldl -lglfw -pthread -lm -Ofast -flto

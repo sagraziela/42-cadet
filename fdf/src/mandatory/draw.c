@@ -6,27 +6,26 @@
 /*   By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 17:35:01 by gde-souz          #+#    #+#             */
-/*   Updated: 2023/11/30 17:50:22 by gde-souz         ###   ########.fr       */
+/*   Updated: 2023/12/04 15:18:13 by gde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./includes/fdf.h"
+#include "../../includes/fdf.h"
 
 void	draw_line(t_fdf *fdf, int x, int y)
 {
-	set_color(fdf, x, y);
 	while ((fdf->cords->x1 > fdf->cords->x2 || fdf->cords->x1 < fdf->cords->x2)
 		&& fdf->cords->y1 < fdf->cords->y2)
 	{
-		if ((fdf->cords->x1 < WIDTH && fdf->cords->x1 > 0)
+		// if (x == fdf->map->width - 2)
+		// 	printf("point: %d\n", fdf->map->matrix[x][y]);
+		set_color(fdf, x, y);
+		if ((fdf->cords->x1 < WIDTH && fdf->cords->x1 > MENU_WIDTH
+				&& fdf->cords->x1 > 0)
 			&& (fdf->cords->y1 > 0 && fdf->cords->y1 < HEIGHT))
-			mlx_put_pixel(fdf->img, fdf->cords->x1, fdf->cords->y1, fdf->color);
+		mlx_put_pixel(fdf->img, fdf->cords->x1, fdf->cords->y1, fdf->color);
 		fdf->cords->x1 += fdf->cords->x_len;
 		fdf->cords->y1 += fdf->cords->y_len;
-		// if ((fdf->cords->x_len < fdf->cords->y_len) && (fdf->z_pos < fdf->map->matrix[y][x]))
-		// 	fdf->z_pos++;
-		// else if (fdf->map->matrix[y][x] < fdf->z_pos)
-		// 	fdf->z_pos = fdf->map->matrix[y][x];
 	}
 }
 
@@ -52,6 +51,34 @@ void	handle_axis(t_fdf *fdf, int x, int y)
 	}
 }
 
+void	display_menu(t_fdf *fdf)
+{
+	int	x;
+	int	y;
+
+	y = 0;
+	while (y < HEIGHT)
+	{
+		x = 0;
+		while (x < MENU_WIDTH)
+		{
+			if (x >= MENU_WIDTH - 2)
+				mlx_put_pixel(fdf->img, x, y, 0x00000077);
+			else
+				mlx_put_pixel(fdf->img, x, y, 0x19197077);
+			x++;
+		}
+		y++;
+	}
+	mlx_put_string(fdf->mlx, "INSTRUCTIONS", 100, 30);
+	mlx_put_string(fdf->mlx, "Mouse SCROLL:", 20, 100);
+	mlx_put_string(fdf->mlx, "zoom in/out;", 70, 120);
+	mlx_put_string(fdf->mlx, "+ and -:", 20, 160);
+	mlx_put_string(fdf->mlx, "changes Z scale;", 70, 180);
+	mlx_put_string(fdf->mlx, "Arrow-UP/DOWN:", 20, 220);
+	mlx_put_string(fdf->mlx, "changes isometric angle;", 70, 240);
+}
+
 void	ft_render(void *param)
 {
 	int		x;
@@ -60,10 +87,12 @@ void	ft_render(void *param)
 
 	y = 0;
 	fdf = (t_fdf *)param;
-	fdf->cords->pos_x = (WIDTH / 2);
+	fdf->cords->pos_x = ((WIDTH + MENU_WIDTH) / 2);
 	fdf->cords->pos_y = (HEIGHT / 2);
 	fdf->map->mid_w = fdf->map->width / 2;
 	fdf->map->mid_h = fdf->map->height / 2;
+	fdf->z_highest = get_highest_z(fdf);
+	display_menu(fdf);
 	while (y < fdf->map->height)
 	{
 		x = 0;

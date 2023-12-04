@@ -3,7 +3,9 @@
         "*.clang-format": "cpp",
         "fdf.h": "c",
         "mlx42.h": "c",
-        "libft.h": "c"
+        "libft.h": "c",
+        "fdf_bonus.h": "c",
+        "typeinfo": "c"
     },
     "C_Cpp.errorSquiggles": "disabled"
 }
