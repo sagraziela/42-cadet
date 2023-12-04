@@ -6,7 +6,7 @@
 /*   By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 16:16:35 by gde-souz          #+#    #+#             */
-/*   Updated: 2023/12/04 11:25:33 by gde-souz         ###   ########.fr       */
+/*   Updated: 2023/12/04 18:44:30 by gde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,11 +47,14 @@ void	handle_keyboard(mlx_key_data_t keydata, void *param)
 	t_fdf	*fdf;
 
 	fdf = (t_fdf *)param;
-	if ((keydata.key == MLX_KEY_UP || keydata.key == MLX_KEY_W)
-		&& (fdf->map->angle < fdf->map->max_angle))
+	if (keydata.key == MLX_KEY_ESCAPE)
+	{
+		mlx_close_window(fdf->mlx);
+		return ;
+	}
+	if ((keydata.key == MLX_KEY_UP || keydata.key == MLX_KEY_W))
 		rotate_img(fdf, 'y', 0.1);
-	if ((keydata.key == MLX_KEY_DOWN || keydata.key == MLX_KEY_S)
-		&& (fdf->map->angle > fdf->map->min_angle))
+	if ((keydata.key == MLX_KEY_DOWN || keydata.key == MLX_KEY_S))
 		rotate_img(fdf, 'y', -0.1);
 	if ((keydata.key == MLX_KEY_KP_ADD || keydata.key == MLX_KEY_EQUAL)
 		&& fdf->z_scale < fdf->z_max)
@@ -59,8 +62,6 @@ void	handle_keyboard(mlx_key_data_t keydata, void *param)
 	if ((keydata.key == MLX_KEY_KP_SUBTRACT || keydata.key == MLX_KEY_MINUS)
 		&& fdf->z_scale > fdf->z_min)
 		handle_z_scale(fdf, -1);
-	if (keydata.key == MLX_KEY_ESCAPE)
-		exit_fdf(fdf);
 }
 
 void	handle_mouse(double xdelta, double ydelta, void *param)

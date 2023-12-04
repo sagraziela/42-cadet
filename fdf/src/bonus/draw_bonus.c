@@ -6,7 +6,7 @@
 /*   By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 17:35:01 by gde-souz          #+#    #+#             */
-/*   Updated: 2023/12/04 11:25:36 by gde-souz         ###   ########.fr       */
+/*   Updated: 2023/12/04 18:44:36 by gde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,10 @@
 
 void	draw_line(t_fdf *fdf, int x, int y)
 {
-	while ((fdf->cords->x1 > fdf->cords->x2 || fdf->cords->x1 < fdf->cords->x2)
-		&& fdf->cords->y1 < fdf->cords->y2)
+	unsigned int	i;
+
+	i = 0;
+	while (i < fdf->cords->steps)
 	{
 		set_color(fdf, x, y);
 		if ((fdf->cords->x1 < WIDTH && fdf->cords->x1 > MENU_WIDTH
@@ -24,6 +26,7 @@ void	draw_line(t_fdf *fdf, int x, int y)
 			mlx_put_pixel(fdf->img, fdf->cords->x1, fdf->cords->y1, fdf->color);
 		fdf->cords->x1 += fdf->cords->x_len;
 		fdf->cords->y1 += fdf->cords->y_len;
+		i++;
 	}
 }
 
@@ -85,11 +88,8 @@ void	ft_render(void *param)
 
 	y = 0;
 	fdf = (t_fdf *)param;
-	fdf->cords->pos_x = ((WIDTH + MENU_WIDTH) / 2);
-	fdf->cords->pos_y = (HEIGHT / 2);
 	fdf->map->mid_w = fdf->map->width / 2;
 	fdf->map->mid_h = fdf->map->height / 2;
-	fdf->z_highest = get_highest_z(fdf);
 	display_menu(fdf);
 	while (y < fdf->map->height)
 	{

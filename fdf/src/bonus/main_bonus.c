@@ -6,11 +6,11 @@
 /*   By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 15:51:51 by gde-souz          #+#    #+#             */
-/*   Updated: 2023/12/04 11:22:29 by gde-souz         ###   ########.fr       */
+/*   Updated: 2023/12/04 18:44:47 by gde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/fdf.h"
+#include "../../includes/fdf_bonus.h"
 
 t_fdf	*fdf_init(int n_args, char *map_name)
 {
@@ -40,8 +40,8 @@ int	check_file_format(const char *filename)
 
 	format = ft_strnstr(filename, ".fdf", ft_strlen(filename));
 	if (!format)
-		return (0);
-	return (1);
+		return (1);
+	return (0);
 }
 
 void	error_message(void)
@@ -49,8 +49,8 @@ void	error_message(void)
 	ft_putstr_fd("---------- This is gde-souz's FDF! ----------\n\n", 1);
 	ft_putstr_fd("HOW TO RUN:\n", 1);
 	ft_putstr_fd("'./fdf  [map file]'		|		", 1);
-	ft_putstr_fd("ATENTION: the file must end with '.fdf'\n\n", 1);
-	ft_putstr_fd("EXAMPLE: ./fdf ./test_maps/42.fdf\n", 1);
+	ft_putstr_fd("ATTENTION: the file must end with '.fdf'\n\n", 1);
+	ft_putstr_fd("EXAMPLE: ./fdf ./test_maps/42.fdf\n\n", 1);
 	ft_putstr_fd("---------- ----------------------- ----------\n", 1);
 }
 
@@ -71,8 +71,9 @@ void	exit_fdf(void *param)
 		}
 		free(fdf->map->matrix);
 		free(fdf->name);
-		mlx_terminate(fdf->mlx);
 	}
+	mlx_close_window(fdf->mlx);
+	mlx_terminate(fdf->mlx);
 	free(fdf->map);
 	free(fdf->cords);
 	free(fdf);
@@ -83,13 +84,13 @@ int	main(int argc, char **argv)
 	t_fdf	*fdf;
 
 	fdf = fdf_init(argc, argv[1]);
-	if (argv[1])
+	if (argv[1] && !check_file_format(argv[1]))
 	{
-		fdf->mlx = mlx_init(WIDTH, HEIGHT, fdf->name, true);
-		fdf->img = mlx_new_image(fdf->mlx, WIDTH, HEIGHT);
-		if (check_file_format(fdf->name) && fdf->mlx && fdf->img)
+		fdf->map = read_map(argv[1], fdf->map);
+		if (fdf->map)
 		{
-			fdf->map = read_map(argv[1], fdf->map);
+			fdf->mlx = mlx_init(WIDTH, HEIGHT, fdf->name, true);
+			fdf->img = mlx_new_image(fdf->mlx, WIDTH, HEIGHT);
 			mlx_image_to_window(fdf->mlx, fdf->img, 0, 0);
 			ft_render(fdf);
 			mlx_scroll_hook(fdf->mlx, handle_mouse, fdf);
@@ -98,9 +99,8 @@ int	main(int argc, char **argv)
 			exit_fdf(fdf);
 			return (EXIT_SUCCESS);
 		}
-		mlx_terminate(fdf->mlx);
 	}
+	free(fdf);
 	error_message();
-	exit_fdf(fdf);
 	return (EXIT_FAILURE);
 }

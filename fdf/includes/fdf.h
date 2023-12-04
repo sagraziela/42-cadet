@@ -6,7 +6,7 @@
 /*   By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/16 10:24:02 by gde-souz          #+#    #+#             */
-/*   Updated: 2023/12/04 12:53:31 by gde-souz         ###   ########.fr       */
+/*   Updated: 2023/12/04 18:38:02 by gde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@
 # include <stdlib.h>
 # include <stdbool.h>
 # include <math.h>
-#include <stdio.h>
 # include "../MLX42/include/MLX42/MLX42.h"
 # include "./libft.h"
 # include "./get_next_line.h"
@@ -67,8 +66,6 @@ typedef struct s_map
 	int		width;
 	int		**matrix;
 	float	angle;
-	float	min_angle;
-	float	max_angle;
 	int		mid_h;
 	int		mid_w;
 }	t_map;
@@ -104,7 +101,7 @@ void	ft_render(void *param);
 void	set_start(t_fdf *fdf, int x1, int y1);
 void	set_end(t_fdf *fdf, int x2, int y2);
 void	set_z(t_fdf *fdf, t_point *cords, t_map *map);
-int		get_highest_z(t_fdf *fdf);
+void	set_cords_scale(t_fdf *fdf);
 void	bresenham(t_fdf *fdf);
 void	centralize(t_fdf *fdf);
 void	zoom(t_fdf *fdf, int *zoom);

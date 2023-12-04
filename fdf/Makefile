@@ -6,7 +6,7 @@
 #    By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/04 16:42:26 by gde-souz          #+#    #+#              #
-#    Updated: 2023/12/04 11:23:14 by gde-souz         ###   ########.fr        #
+#    Updated: 2023/12/04 18:38:48 by gde-souz         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,6 @@ MLX = ./MLX42/build/libmlx42.a
 MLX_FLAGS = -IMLX42/include/MLX42 -ldl -lglfw -pthread -lm -Ofast -flto
 
 # fdf
-PATH_MANDATORY = ./src/mandatory/
 SRC = ./src/mandatory/main.c \
 		./src/mandatory/init.c \
 		./src/mandatory/read_file.c \
@@ -38,15 +37,16 @@ SRC = ./src/mandatory/main.c \
 		./src/mandatory/draw_utils.c \
 		./src/mandatory/controls.c \
 		./src/mandatory/calc.c \
+		./src/mandatory/color.c
 
-PATH_BONUS = ./src/bonus/
-SRC_BONUS = main_bonus.c \
-			init_bonus.c \
-			read_file_bonus.c \
-			draw_bonus.c \
-			draw_utils_bonus.c \
-			controls_bonus.c \
-			calc_bonus.c \
+SRC_BONUS = ./src/bonus/main_bonus.c \
+			./src/bonus/init_bonus.c \
+			./src/bonus/read_file_bonus.c \
+			./src/bonus/draw_bonus.c \
+			./src/bonus/draw_utils_bonus.c \
+			./src/bonus/controls_bonus.c \
+			./src/bonus/calc_bonus.c \
+			./src/bonus/color_bonus.c
 # Objects
 OBJ_PATH = ./build/
 OBJ = $(addprefix $(OBJ_PATH), $(notdir $(SRC:.c=.o)))
