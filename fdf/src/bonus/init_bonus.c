@@ -6,7 +6,7 @@
 /*   By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 15:31:26 by gde-souz          #+#    #+#             */
-/*   Updated: 2023/12/04 18:44:45 by gde-souz         ###   ########.fr       */
+/*   Updated: 2023/12/06 16:27:12 by gde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	init_fdf_variables(t_fdf *fdf, char *map_name, int n_args)
 {
-	if (map_name != NULL)
+	if (map_name != NULL && map_name)
 		fdf->name = ft_strjoin("FDF - ", ft_strrchr(map_name, '/'));
 	else
 		fdf->name = NULL;
@@ -22,8 +22,8 @@ void	init_fdf_variables(t_fdf *fdf, char *map_name, int n_args)
 	fdf->zoom = 0;
 	fdf->color = 0;
 	fdf->z_scale = 1;
-	fdf->z_max = 1000;
-	fdf->z_min = -1000;
+	fdf->z_max = 100;
+	fdf->z_min = -100;
 	fdf->z_pos = 0;
 	fdf->z_highest = 0;
 }

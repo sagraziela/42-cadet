@@ -6,7 +6,7 @@
 /*   By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 11:24:25 by gde-souz          #+#    #+#             */
-/*   Updated: 2023/12/04 18:43:41 by gde-souz         ###   ########.fr       */
+/*   Updated: 2023/12/06 11:50:27 by gde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@
 
 # define WIDTH 1910
 # define HEIGHT 990
-
 # define MENU_WIDTH 320
 
 # define DOWN0 0x000ed1
@@ -105,10 +104,10 @@ void	set_cords_scale(t_fdf *fdf);
 void	bresenham(t_fdf *fdf);
 void	centralize(t_fdf *fdf);
 void	zoom(t_fdf *fdf, int *zoom);
-void	set_color(t_fdf *fdf, int x, int y);
 void	isometric(t_fdf *fdf, float *x, float *y, int z);
+void	set_color(t_fdf *fdf, int x, int y);
 void	handle_keyboard(mlx_key_data_t keydata, void *param);
 void	handle_mouse(double xdelta, double ydelta, void *param);
-void	exit_fdf(void *param);
+void	exit_fdf(t_fdf *fdf);
 
 #endif

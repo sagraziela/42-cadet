@@ -6,7 +6,7 @@
 #    By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/04 16:42:26 by gde-souz          #+#    #+#              #
-#    Updated: 2023/12/04 18:38:48 by gde-souz         ###   ########.fr        #
+#    Updated: 2023/12/06 17:29:55 by gde-souz         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,6 +26,7 @@ PATH_GNL = ./gnl/
 GNL = $(addprefix $(PATH_GNL), gnl.a)
 
 # MLX
+MLX_BUILD = ./MLX42
 MLX = ./MLX42/build/libmlx42.a
 MLX_FLAGS = -IMLX42/include/MLX42 -ldl -lglfw -pthread -lm -Ofast -flto
 
@@ -61,12 +62,40 @@ CYAN= \033[0;36m
 # Default target to compile the mandatory part
 all: $(NAME)
 
+# Target to build the mandatory part
+$(NAME): $(MLX) $(LIBFT) $(GNL) $(OBJ)
+	@rm -f $(OBJ_BONUS)
+	@rm -rf $(OBJ_PATH_BONUS)
+	@cp $(LIBFT) $(NAME)
+	@cp $(GNL) $(NAME)
+	$(CC) $(OBJ) $(LIBFT) $(GNL) $(MLX) -L$(PATH_LIBFT) -L$(PATH_GNL) -lft $(MLX_FLAGS) -o $(NAME)
+	@echo "$(PURPLE)--------------------------------------------------"
+	@echo "$(PURPLE)The [$(CYAN)FDF$(PURPLE)] has been compiled! 🤠"
+	@echo "$(PURPLE)--------------------------------------------------"
+
+# Target to build the bonus part
+bonus: $(MLX) $(LIBFT) $(GNL) $(OBJ_BONUS)
+	@rm -f $(OBJ)
+	@rm -rf $(OBJ_PATH)
+	@cp $(LIBFT) $(NAME)
+	@cp $(GNL) $(NAME)
+	$(CC) $(OBJ_BONUS) $(LIBFT) $(GNL) $(MLX) -L$(PATH_LIBFT) -L$(PATH_GNL) -lft $(MLX_FLAGS) -o $(NAME)
+	@echo "$(PURPLE)--------------------------------------------------"
+	@echo "$(PURPLE)The [$(CYAN)FDF_BONUS$(PURPLE)] has been compiled! 🤠"
+	@echo "$(PURPLE)--------------------------------------------------"
+
 # Builds dependencies
 $(LIBFT):
 	@make -C $(PATH_LIBFT)
 
 $(GNL):
 	@make -C $(PATH_GNL)
+
+$(MLX):
+ifeq ($(wildcard $(MLX_BUILD)/build/ ), )
+	@cd ./MLX42/ && cmake -B build
+	@cd ./MLX42/ && cmake --build build -j4
+endif
 
 # Builds mandatory object files
 $(OBJ_PATH)%.o: src/mandatory/%.c
@@ -77,24 +106,6 @@ $(OBJ_PATH)%.o: src/mandatory/%.c
 $(OBJ_PATH_BONUS)%.o: src/bonus/%.c
 	@mkdir -p $(OBJ_PATH_BONUS)
 	$(CC) $(CFLAGS) -c $< -o $@ -I $(dir $@)
-
-# Target to build the mandatory part
-$(NAME): $(LIBFT) $(GNL) $(OBJ)
-	@cp $(LIBFT) $(NAME)
-	@cp $(GNL) $(NAME)
-	$(CC) $(OBJ) $(LIBFT) $(GNL) $(MLX) -L$(PATH_LIBFT) -L$(PATH_GNL) -lft $(MLX_FLAGS) -o $(NAME)
-	@echo "$(PURPLE)--------------------------------------------------"
-	@echo "$(PURPLE)The [$(CYAN)FDF$(PURPLE)] has been compiled! 🤠"
-	@echo "$(PURPLE)--------------------------------------------------"
-
-# Target to build the bonus part
-bonus: $(LIBFT) $(GNL) $(OBJ_BONUS)
-	@cp $(LIBFT) $(NAME)
-	@cp $(GNL) $(NAME)
-	$(CC) $(OBJ_BONUS) $(LIBFT) $(GNL) $(MLX) -L$(PATH_LIBFT) -L$(PATH_GNL) -lft $(MLX_FLAGS) -o $(NAME)
-	@echo "$(PURPLE)--------------------------------------------------"
-	@echo "$(PURPLE)The [$(CYAN)FDF_BONUS$(PURPLE)] has been compiled! 🤠"
-	@echo "$(PURPLE)--------------------------------------------------"
 
 # Cleans object files and dependencies
 clean:
@@ -125,4 +136,4 @@ fclean: clean
 re: fclean all
 
 # Phony targets
-.PHONY: all bonus clean fclean re
+.PHONY: all bonus clean fclean re $(MLX_BUILD)
