@@ -1,5 +1,5 @@
 # 42-cadet
-Projects developed in the trainning course of School 42 - São Paulo
+Projects developed during the Software Engineering course at School 42 - São Paulo
 
 
 PHASE 01:
