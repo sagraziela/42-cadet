@@ -1,39 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   swap_bits.c                                        :+:      :+:    :+:   */
+/*   atoi.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/26 18:01:29 by gde-souz          #+#    #+#             */
-/*   Updated: 2023/11/17 12:01:26 by gde-souz         ###   ########.fr       */
+/*   Created: 2023/12/07 11:00:44 by gde-souz          #+#    #+#             */
+/*   Updated: 2023/12/07 11:24:09 by gde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 
-unsigned char	swap_bits(unsigned char octet)
+int	ft_atoi(const char *str)
 {
-	unsigned char	res;
+	int	i;
+	int	sign;
+	int	result;
 
-	res = (octet >> 4) | (octet << 4);
-	printf("%u\n", res);
-	return (res);
+	i = 0;
+	sign = 1;
+	result = 0;
+	while (str[i] < 48 || str[i] > 57)
+	{
+		if (str[i] == 45)
+			sign *= -1;
+		i++;
+	}
+	while (str[i] >= 48 && str[i] <= 57)
+	{
+		result = (result * 10) + (str[i] - 48);
+		i++;
+	}
+	return (result * sign);
 }
 
 int	main(void)
 {
-	unsigned char	ch;
-
-	ch = 'a';
-	printf("%u\n", ch);
-	swap_bits(ch);
+	printf("%d\n", ft_atoi("-145"));
+	return (0);
 }
-
-// unsigned char	swap_bits(unsigned char octet)
-// {
-// 	unsigned char	result;
-
-// 	result = (octet >> 4) | (octet << 4);
-// 	return (result);
-// }

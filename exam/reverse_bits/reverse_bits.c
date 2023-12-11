@@ -1,39 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   swap_bits.c                                        :+:      :+:    :+:   */
+/*   reverse_bits.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/26 18:01:29 by gde-souz          #+#    #+#             */
-/*   Updated: 2023/11/17 12:01:26 by gde-souz         ###   ########.fr       */
+/*   Created: 2023/11/17 12:02:21 by gde-souz          #+#    #+#             */
+/*   Updated: 2023/11/17 12:24:12 by gde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <unistd.h>
 #include <stdio.h>
 
-unsigned char	swap_bits(unsigned char octet)
+unsigned char	reverse_bits(unsigned char octet)
 {
-	unsigned char	res;
+	unsigned char	result;
+	int				i;
 
-	res = (octet >> 4) | (octet << 4);
-	printf("%u\n", res);
-	return (res);
+	i = 8;
+	while (i--)
+	{
+		result = result * 2 + (octet % 2);
+		octet /= 2;
+		i--;
+	}
+	return (result);
 }
 
 int	main(void)
 {
-	unsigned char	ch;
-
-	ch = 'a';
-	printf("%u\n", ch);
-	swap_bits(ch);
+	printf("Result: %u\n", reverse_bits(1));
 }
-
-// unsigned char	swap_bits(unsigned char octet)
-// {
-// 	unsigned char	result;
-
-// 	result = (octet >> 4) | (octet << 4);
-// 	return (result);
-// }

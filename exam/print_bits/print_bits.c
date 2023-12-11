@@ -1,39 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   swap_bits.c                                        :+:      :+:    :+:   */
+/*   print_bits.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/26 18:01:29 by gde-souz          #+#    #+#             */
-/*   Updated: 2023/11/17 12:01:26 by gde-souz         ###   ########.fr       */
+/*   Created: 2023/11/17 11:51:19 by gde-souz          #+#    #+#             */
+/*   Updated: 2023/11/17 11:58:12 by gde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
+#include <unistd.h>
 
-unsigned char	swap_bits(unsigned char octet)
+void	print_bits(unsigned char octet)
 {
-	unsigned char	res;
+	int				i;
+	unsigned char	bit;
 
-	res = (octet >> 4) | (octet << 4);
-	printf("%u\n", res);
-	return (res);
+	i = 8;
+	while (i--)
+	{
+		bit = (octet >> i & 1) + '0';
+		write(1, &bit, 1);
+	}
 }
 
 int	main(void)
 {
-	unsigned char	ch;
-
-	ch = 'a';
-	printf("%u\n", ch);
-	swap_bits(ch);
+	print_bits(8);
 }
-
-// unsigned char	swap_bits(unsigned char octet)
-// {
-// 	unsigned char	result;
-
-// 	result = (octet >> 4) | (octet << 4);
-// 	return (result);
-// }

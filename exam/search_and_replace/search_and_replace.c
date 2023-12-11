@@ -1,39 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   swap_bits.c                                        :+:      :+:    :+:   */
+/*   search_and_replace.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/26 18:01:29 by gde-souz          #+#    #+#             */
-/*   Updated: 2023/11/17 12:01:26 by gde-souz         ###   ########.fr       */
+/*   Created: 2023/11/16 14:48:25 by gde-souz          #+#    #+#             */
+/*   Updated: 2023/11/16 15:09:27 by gde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
+#include <unistd.h>
 
-unsigned char	swap_bits(unsigned char octet)
+void	search_and_replace(char *str, char letter, char new_letter)
 {
-	unsigned char	res;
+	int	i;
 
-	res = (octet >> 4) | (octet << 4);
-	printf("%u\n", res);
-	return (res);
+	i = 0;
+	while (str[i] != '\0')
+	{
+		if (str[i] == letter)
+			write(1, &new_letter, 1);
+		else
+			write(1, &str[i], 1);
+		i++;
+	}
 }
 
-int	main(void)
+int	main(int argc, char **argv)
 {
-	unsigned char	ch;
-
-	ch = 'a';
-	printf("%u\n", ch);
-	swap_bits(ch);
+	if (argc == 4 && !argv[2][1] && !argv[3][1])
+		search_and_replace(argv[1], argv[2][0], argv[3][0]);
+	write(1, "\n", 1);
+	return (0);
 }
-
-// unsigned char	swap_bits(unsigned char octet)
-// {
-// 	unsigned char	result;
-
-// 	result = (octet >> 4) | (octet << 4);
-// 	return (result);
-// }
