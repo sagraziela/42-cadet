@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   handle_flags.c                                     :+:      :+:    :+:   */
+/*   ft_printf_handle_flags.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 17:37:02 by gde-souz          #+#    #+#             */
-/*   Updated: 2023/12/11 11:58:44 by gde-souz         ###   ########.fr       */
+/*   Updated: 2023/12/13 12:13:49 by gde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/ft_printf.h"
+#include "../includes/libft.h"
 
 static int	apply_plus_space(char **flag)
 {

@@ -6,15 +6,11 @@ NAME_BS		= server_bonus
 
 # Compilation flags
 CFLAGS = -Wall -Wextra -Werror -g3
-INCLUDES = ./includes
 
 # Libft
 PATH_LIBFT = ./libft/
-LIBFT = $(addprefix $(PATH_LIBFT), libft.a)
-
-# FT_PRINTF
-PATH_FT_PRINTF = ./ft_printf/
-FT_PRINTF = $(addprefix $(PATH_FT_PRINTF), ftprintf.a)
+LIBFT = ./libft/libft.a
+TEST_LIB = $(shell test -f ./libft/libft.a && echo "yes" 2>&1)
 
 # MINITALK
 PATH_MANDATORY	=	./src/mandatory/
@@ -27,8 +23,8 @@ SERVER_B	=	$(addprefix $(PATH_B), server.c)
 SRC_BONUS = ./src/bonus/main_bonus.c \
 
 # Objects
-CLIENT_M_O	=	$(CLIENT_M:%.c=%.o)
-SERVER_M_O	=	$(SERVER_M:%.c=%.o)
+CLIENT_M_O	=	$(addprefix $(PATH_MANDATORY), $(CLIENT_M:.c=.o))
+SERVER_M_O	=	$(addprefix $(PATH_MANDATORY), $(SERVER_M:.c=.o))
 
 CLIENT_B_O	=	$(CLIENT_B:%.c=%.o)
 SERVER_B_O	= 	$(SERVER_B:%.c=%.o)
@@ -36,62 +32,63 @@ SERVER_B_O	= 	$(SERVER_B:%.c=%.o)
 # Color codes of output on terminal
 PURPLE = \033[1;35m
 WHITE = \033[1;37m
-CYAN= \033[0;36m
+CYAN = \033[0;36m
 
 # Default target to compile the mandatory part
-all: $(NAME_MS) $(NAME_MC)
+all: libft $(NAME_MC) $(NAME_MS)
+
+# target to build deps
+libft:
+	@if ! [ $(TEST_LIB) ]; then echo "$(CYAN)-*- Creating libft library. -*-$(WHITE)";fi
+	@make -C $(PATH_LIBFT) --no-print-directory
 
 # Target to build the mandatory part
-$(NAME_MC): $(CLIENT_M_O)
+$(NAME_MC): $(LIBFT) $(CLIENT_M_O)
 	@cp $(LIBFT) $(NAME_MC)
-	@cp $(FT_PRINTF) $(NAME_MC)
-	$(CC) $(CFLAGS) $< -I $(PATH_M) $(LIBFT) $(FT_PRINTF) -o $@
+	$(CC) $(CFLAGS) $(CLIENT_M_O) $(LIBFT) -I $(PATH_MANDATORY) -L$(PATH_LIBFT) -o $(NAME_MC)
 	@echo "$(PURPLE)--------------------------------------------------"
 	@echo "$(PURPLE)The [$(CYAN)MINITALK_CLIENT$(PURPLE)] has been compiled! 🤠"
 	@echo "$(PURPLE)--------------------------------------------------"
 
-$(NAME_MS): $(SERVER_M_O)
+$(NAME_MS): $(LIBFT) $(SERVER_M_O)
 	@cp $(LIBFT) $(NAME_MS)
-	@cp $(FT_PRINTF) $(NAME_MS)
-	$(CC) $(CFLAGS) $< -I $(PATH_M) $(LIBFT) $(FT_PRINTF) -o $@
+	$(CC) $(CFLAGS) $(SERVER_M_O) $(LIBFT) -I $(PATH_MANDATORY) -L$(PATH_LIBFT) -o $(NAME_MS)
 	@echo "$(PURPLE)--------------------------------------------------"
 	@echo "$(PURPLE)The [$(CYAN)MINITALK_SERVER$(PURPLE)] has been compiled! 🤠"
 	@echo "$(PURPLE)--------------------------------------------------"
 
 # Target to build the bonus part
-bonus: $(LIBFT) $(FT_PRINTF) $(OBJ_BONUS)
-	@rm -f $(OBJ)
-	@rm -rf $(OBJ_PATH)
-	@cp $(LIBFT) $(NAME)
-	@cp $(FT_PRINTF) $(NAME)
-	$(CC) $(OBJ_BONUS) $(LIBFT) $(FT_PRINTF) -L$(PATH_LIBFT) -L$(PATH_FT_PRINTF) -o $(NAME)
+bonus: libft $(NAME_BC) $(NAME_BS)
+
+$(NAME_BC): $(LIBFT) $(CLIENT_B_O)
+	@cp $(LIBFT) $(NAME_BC)
+	$(CC) $(CFLAGS) $(CLIENT_B_O) $(LIBFT) -I $(PATH_BONUS) -L$(PATH_LIBFT) -o $(NAME_MC)
 	@echo "$(PURPLE)--------------------------------------------------"
-	@echo "$(PURPLE)The [$(CYAN)FDF_BONUS$(PURPLE)] has been compiled! 🤠"
+	@echo "$(PURPLE)The [$(CYAN)BONUS_MINITALK_CLIENT$(PURPLE)] has been compiled! 🤠"
 	@echo "$(PURPLE)--------------------------------------------------"
 
-# Builds dependencies
-$(LIBFT):
-	@make -C $(PATH_LIBFT)
-
-$(FT_PRINTF):
-	@make -C $(PATH_FT_PRINTF)
+$(NAME_BS): $(LIBFT) $(SERVER_B_O)
+	@cp $(LIBFT) $(NAME_BS)
+	$(CC) $(CFLAGS) $(SERVER_B_O) $(LIBFT) -I $(PATH_BONUS) -L$(PATH_LIBFT) -o $(NAME_MS)
+	@echo "$(PURPLE)--------------------------------------------------"
+	@echo "$(PURPLE)The [$(CYAN)BONUS_MINITALK_SERVER$(PURPLE)] has been compiled! 🤠"
+	@echo "$(PURPLE)--------------------------------------------------"
 
 # Builds mandatory object files
-$(OBJ_PATH)%.o: src/mandatory/%.c
+$(PATH_MANDATORY)%.o: src/mandatory/%.c
 	$(CC) $(CFLAGS) -c $< -o $@ -I $(dir $@)
 
 # Builds bonus object files
-$(OBJ_PATH_BONUS)%.o: src/bonus/%.c
+$(PATH_BONUS)%.o: src/bonus/%.c
 	$(CC) $(CFLAGS) -c $< -o $@ -I $(dir $@)
 
 # Cleans object files and dependencies
 clean:
-	@rm -f $(OBJ)
-	@rm -f $(OBJ_BONUS)
-	@rm -rf $(OBJ_PATH)
-	@rm -rf $(OBJ_PATH_BONUS)
+	@rm -f $(CLIENT_M_O)
+	@rm -f $(SERVER_M_O)
+	@rm -f $(CLIENT_B_O)
+	@rm -f $(SERVER_B_O)
 	@make clean -C $(PATH_LIBFT)
-	@make clean -C $(PATH_FT_PRINTF)
 	@echo "$(WHITE)-----------------------------------"
 	@echo "$(WHITE)    Object files were cleaned!"
 	@echo "$(WHITE)-----------------------------------"
@@ -103,6 +100,7 @@ fclean: clean
 	@echo "$(WHITE)-----------------------------------"
 	@rm -f $(NAME_MC)
 	@rm -f $(NAME_MS)
+	@make clean -C $(LIBFT)
 	@echo "$(WHITE)-----------------------------------"
 	@echo "$(WHITE)    ✨ Cleaning complete! ✨"
 	@echo "$(WHITE)-----------------------------------"
@@ -111,4 +109,4 @@ fclean: clean
 re: fclean all
 
 # Phony targets
-.PHONY: all bonus clean fclean re
+.PHONY: all bonus clean fclean re libft

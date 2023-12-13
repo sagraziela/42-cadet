@@ -6,7 +6,7 @@
 #    By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/19 11:35:37 by gde-souz          #+#    #+#              #
-#    Updated: 2023/12/11 14:58:01 by gde-souz         ###   ########.fr        #
+#    Updated: 2023/12/13 12:14:10 by gde-souz         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,7 +46,9 @@ SRC = ft_isalpha.c \
 		ft_putchar_fd.c \
 		ft_putstr_fd.c \
 		ft_putendl_fd.c \
-		ft_putnbr_fd.c
+		ft_putnbr_fd.c \
+		ft_printf.c \
+		ft_printf_handle_flags.c
 
 BONUS_SRC = ft_lstnew.c \
 			ft_lstadd_front.c \

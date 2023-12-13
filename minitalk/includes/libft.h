@@ -6,7 +6,7 @@
 /*   By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 13:17:17 by gde-souz          #+#    #+#             */
-/*   Updated: 2023/11/21 13:29:00 by gde-souz         ###   ########.fr       */
+/*   Updated: 2023/12/13 11:19:10 by gde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,13 @@
 
 # include <stdlib.h>
 # include <unistd.h>
+# include <stdarg.h>
+
+# define DECIMAL    "0123456789"
+# define HEXALOW    "0123456789abcdef"
+# define HEXAUP     "0123456789ABCDEF"
+# define DATA_TYPES "cspdiuxX%"
+# define FLAGS      "-0.# +"
 
 int		ft_isalpha(int c);
 int		ft_isdigit(int c);
@@ -46,9 +53,13 @@ char	**ft_split(char const *s, char c);
 char	*ft_itoa(int n);
 char	*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 void	ft_striteri(char *s, void (*f)(unsigned int, char*));
-void	ft_putchar_fd(char c, int fd);
-void	ft_putstr_fd(char *s, int fd);
+int		ft_putchar_fd(char c, int fd);
+int		ft_putstr_fd(char *s, int fd);
 void	ft_putendl_fd(char *s, int fd);
 void	ft_putnbr_fd(int n, int fd);
+
+int		ft_printf(const char *str, ...);
+int		ft_putnbr_base(long long nbr, char *base);
+int		handle_flags(char *flag, va_list args);
 
 #endif
