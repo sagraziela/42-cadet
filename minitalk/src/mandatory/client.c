@@ -6,11 +6,42 @@
 /*   By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 15:32:43 by gde-souz          #+#    #+#             */
-/*   Updated: 2023/12/13 17:04:43 by gde-souz         ###   ########.fr       */
+/*   Updated: 2023/12/14 17:39:51 by gde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./minitalk.h"
+
+int	g_delivered = 0;
+
+void	signal_delivery(int signo)
+{
+	if (signo == SIGUSR1)
+	{
+		g_delivered = 1;
+	}
+}
+
+void	send_signal(unsigned char octet, int pid)
+{
+	int				i;
+	unsigned char	bit;
+
+	i = 0;
+	while (i < 8)
+	{
+		g_delivered = 0;
+		bit = ((octet >> i) & 1);
+		ft_printf("%d", bit);
+		if (bit == 0)
+			kill(pid, SIGUSR1);
+		else if (bit == 1)
+			kill(pid, SIGUSR2);
+		i++;
+		while (!g_delivered)
+			;
+	}
+}
 
 int	main(int argc, char **argv)
 {
@@ -20,14 +51,16 @@ int	main(int argc, char **argv)
 
 	pid = 0;
 	i = 0;
-	ft_putstr_fd("hello, client!\n", 1);
 	if (argc == 3)
 	{
 		pid = ft_atoi(argv[1]);
-		while (argv[2][i])
+		sa.sa_handler = signal_delivery;
+		sa.sa_flags = 0;
+		sigaction(SIGUSR1, &sa, NULL);
+		while (argv[2][i] != '\0')
 		{
-			sigaction(SIGUSR1, &sa, NULL);
-			sendsig(argv[2], pid);
+			send_signal(argv[2][i], pid);
+			i++;
 		}
 	}
 	return (0);
