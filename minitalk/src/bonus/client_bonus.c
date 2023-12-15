@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   client.c                                           :+:      :+:    :+:   */
+/*   client_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 15:32:43 by gde-souz          #+#    #+#             */
-/*   Updated: 2023/12/15 12:58:04 by gde-souz         ###   ########.fr       */
+/*   Updated: 2023/12/15 13:40:55 by gde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./minitalk.h"
+#include "./minitalk_bonus.h"
 
 int	g_delivered = 0;
 
@@ -19,6 +19,7 @@ void	signal_delivery(int signo)
 	if (signo == SIGUSR1)
 	{
 		g_delivered = 1;
+		ft_printf("Signal delivered\n");
 	}
 }
 

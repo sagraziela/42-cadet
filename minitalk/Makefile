@@ -18,16 +18,15 @@ CLIENT_M	=	$(addprefix $(PATH_M), client.c)
 SERVER_M	=	$(addprefix $(PATH_M), server.c)
 
 PATH_BONUS	=	./src/bonus/
-CLIENT_B	=	$(addprefix $(PATH_B), client.c)
-SERVER_B	=	$(addprefix $(PATH_B), server.c)
-SRC_BONUS = ./src/bonus/main_bonus.c \
+CLIENT_B	=	$(addprefix $(PATH_B), client_bonus.c)
+SERVER_B	=	$(addprefix $(PATH_B), server_bonus.c)
 
 # Objects
 CLIENT_M_O	=	$(addprefix $(PATH_MANDATORY), $(CLIENT_M:.c=.o))
 SERVER_M_O	=	$(addprefix $(PATH_MANDATORY), $(SERVER_M:.c=.o))
 
-CLIENT_B_O	=	$(CLIENT_B:%.c=%.o)
-SERVER_B_O	= 	$(SERVER_B:%.c=%.o)
+CLIENT_B_O	=	$(addprefix $(PATH_BONUS), $(CLIENT_B:%.c=%.o))
+SERVER_B_O	= 	$(addprefix $(PATH_BONUS), $(SERVER_B:%.c=%.o))
 
 # Color codes of output on terminal
 PURPLE = \033[1;35m
@@ -62,14 +61,14 @@ bonus: libft $(NAME_BC) $(NAME_BS)
 
 $(NAME_BC): $(LIBFT) $(CLIENT_B_O)
 	@cp $(LIBFT) $(NAME_BC)
-	$(CC) $(CFLAGS) $(CLIENT_B_O) $(LIBFT) -I $(PATH_BONUS) -L$(PATH_LIBFT) -o $(NAME_MC)
+	$(CC) $(CFLAGS) $(CLIENT_B_O) $(LIBFT) -I $(PATH_BONUS) -L$(PATH_LIBFT) -o $(NAME_BC)
 	@echo "$(PURPLE)--------------------------------------------------"
 	@echo "$(PURPLE)The [$(CYAN)BONUS_MINITALK_CLIENT$(PURPLE)] has been compiled! 🤠"
 	@echo "$(PURPLE)--------------------------------------------------"
 
 $(NAME_BS): $(LIBFT) $(SERVER_B_O)
 	@cp $(LIBFT) $(NAME_BS)
-	$(CC) $(CFLAGS) $(SERVER_B_O) $(LIBFT) -I $(PATH_BONUS) -L$(PATH_LIBFT) -o $(NAME_MS)
+	$(CC) $(CFLAGS) $(SERVER_B_O) $(LIBFT) -I $(PATH_BONUS) -L$(PATH_LIBFT) -o $(NAME_BS)
 	@echo "$(PURPLE)--------------------------------------------------"
 	@echo "$(PURPLE)The [$(CYAN)BONUS_MINITALK_SERVER$(PURPLE)] has been compiled! 🤠"
 	@echo "$(PURPLE)--------------------------------------------------"
