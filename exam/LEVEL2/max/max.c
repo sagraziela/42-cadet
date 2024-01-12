@@ -1,43 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_bits.c                                       :+:      :+:    :+:   */
+/*   max.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/17 11:51:19 by gde-souz          #+#    #+#             */
-/*   Updated: 2024/01/12 12:41:47 by gde-souz         ###   ########.fr       */
+/*   Created: 2024/01/12 15:38:46 by gde-souz          #+#    #+#             */
+/*   Updated: 2024/01/12 16:59:05 by gde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
-
-void	print_bits(unsigned char octet)
+int	max(int *tab, unsigned int len)
 {
-	int				i;
-	unsigned char	bit;
+	unsigned int	i;
+	int				largest;
 
-	i = 8;
-	while (i--)
+	if (!tab)
+		return (0);
+	i = 0;
+	largest = tab[i];
+	while (i < len)
 	{
-		bit = (octet >> i & 1) + '0';
-		write(1, &bit, 1);
+		if (tab[i] > largest)
+			largest = tab[i];
 	}
+	return (largest);
 }
-
-int	main(void)
-{
-	print_bits(8);
-}
-
-// void	pr_bits(unsigned char octet)
-// {
-// 	int				i;
-// 	unsigned char	bit;
-
-// 	while (i--)
-// 	{
-// 		bit = (octet >> i & 1) + 48;
-// 		write(1, &bit, 1);
-// 	}
-// }

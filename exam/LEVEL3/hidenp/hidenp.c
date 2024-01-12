@@ -1,43 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_bits.c                                       :+:      :+:    :+:   */
+/*   hidenp.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/17 11:51:19 by gde-souz          #+#    #+#             */
-/*   Updated: 2024/01/12 12:41:47 by gde-souz         ###   ########.fr       */
+/*   Created: 2024/01/12 16:35:04 by gde-souz          #+#    #+#             */
+/*   Updated: 2024/01/12 16:57:16 by gde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 
-void	print_bits(unsigned char octet)
+int	main(int argc, char **argv)
 {
-	int				i;
-	unsigned char	bit;
+	int	i;
+	int	j;
+	int	counter;
 
-	i = 8;
-	while (i--)
+	if (argc == 3)
 	{
-		bit = (octet >> i & 1) + '0';
-		write(1, &bit, 1);
+		i = 0;
+		j = 0;
+		counter = 0;
+		while (argv[1][i] != '\0')
+		{
+			while (argv[2][j] != '\0' && argv[1][i] != argv[2][j])
+				j++;
+			if (argv[1][i] == argv[2][j])
+				counter++;
+			i++;
+		}
+		if (counter == i)
+			write(1, "1", 1);
+		else
+			write(1, "0", 1);
 	}
+	return (0);
 }
-
-int	main(void)
-{
-	print_bits(8);
-}
-
-// void	pr_bits(unsigned char octet)
-// {
-// 	int				i;
-// 	unsigned char	bit;
-
-// 	while (i--)
-// 	{
-// 		bit = (octet >> i & 1) + 48;
-// 		write(1, &bit, 1);
-// 	}
-// }

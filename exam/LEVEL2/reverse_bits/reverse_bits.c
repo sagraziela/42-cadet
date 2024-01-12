@@ -6,7 +6,7 @@
 /*   By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/17 12:02:21 by gde-souz          #+#    #+#             */
-/*   Updated: 2023/11/17 12:24:12 by gde-souz         ###   ########.fr       */
+/*   Updated: 2024/01/12 12:45:40 by gde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ unsigned char	reverse_bits(unsigned char octet)
 	{
 		result = result * 2 + (octet % 2);
 		octet /= 2;
-		i--;
 	}
 	return (result);
 }
@@ -32,3 +31,17 @@ int	main(void)
 {
 	printf("Result: %u\n", reverse_bits(1));
 }
+
+// unsigned char	reverse_bits(unsigned char octet)
+// {
+// 	int				i;
+// 	unsigned char	result;
+
+// 	i = 8;
+// 	while (i--)
+// 	{
+// 		result = result * 2 + (octet % 2);
+// 		octet /= 2;
+// 	}
+// 	return (result);
+// }
