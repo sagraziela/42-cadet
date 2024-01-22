@@ -3,70 +3,61 @@ NAME = push_swap
 
 # Compilation flags
 CFLAGS = -Wall -Wextra -Werror -g3
+INCLUDES = -I ./includes
 
-# Dependencies
+# Libft
 PATH_LIBFT = ./libft/
-LIBFT = ./libft/libft.a
-TEST_LIB = $(shell test -f ./libft/libft.a && echo "yes" 2>&1)
+LIBFT = $(addprefix $(PATH_LIBFT), libft.a)
 
-# Push_swap mandatory
-MANDATORY_PATH = ./src/
-MANDATORY_SRC = ./src/push_swap.c
-MANDATORY_OBJ = $(MANDATORY_SRC:%.c=%.o)
-MANDATORY = push_swap.o
-MANDATORY_CHECK = $(shell ar -t $(NAME) $(MANDATORY) 2>&1)
-INCLUDES = ./includes
+# push_swap
+SRC = ./src/push_swap.c
 
 # Objects
 OBJ_PATH = ./build/
 OBJ = $(addprefix $(OBJ_PATH), $(notdir $(SRC:.c=.o)))
-
-# Push_swap_bonus
-# BONUS_PATH = ./bonus/
-# BONUS_SRC = ./bonus/ft_printf_bonus.c \
-# 			./bonus/handle_flags.c
-# BONUS_OBJ = $(BONUS_SRC:%.c=%.o)
-# BONUS = bonus/ft_printf_bonus.o
-# BONUS_CHECK = $(shell ar -t $(NAME) $(BONUS) 2>&1)
+# OBJ_PATH_BONUS = ./build_bonus/
+# OBJ_BONUS = $(addprefix $(OBJ_PATH_BONUS), $(notdir $(SRC_BONUS:.c=.o)))
 
 # Color codes of output on terminal
-PURPLE = \033[1;35m
+GREEN = \e[1;32m
 WHITE = \033[1;37m
 CYAN= \033[0;36m
 
 # Default target to compile the mandatory part
-all: libft $(NAME)
-
-# target to build deps
-libft:
-	@if ! [ $(TEST_LIB) ]; then echo "$(CYAN)-*- Creating libft library. -*-$(WHITE)";fi
-	@make -C $(PATH_LIBFT) --no-print-directory
+all: $(NAME)
 
 # Target to build the mandatory part
-$(NAME): $(LIBFT) $(MANDATORY_OBJ)
+$(NAME): $(LIBFT) $(OBJ)
 	@cp $(LIBFT) $(NAME)
-	$(CC) $(MANDATORY_OBJ) $(LIBFT) -L$(PATH_LIBFT) -o $(NAME)
-	@echo "$(PURPLE)--------------------------------------------------"
-	@echo "$(PURPLE)The [$(CYAN)PUSH_SWAP$(PURPLE)] has been compiled! 🤠"
-	@echo "$(PURPLE)--------------------------------------------------"
-
-# Builds mandatory object files
-$(OBJ_PATH)%.o:$(MANDATORY_PATH)%.c
-	@mkdir -p $(OBJ_PATH)
-	$(CC) $(CFLAGS) -c $< -o $@ c
+	$(CC) $(OBJ) $(LIBFT) -L$(PATH_LIBFT) -o $(NAME)
+	@echo "$(GREEN)--------------------------------------------------"
+	@echo "$(GREEN)The [$(CYAN)PUSH_SWAP$(GREEN)] has been compiled! 🤠"
+	@echo "$(GREEN)--------------------------------------------------"
 
 # Target to build the bonus part
-# bonus: $(LIBFT) $(BONUS_OBJ)
+# bonus: $(LIBFT) $(OBJ_BONUS)
+# 	@rm -f $(OBJ)
+# 	@rm -rf $(OBJ_PATH)
 # 	@cp $(LIBFT) $(NAME)
-# 	$(AR) $(NAME) $(BONUS_OBJ)
-# 	@echo "$(PURPLE)--------------------------------------------------"
-# 	@echo "$(PURPLE)The [$(CYAN)FT_PRINTF_BONUS$(PURPLE)] has been compiled! 🏅"
-# 	@echo "$(PURPLE)--------------------------------------------------"
+# 	@cp $(NAME)
+# 	$(CC) $(OBJ_BONUS) $(LIBFT) -L$(PATH_LIBFT) -L$(PATH_GNL) -lft $(MLX_FLAGS) -o $(NAME)
+# 	@echo "$(GREEN)--------------------------------------------------"
+# 	@echo "$(GREEN)The [$(CYAN)FDF_BONUS$(GREEN)] has been compiled! 🤠"
+# 	@echo "$(GREEN)--------------------------------------------------"
+
+# Builds dependencies
+$(LIBFT):
+	@make -C $(PATH_LIBFT)
+
+# Builds mandatory object files
+$(OBJ_PATH)%.o: src/%.c
+	@mkdir -p $(OBJ_PATH)
+	$(CC) -c $(CFLAGS) $< -o $@ $(INCLUDES)
 
 # Cleans object files and dependencies
 clean:
-	@rm -f $(MANDATORY_OBJ)
-	@rm -f $(BONUS_OBJ)
+	@rm -f $(OBJ)
+	@rm -rf $(OBJ_PATH)
 	@make clean -C $(PATH_LIBFT)
 	@echo "$(WHITE)-----------------------------------"
 	@echo "$(WHITE)    Object files were cleaned!"
@@ -77,9 +68,9 @@ fclean: clean
 	@echo "$(WHITE)-----------------------------------"
 	@echo "$(WHITE)        Cleaning all... 🧹"
 	@echo "$(WHITE)-----------------------------------"
-	@make fclean -C $(PATH_LIBFT)
 	@rm -f $(NAME)
 	@rm -f $(HD)*.gch
+	@make fclean -C $(PATH_LIBFT)
 	@echo "$(WHITE)-----------------------------------"
 	@echo "$(WHITE)    ✨ Cleaning complete! ✨"
 	@echo "$(WHITE)-----------------------------------"
@@ -88,4 +79,4 @@ fclean: clean
 re: fclean all
 
 # Phony targets
-.PHONY: all clean fclean re bonus libft
+.PHONY: all bonus clean fclean re
