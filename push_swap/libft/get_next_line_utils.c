@@ -6,7 +6,7 @@
 /*   By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/31 13:59:55 by gde-souz          #+#    #+#             */
-/*   Updated: 2024/01/09 12:34:36 by gde-souz         ###   ########.fr       */
+/*   Updated: 2024/01/23 15:45:39 by gde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ t_list	*create_node(char c)
 	return (new_node);
 }
 
-t_list	*ft_lstadd(t_list *lst, char *buffer, t_list *head)
+t_list	*ft_listadd(t_list *lst, char *buffer, t_list *head)
 {
 	t_list	*last;
 	int		i;

@@ -6,7 +6,7 @@
 /*   By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 15:42:54 by root              #+#    #+#             */
-/*   Updated: 2024/01/09 12:34:25 by gde-souz         ###   ########.fr       */
+/*   Updated: 2024/01/23 15:45:33 by gde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ static t_list	*read_file(t_list *list, int fd, t_list *head)
 		if (rd == -1)
 			return (dealloc(list, buffer));
 		buffer[rd] = '\0';
-		head = ft_lstadd(list, buffer, head);
+		head = ft_listadd(list, buffer, head);
 		list = head;
 		if (!head)
 			return (dealloc(head, buffer));

@@ -6,7 +6,7 @@
 #    By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/19 11:35:37 by gde-souz          #+#    #+#              #
-#    Updated: 2024/01/09 12:32:13 by gde-souz         ###   ########.fr        #
+#    Updated: 2024/01/23 15:48:34 by gde-souz         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,18 +51,17 @@ SRC = ft_isalpha.c \
 		ft_printf_handle_flags.c \
 		get_next_line.c \
 		get_next_line_utils.c
+		ft_lstnew.c \
+		ft_lstadd_front.c \
+		ft_lstsize.c \
+		ft_lstlast.c \
+		ft_lstadd_back.c \
+		ft_lstdelone.c \
+		ft_lstclear.c \
+		ft_lstiter.c \
+		ft_lstmap.c
 
-BONUS_SRC = ft_lstnew.c \
-			ft_lstadd_front.c \
-			ft_lstsize.c \
-			ft_lstlast.c \
-			ft_lstadd_back.c \
-			ft_lstdelone.c \
-			ft_lstclear.c \
-			ft_lstiter.c \
-			ft_lstmap.c
 OBJ = $(SRC:%.c=%.o)
-BONUS_OBJ = $(BONUS_SRC:%.c=%.o)
 HD = ../includes/libft.h
 
 all: $(NAME)

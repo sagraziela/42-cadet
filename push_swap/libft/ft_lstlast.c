@@ -1,36 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap.h                                        :+:      :+:    :+:   */
+/*   ft_lstlast.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/09 12:45:27 by gde-souz          #+#    #+#             */
-/*   Updated: 2024/01/23 15:16:32 by gde-souz         ###   ########.fr       */
+/*   Created: 2023/08/08 12:38:33 by root              #+#    #+#             */
+/*   Updated: 2023/08/09 12:16:47 by gde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PUSH_SWAP_H
-# define PUSH_SWAP_H
+#include "libft.h"
 
-# include <limits.h>
-# include "./libft.h"
-
-typedef struct s_tab {
-	int				nbr;
-	struct t_tab	*prev;
-	struct t_tab	*next;
-}	t_tab;
-
-typedef struct s_stack {
-	t_tab	*a_list;
-	t_tab	*b_list;
-	long	highest;
-	long	lowest;
-	long	max_a;
-	long	max_b;
-}	t_stack;
-
-int	main(int argc, char **argv);
-
-#endif
+t_list	*ft_lstlast(t_list *lst)
+{
+	if (lst == NULL)
+		return (NULL);
+	while (lst->next != NULL)
+		lst = lst->next;
+	return (lst);
+}
