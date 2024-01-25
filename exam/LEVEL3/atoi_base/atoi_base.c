@@ -3,24 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   atoi_base.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 18:53:26 by root              #+#    #+#             */
-/*   Updated: 2024/01/17 13:26:52 by gde-souz         ###   ########.fr       */
+/*   Updated: 2024/01/18 14:42:11 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 #include <stdio.h>
 
-int	ft_strlen(char *str)
+int	is_valid(char c)
 {
-	int	i;
-
-	i = 0;
-	while (str[i])
-		i++;
-	return (i);
+	if ((c >= 48 && c <= 57) || (c >= 65 && c <= 70)
+		|| (c >= 97 && c <= 102))
+		return (1);
+	return (0);
 }
 
 char	to_lower(char c)
@@ -30,71 +28,37 @@ char	to_lower(char c)
 	return (c);
 }
 
-int	get_digit(char c, int base)
-{
-	int	max_digit;
-
-	if (base <= 10)
-		max_digit = base + 48;
-	else
-		max_digit = base + 97;
-	if (c >= 48 && c <= 57)
-	{
-		if (c > max_digit)
-			get_digit(c - base, base);
-		return (c - 48);
-	}
-	else if (c >= 97 && c <= 102)
-	{
-		if (c > max_digit)
-			get_digit(c - base, base);
-		return (c - 'a' + 10);
-	}
-	else
-		return (-1);
-}
-
 int	ft_atoi_base(const char *str, int str_base)
 {
 	int		i;
-	int		x;
-	int		factor;
 	int		sign;
-	int		digit;
 	int		result;
-	int		len;
+	char	base[16] = "0123456789abcdef";
 
-	i = 0;
-	x = 0;
+	i = -1;
 	sign = 1;
 	result = 0;
-	len = ft_strlen((char *)str) - 1;
-	factor = 1;
-	if (str[0] == '-')
-		sign = -1;
-	while (str[len])
+	while (!is_valid(str[++i]))
 	{
-		digit = get_digit(to_lower(str[len]), str_base);
-		if (i > 0)
-		{
-			while (x < i)
-			{
-				factor *= 16;
-				x++;
-			}
-			i++;
-			x = 0;
-		}
-		else
-			i++;
-		result += (digit * factor);
-		len--;
+		if (str[i] == '-')
+			sign = -1;
+	}
+	while (is_valid(str[i]))
+	{
+		result *= str_base;
+		if (str[i] >= 48 && str[i] <= 57)
+			result += (base[str[i] - 48] - 48);
+		else if (str[i] >= 65 && str[i] <= 70)
+			result += (base[str[i] - 65] - 38);
+		else if (str[i] >= 97 && str[i] <= 102)
+			result += (base[str[i] - 97] - 38);
+		i++;
 	}
 	return (result * sign);
 }
 
 int	main(void)
 {
-	printf("%d\n", ft_atoi_base("2a", 2));
+	printf("%d\n", ft_atoi_base("101010", 2));
 	return (0);
 }
