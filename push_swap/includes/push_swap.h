@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 12:45:27 by gde-souz          #+#    #+#             */
-/*   Updated: 2024/01/25 17:31:32 by root             ###   ########.fr       */
+/*   Updated: 2024/01/29 16:23:01 by gde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,15 +27,15 @@
 
 typedef struct s_tab
 {
-	int value;
-	int index;
-	int pos;
-	int target_pos;
-	int cost_a;
-	int cost_b;
-	struct s_tab *prev;
-	struct s_tab *next;
-} t_tab;
+	int				value;
+	int				index;
+	int				pos;
+	int				target_pos;
+	int				cost_a;
+	int				cost_b;
+	struct s_tab	*prev;
+	struct s_tab	*next;
+}	t_tab;
 
 typedef struct s_stack {
 	t_tab	*a_list;

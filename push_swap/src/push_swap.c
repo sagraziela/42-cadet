@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 11:23:59 by gde-souz          #+#    #+#             */
-/*   Updated: 2024/01/25 18:44:43 by root             ###   ########.fr       */
+/*   Updated: 2024/01/29 17:38:34 by gde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,70 +29,79 @@ int	*check_validity(char *list, t_stack **stacks)
 	int		*nbr;
 	int		len;
 	int		n;
-	
+
 	len = 0;
 	nbr_list = ft_split(list, ' ');
 	while (nbr_list[len])
 		len++;
+	ft_printf("len = %d\n", len);
 	(*stacks)->length = len;
 	nbr = (int *)malloc(sizeof(int) * (len + 1));
 	if (!nbr)
 		return (NULL);
-	nbr[len--] = '\0';
-	while (nbr[len--])
+	nbr[len] = '\0';
+	while (len-- > 0)
 	{
-		n = ft_atoi(list[len]);
+		n = ft_atoi(nbr_list[len]);
 		if (n > 2147483647 || n < -2147483648)
 		{
-			//free(nbr);
-			//free(list);
+			free(nbr);
+			free(nbr_list);
 			return (NULL);
 		}
 		nbr[len] = n;
 	}
-	
+	free(nbr_list);
+	return (nbr);
 }
 
-int	fill_stacks(char *list, t_stack **stacks)
+void	ft_lstadd_node(t_tab **lst, t_tab *new)
+{
+	t_tab	*last;
+
+	if (*lst == NULL)
+		*lst = new;
+	else
+	{
+		while ((*lst)->next != NULL)
+			last = (*lst)->next;
+		last->next = new;
+	}
+}
+
+t_tab	*create_list(int *list)
 {
 	int		i;
-	long	n;
 	t_tab	*new_node;
+	t_tab	*head;
 	t_tab	*temp;
 
 	i = 0;
 	temp = NULL;
-	while (nbr_list[i])
+	head = NULL;
+	new_node = (t_tab *)malloc(sizeof(t_tab));
+	if (!new_node)
+		return (NULL);
+	while (list[i])
 	{
-		n = ft_atoi(nbr_list[i]);
-		if (n <= INT_MAX && n >= INT_MIN)
-		{
-			if ((*stacks)->a_list != NULL)
-				temp = (*stacks)->a_list;
-			else
-				temp = new_node;
-			new_node = (t_tab *)malloc(sizeof(t_tab) * ((*stacks)->length + 1));
-			if (!(new_node))
-				return (0);
-			new_node->value = n;
-			new_node->index = 8;
-			new_node->next = NULL;
-			temp = new_node;
-			temp->next = new_node;
-			ft_lstadd_back((*stacks)->a_list, new_node);
-			ft_printf("nbr[i] = %d\n", new_node);
-			i++;
-		}
-		else
-			return (0);
+		// FALTA COMPLEMENTAR PARA SALVAR O HEAD!
+		new_node->value = list[i];
+		new_node->index = 0;
+		new_node->next = NULL;
+		new_node->prev = temp;
+		ft_lstadd_node(&head, new_node);
+		ft_printf("node[i] = %d\n", new_node->value);
+		temp = new_node;
+		temp->next = new_node;
+		i++;
 	}
-	return (len);
+	return (head);
 }
 
 int	main(int argc, char **argv)
 {
 	int		i;
-	int		*nbr_list;
+	int		*nbr_arr;
 	t_stack	*stacks;
 
 	i = 0;
@@ -103,9 +112,9 @@ int	main(int argc, char **argv)
 		if (!stacks)
 			return (0);
 		init_stacks(&stacks);
-		nbr_list = check_validity(argv[1]);
-		if (nbr_list)
-			fill_stacks(nbr_list, &stacks);
+		nbr_arr = check_validity(argv[1], &stacks);
+		if (nbr_arr)
+			stacks->a_list = create_list(nbr_arr);
 		else
 			ft_printf("%sError\n", BLUE);
 	}
