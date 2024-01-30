@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 12:45:27 by gde-souz          #+#    #+#             */
-/*   Updated: 2024/01/29 16:23:01 by gde-souz         ###   ########.fr       */
+/*   Updated: 2024/01/30 13:21:01 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # define MAGENTA    	"\033[1;35m"
 # define CYAN    		"\033[1;36m"
 # define WHITE    		"\033[1;37m"
-# define DFT   			"\033[0m"
+# define END   			"\033[0m"
 
 # include <limits.h>
 # include "./libft.h"
