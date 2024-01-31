@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 12:45:27 by gde-souz          #+#    #+#             */
-/*   Updated: 2024/01/30 13:21:01 by root             ###   ########.fr       */
+/*   Updated: 2024/01/31 13:06:37 by gde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,21 @@ typedef struct s_stack {
 	long	max_b;
 }	t_stack;
 
-int	main(int argc, char **argv);
+int		main(int argc, char **argv);
+t_tab	*create_new_node(int content);
+void	ft_lstadd_node(t_tab **lst, t_tab *new);
+t_tab	*create_list(int *list);
+
+void	pa(t_tab **a_list, t_tab **b_list);
+void	pb(t_tab **a_list, t_tab **b_list);
+void	sa(t_tab **list);
+void	sb(t_tab **list);
+void	ss(t_tab **a_list, t_tab **b_list);
+void	ra(t_tab **list);
+void	rb(t_tab **list);
+void	rr(t_tab **a_list, t_tab **b_list);
+void	rra(t_tab **list);
+void	rrb(t_tab **list);
+void	rrr(t_tab **a_list, t_tab **b_list);
 
 #endif

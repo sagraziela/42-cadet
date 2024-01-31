@@ -10,7 +10,12 @@ PATH_LIBFT = ./libft/
 LIBFT = $(addprefix $(PATH_LIBFT), libft.a)
 
 # push_swap
-SRC = ./src/push_swap.c
+SRC = ./src/main.c \
+		./src/linked_list.c \
+		#./src/push.c \
+		./src/swap.c \
+		./src/rotate.c \
+		./src/rev_rotate.c
 
 # Objects
 OBJ_PATH = ./build/
