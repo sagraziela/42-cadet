@@ -6,7 +6,7 @@
 /*   By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 12:45:27 by gde-souz          #+#    #+#             */
-/*   Updated: 2024/01/31 13:06:37 by gde-souz         ###   ########.fr       */
+/*   Updated: 2024/01/31 17:23:05 by gde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,8 @@ int		main(int argc, char **argv);
 t_tab	*create_new_node(int content);
 void	ft_lstadd_node(t_tab **lst, t_tab *new);
 t_tab	*create_list(int *list);
+void	handle_three(t_tab *list);
+void	push_swap(t_stack *stack);
 
 void	pa(t_tab **a_list, t_tab **b_list);
 void	pb(t_tab **a_list, t_tab **b_list);

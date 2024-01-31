@@ -6,14 +6,14 @@
 /*   By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 12:07:19 by gde-souz          #+#    #+#             */
-/*   Updated: 2024/01/31 12:08:54 by gde-souz         ###   ########.fr       */
+/*   Updated: 2024/01/31 17:25:02 by gde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/push_swap.h"
 
-void	pa(t_tab a_list, t_tab b_list)
-{}
+// void	pa(t_tab **a_list, t_tab **b_list)
+// {}
 
-void	pb(t_tab a_list, t_tab b_list)
-{}
+// void	pb(t_tab **a_list, t_tab **b_list)
+// {}

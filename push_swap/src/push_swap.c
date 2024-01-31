@@ -6,7 +6,7 @@
 /*   By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 13:36:25 by gde-souz          #+#    #+#             */
-/*   Updated: 2024/01/31 15:57:08 by gde-souz         ###   ########.fr       */
+/*   Updated: 2024/01/31 17:36:32 by gde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,25 +14,32 @@
 
 void	handle_three(t_tab *list)
 {
-	if (list->value > list->next->value && list->value < list->prev->value)
-		sa(&list);
-	else if (list->value < list->next->value && list->value < list->prev->value)
-	{
-		rra(&list);
-		sa(&list);
-	}
-	else if (list->value < list->next->value && list->value > list->prev->value)
-		rra(&list);
-	else if (list->value > list->next->value && list->value > list->prev->value)
-		ra(&list);
+	t_tab	*lst;
+	//int		i;
+
+	lst = list;
+	if (lst->value > lst->next->value && lst->value > lst->prev->value)
+		ra(&lst);
+	if ((lst->value < lst->next->value && lst->value < lst->prev->value)
+		|| (lst->value < lst->next->value && lst->value > lst->prev->value))
+		rra(&lst);
+	if (lst->value > lst->next->value)
+		sa(&lst);
+	// i = 0;
+	// while (i < 3)
+	// {
+	// 	ft_printf("list = %d\n", list->value);
+	// 	list = list->next;
+	// 	i++;
+	// }
 }
 
 //  1 2 3
-//  1 3 2
-//  2 1 3
-//  2 3 1
-//  3 1 2
-//  3 2 1
+//  1 3 2 | rra | 2 1 3
+//  2 1 3 | sa  | 1 2 3
+//  2 3 1 | rra | 1 2 3
+//  3 1 2 | ra  | 1 2 3
+//  3 2 1 | ra  | 2 1 3
 
 void	push_swap(t_stack *stack)
 {
@@ -42,7 +49,7 @@ void	push_swap(t_stack *stack)
 	if (stack->length == 2)
 	{
 		if (list->value > list->next->value)
-			sa(stack->a_list);
+			sa(&stack->a_list);
 		else
 			ft_printf("%sOK\n%s", GREEN, END);
 	}
