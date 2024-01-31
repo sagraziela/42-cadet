@@ -6,7 +6,7 @@
 /*   By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 13:36:25 by gde-souz          #+#    #+#             */
-/*   Updated: 2024/01/31 13:48:46 by gde-souz         ###   ########.fr       */
+/*   Updated: 2024/01/31 15:57:08 by gde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,25 @@
 
 void	handle_three(t_tab *list)
 {
-	if ()
+	if (list->value > list->next->value && list->value < list->prev->value)
+		sa(&list);
+	else if (list->value < list->next->value && list->value < list->prev->value)
+	{
+		rra(&list);
+		sa(&list);
+	}
+	else if (list->value < list->next->value && list->value > list->prev->value)
+		rra(&list);
+	else if (list->value > list->next->value && list->value > list->prev->value)
+		ra(&list);
 }
+
+//  1 2 3
+//  1 3 2
+//  2 1 3
+//  2 3 1
+//  3 1 2
+//  3 2 1
 
 void	push_swap(t_stack *stack)
 {

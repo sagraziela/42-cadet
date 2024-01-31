@@ -6,7 +6,7 @@
 /*   By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 11:49:38 by gde-souz          #+#    #+#             */
-/*   Updated: 2024/01/31 11:52:22 by gde-souz         ###   ########.fr       */
+/*   Updated: 2024/01/31 15:48:24 by gde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,21 +26,21 @@ t_tab	*create_new_node(int content)
 	return (new_node);
 }
 
-void	ft_lstadd_node(t_tab **lst, t_tab *new)
+void	ft_lstadd_node(t_tab **head, t_tab *new)
 {
 	t_tab	*temp;
 	t_tab	*last;
 
 	last = NULL;
-	if ((*lst) == NULL)
-		(*lst) = new;
+	if ((*head) == NULL)
+		(*head) = new;
 	else
 	{
-		if ((*lst)->next == NULL)
-			last = *lst;
+		if ((*head)->next == NULL)
+			last = *head;
 		else
 		{
-			temp = *lst;
+			temp = *head;
 			while (temp->next != NULL)
 			{
 				last = temp->next;
@@ -49,6 +49,7 @@ void	ft_lstadd_node(t_tab **lst, t_tab *new)
 		}
 		last->next = new;
 		new->prev = last;
+		(*head)->prev = new;
 	}
 }
 
