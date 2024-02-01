@@ -3,35 +3,39 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 13:36:25 by gde-souz          #+#    #+#             */
-/*   Updated: 2024/01/31 17:36:32 by gde-souz         ###   ########.fr       */
+/*   Updated: 2024/02/01 19:04:06 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/push_swap.h"
 
-void	handle_three(t_tab *list)
+void	print_sorted_list(t_tab *list, int len)
 {
-	t_tab	*lst;
-	//int		i;
+	int		i;
 
-	lst = list;
-	if (lst->value > lst->next->value && lst->value > lst->prev->value)
-		ra(&lst);
-	if ((lst->value < lst->next->value && lst->value < lst->prev->value)
-		|| (lst->value < lst->next->value && lst->value > lst->prev->value))
-		rra(&lst);
-	if (lst->value > lst->next->value)
-		sa(&lst);
-	// i = 0;
-	// while (i < 3)
-	// {
-	// 	ft_printf("list = %d\n", list->value);
-	// 	list = list->next;
-	// 	i++;
-	// }
+	i = 0;
+	ft_printf("RESULT =");
+	while (i < len)
+	{
+		ft_printf(" %d |", list->value);
+		list = list->next;
+		i++;
+	}
+	ft_printf("\n");
+}
+
+void	handle_three(t_tab **list)
+{
+	if ((*list)->value > (*list)->next->value 
+		&& (*list)->value > (*list)->prev->value)
+		*list = ra(*list);
+	if ((*list)->prev->value < (*list)->next->value)
+		*list = rra(*list);
+	if ((*list)->value > (*list)->next->value)
+		*list = sa(*list);
 }
 
 //  1 2 3
@@ -49,12 +53,17 @@ void	push_swap(t_stack *stack)
 	if (stack->length == 2)
 	{
 		if (list->value > list->next->value)
-			sa(&stack->a_list);
+			stack->a_list = sa(stack->a_list);
 		else
 			ft_printf("%sOK\n%s", GREEN, END);
 	}
 	else if (stack->length == 3)
 	{
-		handle_three(stack->a_list);
+		handle_three(&stack->a_list);
+		print_sorted_list(stack->a_list, stack->length);
+	}
+	else
+	{
+		ft_printf("%sDEVELOPING...%s\n", YELLOW, END);
 	}
 }

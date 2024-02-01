@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   linked_list.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 11:49:38 by gde-souz          #+#    #+#             */
-/*   Updated: 2024/01/31 15:48:24 by gde-souz         ###   ########.fr       */
+/*   Updated: 2024/02/01 17:28:48 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	ft_lstadd_node(t_tab **head, t_tab *new)
 		else
 		{
 			temp = *head;
-			while (temp->next != NULL)
+			while (temp->next != *head)
 			{
 				last = temp->next;
 				temp = temp->next;
@@ -49,6 +49,7 @@ void	ft_lstadd_node(t_tab **head, t_tab *new)
 		}
 		last->next = new;
 		new->prev = last;
+		new->next = *head;
 		(*head)->prev = new;
 	}
 }

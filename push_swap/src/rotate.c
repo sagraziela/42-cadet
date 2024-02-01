@@ -3,20 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   rotate.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 12:11:25 by gde-souz          #+#    #+#             */
-/*   Updated: 2024/01/31 17:36:12 by gde-souz         ###   ########.fr       */
+/*   Updated: 2024/02/01 19:09:13 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/push_swap.h"
 
-void	ra(t_tab **list)
+t_tab	*ra(t_tab *list)
 {
-	*list = (*list)->next;
-	ft_printf("%sra\n%s", BLUE, END);
-	return ;
+	list = list->next;
+	ft_printf("%sra\n%s", CYAN, END);
+	return (list);
 }
 
 // void	rb(t_tab **list)
