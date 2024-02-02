@@ -6,7 +6,7 @@
 /*   By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 13:36:25 by gde-souz          #+#    #+#             */
-/*   Updated: 2024/02/02 12:38:56 by gde-souz         ###   ########.fr       */
+/*   Updated: 2024/02/02 15:06:42 by gde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,12 @@ void	sort(t_stack **stack)
 	}
 	print_sorted_list((*stack)->a_list, 3);
 	print_sorted_list((*stack)->b_list, 3);
+	while (i > 0)
+	{
+		pa(&(*stack)->a_list, &(*stack)->b_list);
+		i--;
+	}
+	print_sorted_list((*stack)->a_list, 6);
 }
 
 void	push_swap(t_stack *stack)
