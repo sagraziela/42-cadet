@@ -6,7 +6,7 @@
 /*   By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 12:07:19 by gde-souz          #+#    #+#             */
-/*   Updated: 2024/02/02 13:20:35 by gde-souz         ###   ########.fr       */
+/*   Updated: 2024/02/02 13:24:11 by gde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void	pa(t_tab **a_list, t_tab **b_list)
 	if (!(*b_list))
 		return ;
 	temp_b = *b_list;
+	*b_list = (*b_list)->next;
 	if ((*b_list)->prev == (*b_list)->next) //only 2 nodes exists
 	{
 		(*b_list)->next = NULL;
@@ -26,6 +27,7 @@ void	pa(t_tab **a_list, t_tab **b_list)
 	}
 	else
 	{
+		//REVISAR
 		temp_b->prev = (*b_list)->prev;
 		(*b_list)->prev->next = temp_b;
 		(*b_list)->next = (*a_list);
