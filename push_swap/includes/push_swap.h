@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 12:45:27 by gde-souz          #+#    #+#             */
-/*   Updated: 2024/02/01 17:55:15 by root             ###   ########.fr       */
+/*   Updated: 2024/02/02 12:23:21 by gde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ typedef struct s_tab
 typedef struct s_stack {
 	t_tab	*a_list;
 	t_tab	*b_list;
-	size_t	length;
+	int		length;
 	long	highest;
 	long	lowest;
 	long	max_a;
@@ -50,14 +50,14 @@ int		main(int argc, char **argv);
 t_tab	*create_new_node(int content);
 void	ft_lstadd_node(t_tab **lst, t_tab *new);
 t_tab	*create_list(int *list);
-void	handle_three(t_tab **list);
+void	sort_three(t_tab **list);
 void	push_swap(t_stack *stack);
 
-t_tab	*pa(t_tab *a_list, t_tab *b_list);
-t_tab	*pb(t_tab *a_list, t_tab *b_list);
+void	pa(t_tab **a_list, t_tab **b_list);
+void	pb(t_tab **a_list, t_tab **b_list);
 t_tab	*sa(t_tab *list);
 t_tab	*sb(t_tab *list);
-t_tab	*ss(t_tab *a_list, t_tab *b_list);
+void	ss(t_tab **a_list, t_tab **b_list);
 t_tab	*ra(t_tab *list);
 t_tab	*rb(t_tab *list);
 t_tab	*rr(t_tab *a_list, t_tab *b_list);

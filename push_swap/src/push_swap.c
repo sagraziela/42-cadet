@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 13:36:25 by gde-souz          #+#    #+#             */
-/*   Updated: 2024/02/01 19:04:06 by root             ###   ########.fr       */
+/*   Updated: 2024/02/02 12:38:56 by gde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,9 @@ void	print_sorted_list(t_tab *list, int len)
 	ft_printf("\n");
 }
 
-void	handle_three(t_tab **list)
+void	sort_three(t_tab **list)
 {
-	if ((*list)->value > (*list)->next->value 
+	if ((*list)->value > (*list)->next->value
 		&& (*list)->value > (*list)->prev->value)
 		*list = ra(*list);
 	if ((*list)->prev->value < (*list)->next->value)
@@ -45,6 +45,20 @@ void	handle_three(t_tab **list)
 //  3 1 2 | ra  | 1 2 3
 //  3 2 1 | ra  | 2 1 3
 
+void	sort(t_stack **stack)
+{
+	int		i;
+
+	i = 0;
+	while (i < (*stack)->length - 3)
+	{
+		pb(&(*stack)->a_list, &(*stack)->b_list);
+		i++;
+	}
+	print_sorted_list((*stack)->a_list, 3);
+	print_sorted_list((*stack)->b_list, 3);
+}
+
 void	push_swap(t_stack *stack)
 {
 	t_tab	*list;
@@ -59,11 +73,12 @@ void	push_swap(t_stack *stack)
 	}
 	else if (stack->length == 3)
 	{
-		handle_three(&stack->a_list);
+		sort_three(&stack->a_list);
 		print_sorted_list(stack->a_list, stack->length);
 	}
 	else
 	{
 		ft_printf("%sDEVELOPING...%s\n", YELLOW, END);
+		sort(&stack);
 	}
 }
