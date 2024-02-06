@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 13:36:25 by gde-souz          #+#    #+#             */
-/*   Updated: 2024/02/06 12:43:37 by root             ###   ########.fr       */
+/*   Updated: 2024/02/06 18:56:40 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,12 +38,49 @@ void	sort_three(t_stack **stack)
 		sa(&(*stack)->a_list);
 }
 
-//  1 2 3
-//  1 3 2 | rra | 2 1 3
-//  2 1 3 | sa  | 1 2 3
-//  2 3 1 | rra | 1 2 3
-//  3 1 2 | ra  | 1 2 3
-//  3 2 1 | ra  | 2 1 3
+void	find_edges(t_stack	**stack)
+{
+	long	highest;
+	long	lowest;
+	int		count;
+	t_tab	*list;
+
+	highest = (*stack)->a_list->value;
+	lowest = (*stack)->a_list->value;
+	count = 1;
+	list = (*stack)->a_list->next;
+	while (list != (*stack)->a_list)
+	{
+		if (list->value > highest)
+			highest = list->value;
+		if (list->value < lowest)
+			lowest = list->value;
+		list = list->next;
+		count++;
+	}
+	(*stack)->length = count;
+	(*stack)->highest = highest;
+	(*stack)->lowest = lowest;
+	ft_printf("Highest = %d | Lowest = %d\n", (*stack)->highest, (*stack)->lowest);
+}
+
+void	set_indexes(t_stack **stack)
+{
+	t_tab	*list;
+	int		i;
+
+	list = (*stack)->a_list;
+	i = 0;
+	while(i < (*stack)->length)
+	{
+		if (list->value == (*stack)->highest)
+			list->index = (*stack)->length;
+		if (list->value == (*stack)->lowest)
+			list->index = 1;
+		list = list->next;
+		i++;
+	}
+}
 
 void	sort(t_stack **stack)
 {
@@ -58,9 +95,6 @@ void	sort(t_stack **stack)
 	print_sorted_list((*stack)->a_list, 3);
 	print_sorted_list((*stack)->b_list, 3);
 	ft_printf("\n");
-	ss(&(*stack)->a_list, &(*stack)->b_list);
-	print_sorted_list((*stack)->a_list, 3);
-	print_sorted_list((*stack)->b_list, 3);
 	while (i > 0)
 	{
 		pa(&(*stack)->a_list, &(*stack)->b_list);
@@ -89,6 +123,8 @@ void	push_swap(t_stack *stack)
 	else
 	{
 		ft_printf("%sDEVELOPING...%s\n", YELLOW, END);
+		find_edges(&stack);
+		set_indexes(&stack);
 		sort(&stack);
 	}
 }
