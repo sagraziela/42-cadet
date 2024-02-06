@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 13:36:25 by gde-souz          #+#    #+#             */
-/*   Updated: 2024/02/05 18:23:42 by root             ###   ########.fr       */
+/*   Updated: 2024/02/06 12:43:37 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,15 +27,15 @@ void	print_sorted_list(t_tab *list, int len)
 	ft_printf("\n");
 }
 
-void	sort_three(t_tab **list)
+void	sort_three(t_stack **stack)
 {
-	if ((*list)->value > (*list)->next->value
-		&& (*list)->value > (*list)->prev->value)
-		*list = ra(*list);
-	if ((*list)->prev->value < (*list)->next->value)
-		*list = rra(*list);
-	if ((*list)->value > (*list)->next->value)
-		*list = sa(*list);
+	if ((*stack)->a_list->value > (*stack)->a_list->next->value
+		&& (*stack)->a_list->value > (*stack)->a_list->prev->value)
+		ra(&(*stack)->a_list);
+	if ((*stack)->a_list->prev->value < (*stack)->a_list->next->value)
+		rra(&(*stack)->a_list);
+	if ((*stack)->a_list->value > (*stack)->a_list->next->value)
+		sa(&(*stack)->a_list);
 }
 
 //  1 2 3
@@ -55,8 +55,12 @@ void	sort(t_stack **stack)
 		pb(&(*stack)->a_list, &(*stack)->b_list);
 		i++;
 	}
-	print_sorted_list((*stack)->a_list, 6);
-	print_sorted_list((*stack)->b_list, 6);
+	print_sorted_list((*stack)->a_list, 3);
+	print_sorted_list((*stack)->b_list, 3);
+	ft_printf("\n");
+	ss(&(*stack)->a_list, &(*stack)->b_list);
+	print_sorted_list((*stack)->a_list, 3);
+	print_sorted_list((*stack)->b_list, 3);
 	while (i > 0)
 	{
 		pa(&(*stack)->a_list, &(*stack)->b_list);
@@ -73,13 +77,13 @@ void	push_swap(t_stack *stack)
 	if (stack->length == 2)
 	{
 		if (list->value > list->next->value)
-			stack->a_list = sa(stack->a_list);
+			sa(&stack->a_list);
 		else
 			ft_printf("%sOK\n%s", GREEN, END);
 	}
 	else if (stack->length == 3)
 	{
-		sort_three(&stack->a_list);
+		sort_three(&stack);
 		print_sorted_list(stack->a_list, stack->length);
 	}
 	else
