@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 11:23:59 by gde-souz          #+#    #+#             */
-/*   Updated: 2024/01/31 13:36:12 by gde-souz         ###   ########.fr       */
+/*   Updated: 2024/02/07 16:06:28 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,7 @@ int	main(int argc, char **argv)
 		if (!stacks)
 			return (0);
 		init_stacks(&stacks);
+		//REVIEW CHECK_VALIDITY() - IT DOES NOT RECEIVE NEGATIVE INT!
 		nbr_arr = check_validity(argv[1], &stacks);
 		if (nbr_arr)
 		{

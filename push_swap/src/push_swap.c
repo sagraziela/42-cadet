@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 13:36:25 by gde-souz          #+#    #+#             */
-/*   Updated: 2024/02/06 18:56:40 by root             ###   ########.fr       */
+/*   Updated: 2024/02/07 16:03:34 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,17 +67,31 @@ void	find_edges(t_stack	**stack)
 void	set_indexes(t_stack **stack)
 {
 	t_tab	*list;
+	t_tab	*next;
+	long	lowest;
 	int		i;
 
-	list = (*stack)->a_list;
-	i = 0;
-	while(i < (*stack)->length)
+	lowest = (*stack)->lowest;
+	i = 1;
+	while (i <= (*stack)->length)
 	{
-		if (list->value == (*stack)->highest)
-			list->index = (*stack)->length;
-		if (list->value == (*stack)->lowest)
-			list->index = 1;
-		list = list->next;
+		list = (*stack)->a_list;
+		while (list->value != lowest)
+		{
+			list = list->next;
+		}
+		list->index = i;
+		ft_printf("\n");
+		ft_printf("Val: %d | Idx: %d\n", list->value, i);
+		next = list->next;
+		lowest = next->value;
+		while (next != list)
+		{
+			if ((next->value > list->value && next->value < lowest)
+				|| (lowest < list->value))
+				lowest = next->value;
+			next = next->next;
+		}
 		i++;
 	}
 }

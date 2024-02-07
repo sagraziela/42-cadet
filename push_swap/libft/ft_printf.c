@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 10:34:51 by gde-souz          #+#    #+#             */
-/*   Updated: 2023/12/13 12:13:45 by gde-souz         ###   ########.fr       */
+/*   Updated: 2024/02/07 16:19:56 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,6 @@ static int	ft_putptr(unsigned long nbr, char *base)
 	}
 	length = 0;
 	base_len = (long)ft_strlen(base);
-	if (nbr < 0)
-		nbr *= -1;
 	if (nbr >= base_len)
 	{
 		length += ft_putptr(nbr / base_len, base);
