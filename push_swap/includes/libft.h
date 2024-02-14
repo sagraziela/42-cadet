@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 13:17:17 by gde-souz          #+#    #+#             */
-/*   Updated: 2024/02/07 16:24:52 by root             ###   ########.fr       */
+/*   Updated: 2024/02/14 11:11:56 by gde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@
 
 typedef struct s_list
 {
-	void			*content;
+	unsigned char	content;
 	struct s_list	*next;
 }	t_list;
 

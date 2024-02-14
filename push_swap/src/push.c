@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 12:07:19 by gde-souz          #+#    #+#             */
-/*   Updated: 2024/02/06 11:43:54 by root             ###   ########.fr       */
+/*   Updated: 2024/02/14 16:29:32 by gde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static void	update_list(t_tab ***list, t_tab *temp)
 {
 	t_tab	*temp_prev;
 
-	if ((**list)->next)
+	if ((**list)->prev)
 		temp_prev = (**list)->prev;
 	else
 		temp_prev = **list;

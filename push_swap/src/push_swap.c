@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 13:36:25 by gde-souz          #+#    #+#             */
-/*   Updated: 2024/02/07 16:03:34 by root             ###   ########.fr       */
+/*   Updated: 2024/02/14 16:54:04 by gde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	print_sorted_list(t_tab *list, int len)
 	while (i < len)
 	{
 		ft_printf(" %d |", list->value);
-		list = list->next;
+		list = list->prev;
 		i++;
 	}
 	ft_printf("\n");
@@ -34,6 +34,7 @@ void	sort_three(t_stack **stack)
 		ra(&(*stack)->a_list);
 	if ((*stack)->a_list->prev->value < (*stack)->a_list->next->value)
 		rra(&(*stack)->a_list);
+	print_sorted_list((*stack)->a_list, 3);
 	if ((*stack)->a_list->value > (*stack)->a_list->next->value)
 		sa(&(*stack)->a_list);
 }
@@ -61,7 +62,6 @@ void	find_edges(t_stack	**stack)
 	(*stack)->length = count;
 	(*stack)->highest = highest;
 	(*stack)->lowest = lowest;
-	ft_printf("Highest = %d | Lowest = %d\n", (*stack)->highest, (*stack)->lowest);
 }
 
 void	set_indexes(t_stack **stack)
@@ -81,8 +81,6 @@ void	set_indexes(t_stack **stack)
 			list = list->next;
 		}
 		list->index = i;
-		ft_printf("\n");
-		ft_printf("Val: %d | Idx: %d\n", list->value, i);
 		next = list->next;
 		lowest = next->value;
 		while (next != list)
@@ -106,13 +104,45 @@ void	sort(t_stack **stack)
 		pb(&(*stack)->a_list, &(*stack)->b_list);
 		i++;
 	}
+	sort_three(&(*stack));
 	print_sorted_list((*stack)->a_list, 3);
 	print_sorted_list((*stack)->b_list, 3);
 	ft_printf("\n");
-	while (i > 0)
+	while ((*stack)->b_list)
 	{
-		pa(&(*stack)->a_list, &(*stack)->b_list);
-		i--;
+		if ((*stack)->a_list->index == (*stack)->b_list->index - 1)
+		{
+			pa(&(*stack)->a_list, &(*stack)->b_list);
+			sa(&(*stack)->a_list);
+		}
+		else if (((*stack)->a_list->index == (*stack)->b_list->index + 1)
+			|| ((*stack)->a_list->prev->index + 1 == (*stack)->b_list->index))
+		{
+			pa(&(*stack)->a_list, &(*stack)->b_list);
+		}
+		else
+		{
+			if (((*stack)->b_list->index - (*stack)->a_list->index)
+				> ((*stack)->b_list->index - (*stack)->a_list->prev->index))
+			{
+				ft_printf("caiu no primeiro IF\n");
+				while ((*stack)->a_list->index != (*stack)->b_list->index + 1)
+				{
+					ft_printf("entrou no primeiro WHILE\n");
+					rra(&(*stack)->a_list);
+				}
+			}
+			else
+			{
+				ft_printf("caiu no segundo IF\n");
+				while ((*stack)->a_list->index < (*stack)->b_list->index - 1)
+				{
+					ra(&(*stack)->a_list);
+				}
+			}
+			pa(&(*stack)->a_list, &(*stack)->b_list);
+		}
+		print_sorted_list((*stack)->a_list, 6);
 	}
 	print_sorted_list((*stack)->a_list, 6);
 }
