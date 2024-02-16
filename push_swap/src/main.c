@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 11:23:59 by gde-souz          #+#    #+#             */
-/*   Updated: 2024/02/07 16:06:28 by root             ###   ########.fr       */
+/*   Updated: 2024/02/16 19:15:14 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,23 @@ int	*check_validity(char *list, t_stack **stacks)
 	// FALTA VERIFICAR SE TEM NÚMERO REPETIDO!
 }
 
+void	clear_stack(t_stack **stack)
+{
+	int		i;
+	t_tab	*temp;
+
+	i = 0;
+	while (i < (*stack)->length)
+	{
+		temp = (*stack)->a_list->next;
+		free((*stack)->a_list);
+		(*stack)->a_list = temp;
+		i++;
+	}
+	free(*stack);
+	return ;
+}
+
 int	main(int argc, char **argv)
 {
 	int		*nbr_arr;
@@ -109,6 +126,7 @@ int	main(int argc, char **argv)
 			stacks->a_list = create_list(nbr_arr);
 			free(nbr_arr);
 			push_swap(stacks);
+			clear_stack(&stacks);
 		}
 		else
 			ft_printf("%sError%s\n", RED, END);

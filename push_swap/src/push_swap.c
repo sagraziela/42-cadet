@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 13:36:25 by gde-souz          #+#    #+#             */
-/*   Updated: 2024/02/16 13:23:29 by root             ###   ########.fr       */
+/*   Updated: 2024/02/16 19:20:19 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,11 @@ void	sort(t_stack **stack)
 	i = 0;
 	mid = (*stack)->length / 2;
 	max = (*stack)->length - 2;
+	if ((*stack)->length % 2 != 0)
+	{
+		mid++;
+		max++;
+	}
 	while (i < (*stack)->length)
 	{
 		if ((*stack)->a_list->index < mid)
@@ -134,6 +139,18 @@ void	sort(t_stack **stack)
 		{
 			pa(&(*stack)->a_list, &(*stack)->b_list);
 		}
+		else if (((*stack)->b_list->prev)
+			&& ((*stack)->b_list->prev->index + 1 == (*stack)->a_list->index))
+		{
+			rrb(&(*stack)->b_list);
+			pa(&(*stack)->a_list, &(*stack)->b_list);
+		}
+		else if (((*stack)->b_list->next)
+			&& ((*stack)->b_list->next->index + 1 == (*stack)->a_list->index))
+		{
+			rb(&(*stack)->b_list);
+			pa(&(*stack)->a_list, &(*stack)->b_list);
+		}
 		else
 		{
 			if (((*stack)->b_list->index - (*stack)->a_list->index)
@@ -141,15 +158,17 @@ void	sort(t_stack **stack)
 			{
 				while ((*stack)->a_list->index < (*stack)->b_list->index)
 				{
-					ft_printf("passou aqui\n");
-					rra(&(*stack)->a_list);
+					//ft_printf("1º WHILE\n");
+					ra(&(*stack)->a_list);
+					//print_sorted_list((*stack)->a_list, (*stack)->length);
 				}
 			}
 			else
 			{
-				while ((*stack)->a_list->index > (*stack)->b_list->index)
+				while ((*stack)->a_list->index < (*stack)->b_list->index)
 				{
-					ra(&(*stack)->a_list);
+					//ft_printf("2º WHILE\n");
+					rra(&(*stack)->a_list);
 				}
 			}
 			pa(&(*stack)->a_list, &(*stack)->b_list);
