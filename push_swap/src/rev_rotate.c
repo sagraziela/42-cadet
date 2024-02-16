@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rev_rotate.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 12:12:42 by gde-souz          #+#    #+#             */
-/*   Updated: 2024/02/14 16:09:34 by gde-souz         ###   ########.fr       */
+/*   Updated: 2024/02/16 12:15:48 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,8 @@
 
 void	rra(t_tab **list)
 {
-	int	i;
-
-	i = 5;
-	ft_printf("cur: %d	prev: %d	next: %d\n\n", (*list)->value, (*list)->prev->value, (*list)->next->value);
 	*list = (*list)->prev;
 	ft_printf("%srra\n%s", CYAN, END);
-	ft_printf("cur: %d	prev: %d	next: %d\n\n", (*list)->value, (*list)->prev->value, (*list)->next->value);
 	return ;
 }
 
