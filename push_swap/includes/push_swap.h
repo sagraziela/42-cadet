@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 12:45:27 by gde-souz          #+#    #+#             */
-/*   Updated: 2024/02/19 18:12:56 by root             ###   ########.fr       */
+/*   Updated: 2024/02/20 11:29:42 by gde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,10 @@ void	ft_lstadd_node(t_tab **lst, t_tab *new);
 t_tab	*create_list(int *list);
 void	sort_three(t_stack **stack);
 void	push_swap(t_stack *stack);
+void	print_sorted_list(t_tab *list, int len);
+void	find_edges(t_stack	**stack);
+void	set_indexes(t_stack **stack);
+void	set_positions(t_stack **stack);
 
 void	pa(t_tab **a_list, t_tab **b_list);
 void	pb(t_tab **a_list, t_tab **b_list);

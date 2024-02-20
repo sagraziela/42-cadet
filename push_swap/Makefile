@@ -13,6 +13,7 @@ LIBFT = $(addprefix $(PATH_LIBFT), libft.a)
 SRC = ./src/main.c \
 		./src/linked_list.c \
 		./src/push_swap.c \
+		./src/sort_utils.c \
 		./src/push.c \
 		./src/swap.c \
 		./src/rotate.c \

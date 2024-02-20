@@ -3,29 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 13:36:25 by gde-souz          #+#    #+#             */
-/*   Updated: 2024/02/19 19:09:11 by root             ###   ########.fr       */
+/*   Updated: 2024/02/20 14:01:59 by gde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/push_swap.h"
-
-void	print_sorted_list(t_tab *list, int len)
-{
-	int		i;
-
-	i = 0;
-	ft_printf("RESULT =");
-	while (i < len)
-	{
-		ft_printf(" %d |", list->value);
-		list = list->next;
-		i++;
-	}
-	ft_printf("\n");
-}
 
 void	sort_three(t_stack **stack)
 {
@@ -38,105 +23,33 @@ void	sort_three(t_stack **stack)
 		sa(&(*stack)->a_list);
 }
 
-void	find_edges(t_stack	**stack)
-{
-	long	highest;
-	long	lowest;
-	int		count;
-	t_tab	*list;
-
-	highest = (*stack)->a_list->value;
-	lowest = (*stack)->a_list->value;
-	count = 1;
-	list = (*stack)->a_list->next;
-	while (list != (*stack)->a_list)
-	{
-		if (list->value > highest)
-			highest = list->value;
-		if (list->value < lowest)
-			lowest = list->value;
-		list = list->next;
-		count++;
-	}
-	(*stack)->length = count;
-	(*stack)->highest = highest;
-	(*stack)->lowest = lowest;
-}
-
-void	set_indexes(t_stack **stack)
-{
-	t_tab	*list;
-	t_tab	*next;
-	long	lowest;
-	int		i;
-
-	lowest = (*stack)->lowest;
-	i = 1;
-	while (i <= (*stack)->length)
-	{
-		list = (*stack)->a_list;
-		while (list->value != lowest)
-			list = list->next;
-		list->index = i;
-		next = list->next;
-		lowest = next->value;
-		while (next != list)
-		{
-			if ((next->value > list->value && next->value < lowest)
-				|| (lowest < list->value))
-				lowest = next->value;
-			next = next->next;
-		}
-		i++;
-	}
-}
-
-void	set_positions(t_stack **stack)
-{
-	int		i;
-	t_tab	*temp;
-
-	i = 0;
-	(*stack)->a_list->pos = i;
-	temp = (*stack)->a_list;
-	(*stack)->a_list = (*stack)->a_list->next;
-	while ((*stack)->a_list != temp)
-	{
-		(*stack)->a_list->pos = i;
-		(*stack)->a_list = (*stack)->a_list->next;
-		i++;
-	}
-	i = 0;
-	(*stack)->b_list->pos = i;
-	temp = (*stack)->b_list;
-	(*stack)->b_list = (*stack)->b_list->next;
-	while ((*stack)->b_list != temp)
-	{
-		(*stack)->b_list->pos = i;
-		(*stack)->b_list = (*stack)->b_list->next;
-		i++;
-	}
-}
-
 void	push_to_b(t_stack **stack)
 {
 	int	i;
 	int	max;
 	int	mid;
+	int	small;
 
 	i = 0;
-	mid = (*stack)->length / 2;
+	mid = ((*stack)->length / 3) * 2;
 	max = (*stack)->length - 2;
 	if ((*stack)->length % 2 != 0)
 		mid++;
+	small = mid / 2;
+	ft_printf("mid: %d | small: %d\n", mid, small);
 	while (i < (*stack)->length)
 	{
-		if ((*stack)->a_list->index < mid)
+		if ((*stack)->a_list->index <= mid)
+		{
 			pb(&(*stack)->a_list, &(*stack)->b_list);
+			if ((*stack)->b_list->index <= small && (*stack)->b_list->next)
+				rb(&(*stack)->b_list);
+		}
 		else
 			(*stack)->a_list = (*stack)->a_list->next;
 		i++;
 	}
+	small = max / 2;
 	while (i >= mid)
 	{
 		if ((*stack)->a_list->index < max)
@@ -151,60 +64,21 @@ void	sort(t_stack **stack)
 {
 	while ((*stack)->b_list)
 	{
-		if ((*stack)->a_list->index == (*stack)->b_list->index - 1)
+		if ((*stack)->b_list->index < (*stack)->b_list->next->index)
 		{
-			pa(&(*stack)->a_list, &(*stack)->b_list);
+			ft_printf();
+			sb(&(*stack)->b_list);
+		}
+		pa(&(*stack)->a_list, &(*stack)->b_list);
+		while ((*stack)->a_list->index > (*stack)->a_list->next->index)
+		{
 			sa(&(*stack)->a_list);
+			if ((*stack)->a_list->next->index - (*stack)->a_list->index > 1)
+				ra(&(*stack)->a_list);
+			ft_printf("got it");
 		}
-		else if (((*stack)->a_list->index == (*stack)->b_list->index + 1)
-			|| ((*stack)->a_list->prev->index + 1 == (*stack)->b_list->index))
-		{
-			pa(&(*stack)->a_list, &(*stack)->b_list);
-		}
-		else if (((*stack)->b_list->prev)
-			&& ((*stack)->b_list->prev->index + 1 == (*stack)->a_list->index))
-		{
-			rrb(&(*stack)->b_list);
-			pa(&(*stack)->a_list, &(*stack)->b_list);
-		}
-		else if (((*stack)->b_list->next)
-			&& ((*stack)->b_list->next->index + 1 == (*stack)->a_list->index))
-		{
-			rb(&(*stack)->b_list);
-			pa(&(*stack)->a_list, &(*stack)->b_list);
-		}
-		else
-		{
-			if (((*stack)->b_list->index - (*stack)->a_list->index)
-				> ((*stack)->b_list->index - (*stack)->a_list->prev->index))
-			{
-				while ((*stack)->a_list->index < (*stack)->b_list->index)
-				{
-					//ft_printf("1º WHILE\n");
-					ra(&(*stack)->a_list);
-					//print_sorted_list((*stack)->a_list, (*stack)->length);
-				}
-			}
-			else
-			{
-				while ((*stack)->a_list->index < (*stack)->b_list->index)
-				{
-					//ft_printf("2º WHILE\n");
-					rra(&(*stack)->a_list);
-				}
-			}
-			pa(&(*stack)->a_list, &(*stack)->b_list);
-		}
-	}
-	if ((*stack)->a_list->index > ((*stack)->length / 2))
-	{
-		while ((*stack)->a_list->index != 1)
-			ra(&(*stack)->a_list);
-	}
-	else
-	{
-		while ((*stack)->a_list->index != 1)
-			rra(&(*stack)->a_list);
+		// while ((*stack)->a_list->index > (*stack)->a_list->prev->index)
+		// 	rra(&(*stack)->a_list);
 	}
 	print_sorted_list((*stack)->a_list, (*stack)->length);
 }
@@ -233,10 +107,71 @@ void	push_swap(t_stack *stack)
 		set_indexes(&stack);
 		push_to_b(&stack);
 		sort_three(&stack);
-		set_positions(&stack);
 		print_sorted_list(stack->a_list, 3);
 		print_sorted_list(stack->b_list, stack->length - 3);
 		ft_printf("\n");
 		sort(&stack);
 	}
 }
+
+// void	sort(t_stack **stack)
+// {
+// 	while ((*stack)->b_list)
+// 	{
+// 		if ((*stack)->a_list->index == (*stack)->b_list->index - 1)
+// 		{
+// 			pa(&(*stack)->a_list, &(*stack)->b_list);
+// 			sa(&(*stack)->a_list);
+// 		}
+// 		else if (((*stack)->a_list->index == (*stack)->b_list->index + 1)
+// 			|| ((*stack)->a_list->prev->index + 1 == (*stack)->b_list->index))
+// 		{
+// 			pa(&(*stack)->a_list, &(*stack)->b_list);
+// 		}
+// 		else if (((*stack)->b_list->prev)
+// 			&& ((*stack)->b_list->prev->index + 1 == (*stack)->a_list->index))
+// 		{
+// 			rrb(&(*stack)->b_list);
+// 			pa(&(*stack)->a_list, &(*stack)->b_list);
+// 		}
+// 		else if (((*stack)->b_list->next)
+// 			&& ((*stack)->b_list->next->index + 1 == (*stack)->a_list->index))
+// 		{
+// 			sb(&(*stack)->b_list);
+// 			pa(&(*stack)->a_list, &(*stack)->b_list);
+// 		}
+// 		else
+// 		{
+// 			if (((*stack)->b_list->index - (*stack)->a_list->index)
+// 				> ((*stack)->b_list->index - (*stack)->a_list->prev->index))
+// 			{
+// 				while ((*stack)->a_list->index < (*stack)->b_list->index)
+// 				{
+// 					//ft_printf("1º WHILE\n");
+// 					ra(&(*stack)->a_list);
+// 					//print_sorted_list((*stack)->a_list, (*stack)->length);
+// 				}
+// 			}
+// 			else
+// 			{
+// 				while ((*stack)->a_list->index < (*stack)->b_list->index)
+// 				{
+// 					//ft_printf("2º WHILE\n");
+// 					rra(&(*stack)->a_list);
+// 				}
+// 			}
+// 			pa(&(*stack)->a_list, &(*stack)->b_list);
+// 		}
+// 	}
+// 	if ((*stack)->a_list->index > ((*stack)->length / 2))
+// 	{
+// 		while ((*stack)->a_list->index != 1)
+// 			ra(&(*stack)->a_list);
+// 	}
+// 	else
+// 	{
+// 		while ((*stack)->a_list->index != 1)
+// 			rra(&(*stack)->a_list);
+// 	}
+// 	print_sorted_list((*stack)->a_list, (*stack)->length);
+// }
