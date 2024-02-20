@@ -6,7 +6,7 @@
 /*   By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 12:07:19 by gde-souz          #+#    #+#             */
-/*   Updated: 2024/02/14 16:29:32 by gde-souz         ###   ########.fr       */
+/*   Updated: 2024/02/20 16:43:21 by gde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,6 @@ void	pa(t_tab **a_list, t_tab **b_list)
 	t_tab	*temp_b;
 	t_tab	*temp_b_prev;
 
-	if (!(*b_list))
-		return ;
 	temp_b = *b_list;
 	temp_b_prev = (*b_list)->prev;
 	*b_list = (*b_list)->next;

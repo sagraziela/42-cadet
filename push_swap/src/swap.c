@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   swap.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 12:09:13 by gde-souz          #+#    #+#             */
-/*   Updated: 2024/02/16 12:04:01 by root             ###   ########.fr       */
+/*   Updated: 2024/02/20 17:09:32 by gde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,6 @@ void	sb(t_tab **list)
 	t_tab	*prev;
 	t_tab	*next;
 
-	if (!(*list) || !(*list)->next)
-		return ;
 	temp = *list;
 	prev = (*list)->prev;
 	*list = (*list)->next;

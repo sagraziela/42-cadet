@@ -6,7 +6,7 @@
 /*   By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 13:36:25 by gde-souz          #+#    #+#             */
-/*   Updated: 2024/02/20 14:01:59 by gde-souz         ###   ########.fr       */
+/*   Updated: 2024/02/20 17:24:24 by gde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	push_to_b(t_stack **stack)
 	ft_printf("mid: %d | small: %d\n", mid, small);
 	while (i < (*stack)->length)
 	{
-		if ((*stack)->a_list->index <= mid)
+		if ((*stack)->a_list->index < mid)
 		{
 			pb(&(*stack)->a_list, &(*stack)->b_list);
 			if ((*stack)->b_list->index <= small && (*stack)->b_list->next)
@@ -66,19 +66,20 @@ void	sort(t_stack **stack)
 	{
 		if ((*stack)->b_list->index < (*stack)->b_list->next->index)
 		{
-			ft_printf();
+			ft_printf("b_list = %d | next = %d\n", (*stack)->b_list->value, (*stack)->b_list->next->value);
 			sb(&(*stack)->b_list);
 		}
 		pa(&(*stack)->a_list, &(*stack)->b_list);
-		while ((*stack)->a_list->index > (*stack)->a_list->next->index)
+		while ((*stack)->a_list->next
+			&& ((*stack)->a_list->index > (*stack)->a_list->next->index))
 		{
 			sa(&(*stack)->a_list);
-			if ((*stack)->a_list->next->index - (*stack)->a_list->index > 1)
+			if ((*stack)->a_list->next
+				&& (*stack)->a_list->next->index - (*stack)->a_list->index > 1)
 				ra(&(*stack)->a_list);
-			ft_printf("got it");
 		}
-		// while ((*stack)->a_list->index > (*stack)->a_list->prev->index)
-		// 	rra(&(*stack)->a_list);
+		while ((*stack)->a_list->index > (*stack)->a_list->prev->index)
+			rra(&(*stack)->a_list);
 	}
 	print_sorted_list((*stack)->a_list, (*stack)->length);
 }
