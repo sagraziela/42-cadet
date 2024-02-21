@@ -6,7 +6,7 @@
 /*   By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 12:09:13 by gde-souz          #+#    #+#             */
-/*   Updated: 2024/02/21 15:37:47 by gde-souz         ###   ########.fr       */
+/*   Updated: 2024/02/21 18:36:28 by gde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,29 +59,34 @@ void	sb(t_tab **list)
 
 void	ss(t_tab **a_list, t_tab **b_list)
 {
-	t_tab	*a_temp;
-	t_tab	*b_temp;
+	t_tab	*temp;
 	t_tab	*a_next;
 	t_tab	*b_next;
+	t_tab	*b_prev;
 
-	if (!(*a_list) || !(*a_list)->next || !(*b_list) || !(*b_list)->next)
-		return ;
-	a_temp = *a_list;
-	a_next = a_temp->next;
-	a_next->prev = a_temp;
+	temp = *a_list;
+	a_next = temp->next;
+	a_next->prev = temp;
 	(*a_list) = (*a_list)->next;
-	a_temp->next = (*a_list)->next;
-	(*a_list)->next = a_temp;
-	(*a_list)->prev = a_temp->prev;
-	a_temp->prev = (*a_list);
-	b_temp = *b_list;
-	b_next = b_temp->next;
-	b_next->prev = b_temp;
-	(*b_list) = (*b_list)->next;
-	b_temp->next = (*b_list)->next;
-	(*b_list)->next = b_temp;
-	(*b_list)->prev = b_temp->prev;
-	b_temp->prev = (*b_list);
+	temp->next = (*a_list)->next;
+	(*a_list)->next = temp;
+	(*a_list)->prev = temp->prev;
+	temp->prev = (*a_list);
+	temp = *b_list;
+	*b_list = (*b_list)->next;
+	if (temp->next == temp->prev)
+		return ;
+	else
+	{
+		b_prev = temp->prev;
+		b_next = (*b_list)->next;
+		temp->next = (*b_list)->next;
+		(*b_list)->next = temp;
+		(*b_list)->prev = b_prev;
+		b_prev->next = *b_list;
+		temp->prev = *b_list;
+		b_next->prev = temp;
+	}
 	ft_printf("%sss\n%s", BLUE, END);
 	return ;
 }

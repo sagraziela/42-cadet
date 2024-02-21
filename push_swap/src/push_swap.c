@@ -6,7 +6,7 @@
 /*   By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 13:36:25 by gde-souz          #+#    #+#             */
-/*   Updated: 2024/02/21 16:21:24 by gde-souz         ###   ########.fr       */
+/*   Updated: 2024/02/21 18:31:54 by gde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,19 +76,42 @@ void	push_to_b(t_stack **stack)
 	}
 }
 
+int	a_and_b_must_swap(t_tab *a_list, t_tab *b_list)
+{
+	if ((b_list->next)
+		&& (a_list->index > a_list->next->index)
+		&& (b_list->index < b_list->next->index))
+		return (1);
+	return (0);
+}
+
 void	sort(t_stack **stack)
 {
 	while ((*stack)->b_list != NULL)
 	{
+		while (((*stack)->a_list->prev->index < (*stack)->a_list->index))
+		{
+			ft_printf("a_list - b_list %d\n", (*stack)->a_list->index - (*stack)->b_list->index);
+			rra(&(*stack)->a_list);
+			(*stack)->moves++;
+		}
 		if (((*stack)->b_list->next)
 			&& ((*stack)->b_list->index < (*stack)->b_list->next->index))
+		{
 			sb(&(*stack)->b_list);
+			(*stack)->moves++;
+		}
 		pa(&(*stack)->a_list, &(*stack)->b_list);
 		(*stack)->moves++;
 		while ((*stack)->a_list->next
 			&& ((*stack)->a_list->index > (*stack)->a_list->next->index))
 		{
-			sa(&(*stack)->a_list);
+			if (a_and_b_must_swap((*stack)->a_list, (*stack)->b_list))
+			{
+				ss(&(*stack)->a_list, &(*stack)->b_list);
+			}
+			else
+				sa(&(*stack)->a_list);
 			(*stack)->moves++;
 			if ((*stack)->a_list->next
 				&& (*stack)->a_list->next->index - (*stack)->a_list->index > 1)
@@ -96,12 +119,6 @@ void	sort(t_stack **stack)
 				ra(&(*stack)->a_list);
 				(*stack)->moves++;
 			}
-		}
-		while (((*stack)->a_list->index > (*stack)->a_list->prev->index))
-		{
-			ft_printf("a_list - b_list %d\n", (*stack)->a_list->index - (*stack)->b_list->index);
-			rra(&(*stack)->a_list);
-			(*stack)->moves++;
 		}
 	}
 	print_sorted_list((*stack)->a_list, (*stack)->length, (*stack)->moves);
