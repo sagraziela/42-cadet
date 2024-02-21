@@ -6,7 +6,7 @@
 /*   By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 12:09:13 by gde-souz          #+#    #+#             */
-/*   Updated: 2024/02/20 17:09:32 by gde-souz         ###   ########.fr       */
+/*   Updated: 2024/02/21 15:37:47 by gde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,15 +39,20 @@ void	sb(t_tab **list)
 	t_tab	*next;
 
 	temp = *list;
-	prev = (*list)->prev;
 	*list = (*list)->next;
-	temp->next = (*list)->next;
-	next = temp->next;
-	(*list)->next = temp;
-	(*list)->prev = prev;
-	prev->next = *list;
-	temp->prev = *list;
-	next->prev = temp;
+	if (temp->next == temp->prev)
+		return ;
+	else
+	{
+		prev = temp->prev;
+		next = (*list)->next;
+		temp->next = (*list)->next;
+		(*list)->next = temp;
+		(*list)->prev = prev;
+		prev->next = *list;
+		temp->prev = *list;
+		next->prev = temp;
+	}
 	ft_printf("%ssb\n%s", CYAN, END);
 	return ;
 }

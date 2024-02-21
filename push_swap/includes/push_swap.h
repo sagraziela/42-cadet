@@ -6,7 +6,7 @@
 /*   By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 12:45:27 by gde-souz          #+#    #+#             */
-/*   Updated: 2024/02/20 11:29:42 by gde-souz         ###   ########.fr       */
+/*   Updated: 2024/02/21 12:06:42 by gde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ typedef struct s_stack {
 	t_tab	*a_list;
 	t_tab	*b_list;
 	int		length;
+	int		moves;
 	long	highest;
 	long	lowest;
 	long	max_a;
@@ -52,7 +53,7 @@ void	ft_lstadd_node(t_tab **lst, t_tab *new);
 t_tab	*create_list(int *list);
 void	sort_three(t_stack **stack);
 void	push_swap(t_stack *stack);
-void	print_sorted_list(t_tab *list, int len);
+void	print_sorted_list(t_tab *list, int len, int moves);
 void	find_edges(t_stack	**stack);
 void	set_indexes(t_stack **stack);
 void	set_positions(t_stack **stack);

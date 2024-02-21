@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 11:23:59 by gde-souz          #+#    #+#             */
-/*   Updated: 2024/02/16 19:15:14 by root             ###   ########.fr       */
+/*   Updated: 2024/02/21 15:39:14 by gde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void	init_stacks(t_stack **stacks)
 	(*stacks)->a_list = NULL;
 	(*stacks)->b_list = NULL;
 	(*stacks)->length = 0;
+	(*stacks)->moves = 0;
 	(*stacks)->highest = 0;
 	(*stacks)->lowest = 0;
 	(*stacks)->max_a = 0;
@@ -93,16 +94,28 @@ int	*check_validity(char *list, t_stack **stacks)
 
 void	clear_stack(t_stack **stack)
 {
-	int		i;
 	t_tab	*temp;
+	t_tab	*prev;
 
-	i = 0;
-	while (i < (*stack)->length)
+	while ((*stack)->a_list != NULL)
 	{
-		temp = (*stack)->a_list->next;
+		if (!(*stack)->a_list->next)
+			temp = NULL;
+		else if ((*stack)->a_list->next == (*stack)->a_list->prev)
+		{
+			temp = (*stack)->a_list->next;
+			temp->next = NULL;
+			temp->prev = NULL;
+		}
+		else
+		{
+			prev = (*stack)->a_list->prev;
+			temp = (*stack)->a_list->next;
+			temp->prev = prev;
+			prev->next = temp;
+		}
 		free((*stack)->a_list);
 		(*stack)->a_list = temp;
-		i++;
 	}
 	free(*stack);
 	return ;

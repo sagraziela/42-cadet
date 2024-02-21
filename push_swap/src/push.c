@@ -6,7 +6,7 @@
 /*   By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 12:07:19 by gde-souz          #+#    #+#             */
-/*   Updated: 2024/02/20 16:43:21 by gde-souz         ###   ########.fr       */
+/*   Updated: 2024/02/21 15:38:09 by gde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,15 +35,18 @@ void	pa(t_tab **a_list, t_tab **b_list)
 	temp_b = *b_list;
 	temp_b_prev = (*b_list)->prev;
 	*b_list = (*b_list)->next;
-	if ((*b_list) && temp_b_prev == *b_list)
+	if ((*b_list))
 	{
-		(*b_list)->prev = NULL;
-		(*b_list)->next = NULL;
-	}
-	else if ((*b_list))
-	{
-		(*b_list)->prev = temp_b_prev;
-		temp_b_prev->next = *b_list;
+		if (temp_b->prev == temp_b->next)
+		{
+			(*b_list)->prev = NULL;
+			(*b_list)->next = NULL;
+		}
+		else
+		{
+			(*b_list)->prev = temp_b_prev;
+			temp_b_prev->next = *b_list;
+		}
 	}
 	update_list(&a_list, temp_b);
 	ft_printf("%spa\n%s", BLUE, END);

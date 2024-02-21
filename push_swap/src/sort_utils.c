@@ -6,13 +6,13 @@
 /*   By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 11:25:38 by gde-souz          #+#    #+#             */
-/*   Updated: 2024/02/20 12:48:01 by gde-souz         ###   ########.fr       */
+/*   Updated: 2024/02/21 12:06:32 by gde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/push_swap.h"
 
-void	print_sorted_list(t_tab *list, int len)
+void	print_sorted_list(t_tab *list, int len, int moves)
 {
 	int		i;
 
@@ -25,6 +25,7 @@ void	print_sorted_list(t_tab *list, int len)
 		i++;
 	}
 	ft_printf("\n");
+	ft_printf("COUNT = %d\n", moves);
 }
 
 void	find_edges(t_stack	**stack)
