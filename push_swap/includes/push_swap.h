@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 12:45:27 by gde-souz          #+#    #+#             */
-/*   Updated: 2024/02/21 12:06:42 by gde-souz         ###   ########.fr       */
+/*   Updated: 2024/02/23 10:53:25 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,33 +41,34 @@ typedef struct s_stack {
 	t_tab	*b_list;
 	int		length;
 	int		moves;
+	int		mid;
+	int		small;
 	long	highest;
 	long	lowest;
-	long	max_a;
-	long	max_b;
 }	t_stack;
 
 int		main(int argc, char **argv);
 t_tab	*create_new_node(int content);
 void	ft_lstadd_node(t_tab **lst, t_tab *new);
 t_tab	*create_list(int *list);
+int		get_list_length(t_tab *list);
 void	sort_three(t_stack **stack);
 void	push_swap(t_stack *stack);
-void	print_sorted_list(t_tab *list, int len, int moves);
+void	print_sorted_list(t_tab *list, int moves);
 void	find_edges(t_stack	**stack);
 void	set_indexes(t_stack **stack);
 void	set_positions(t_stack **stack);
 
-void	pa(t_tab **a_list, t_tab **b_list);
-void	pb(t_tab **a_list, t_tab **b_list);
-void	sa(t_tab **list);
-void	sb(t_tab **list);
-void	ss(t_tab **a_list, t_tab **b_list);
-void	ra(t_tab **list);
-void	rb(t_tab **list);
-void	rr(t_tab **a_list, t_tab **b_list);
-void	rra(t_tab **list);
-void	rrb(t_tab **list);
-void	rrr(t_tab **a_list, t_tab **b_list);
+void	pa(t_tab **a_list, t_tab **b_list, int *moves);
+void	pb(t_tab **a_list, t_tab **b_list, int *moves);
+void	sa(t_tab **list, int *moves);
+void	sb(t_tab **list, int *moves);
+void	ss(t_tab **a_list, t_tab **b_list, int *moves);
+void	ra(t_tab **list, int *moves);
+void	rb(t_tab **list, int *moves);
+void	rr(t_tab **a_list, t_tab **b_list, int *moves);
+void	rra(t_tab **list, int *moves);
+void	rrb(t_tab **list, int *moves);
+void	rrr(t_tab **a_list, t_tab **b_list, int *moves);
 
 #endif

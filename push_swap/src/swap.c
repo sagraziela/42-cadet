@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   swap.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 12:09:13 by gde-souz          #+#    #+#             */
-/*   Updated: 2024/02/21 18:36:28 by gde-souz         ###   ########.fr       */
+/*   Updated: 2024/02/22 19:02:30 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/push_swap.h"
 
-void	sa(t_tab **list)
+void	sa(t_tab **list, int *moves)
 {
 	t_tab	*temp;
 	t_tab	*prev;
@@ -28,11 +28,12 @@ void	sa(t_tab **list)
 	prev->next = *list;
 	temp->prev = *list;
 	next->prev = temp;
+	(*moves)++;
 	ft_printf("%ssa\n%s", CYAN, END);
 	return ;
 }
 
-void	sb(t_tab **list)
+void	sb(t_tab **list, int *moves)
 {
 	t_tab	*temp;
 	t_tab	*prev;
@@ -53,11 +54,12 @@ void	sb(t_tab **list)
 		temp->prev = *list;
 		next->prev = temp;
 	}
+	(*moves)++;
 	ft_printf("%ssb\n%s", CYAN, END);
 	return ;
 }
 
-void	ss(t_tab **a_list, t_tab **b_list)
+void	ss(t_tab **a_list, t_tab **b_list, int *moves)
 {
 	t_tab	*temp;
 	t_tab	*a_next;
@@ -87,6 +89,7 @@ void	ss(t_tab **a_list, t_tab **b_list)
 		temp->prev = *b_list;
 		b_next->prev = temp;
 	}
+	(*moves)++;
 	ft_printf("%sss\n%s", BLUE, END);
 	return ;
 }

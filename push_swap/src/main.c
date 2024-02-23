@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 11:23:59 by gde-souz          #+#    #+#             */
-/*   Updated: 2024/02/21 15:39:14 by gde-souz         ###   ########.fr       */
+/*   Updated: 2024/02/23 10:38:38 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ void	init_stacks(t_stack **stacks)
 	(*stacks)->moves = 0;
 	(*stacks)->highest = 0;
 	(*stacks)->lowest = 0;
-	(*stacks)->max_a = 0;
-	(*stacks)->max_b = 0;
+	(*stacks)->mid = 0;
+	(*stacks)->small = 0;
 }
 
 void	clear_char_arr(char **list)

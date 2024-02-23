@@ -3,26 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   sort_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 11:25:38 by gde-souz          #+#    #+#             */
-/*   Updated: 2024/02/21 12:06:32 by gde-souz         ###   ########.fr       */
+/*   Updated: 2024/02/23 11:33:52 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/push_swap.h"
 
-void	print_sorted_list(t_tab *list, int len, int moves)
+void	print_sorted_list(t_tab *list, int moves)
 {
-	int		i;
+	t_tab	*temp;
 
-	i = 0;
+	temp = list;
 	ft_printf("RESULT =");
-	while (i < len)
+	ft_printf(" %d |", list->value);
+	list = list->next;
+	while (list != temp)
 	{
 		ft_printf(" %d |", list->value);
 		list = list->next;
-		i++;
 	}
 	ft_printf("\n");
 	ft_printf("COUNT = %d\n", moves);
@@ -107,4 +108,22 @@ void	set_positions(t_stack **stack)
 		(*stack)->b_list = (*stack)->b_list->next;
 		i++;
 	}
+}
+
+int	get_list_length(t_tab *list)
+{
+	int		count;
+	t_tab	*temp;
+
+	if (!list)
+		return (0);
+	temp = list;
+	count = 1;
+	list = list->next;
+	while (list->index != temp->index)
+	{
+		count++;
+		list = list->next;
+	}
+	return (count);
 }

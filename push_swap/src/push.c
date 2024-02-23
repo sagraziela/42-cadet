@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 12:07:19 by gde-souz          #+#    #+#             */
-/*   Updated: 2024/02/21 15:38:09 by gde-souz         ###   ########.fr       */
+/*   Updated: 2024/02/22 19:00:55 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static void	update_list(t_tab ***list, t_tab *temp)
 	**list = (**list)->prev;
 }
 
-void	pa(t_tab **a_list, t_tab **b_list)
+void	pa(t_tab **a_list, t_tab **b_list, int *moves)
 {
 	t_tab	*temp_b;
 	t_tab	*temp_b_prev;
@@ -49,11 +49,12 @@ void	pa(t_tab **a_list, t_tab **b_list)
 		}
 	}
 	update_list(&a_list, temp_b);
+	(*moves)++;
 	ft_printf("%spa\n%s", BLUE, END);
 	return ;
 }
 
-void	pb(t_tab **a_list, t_tab **b_list)
+void	pb(t_tab **a_list, t_tab **b_list, int *moves)
 {
 	t_tab	*temp_a_prev;
 	t_tab	*temp_b;
@@ -71,6 +72,7 @@ void	pb(t_tab **a_list, t_tab **b_list)
 	}
 	else
 		update_list(&b_list, temp_b);
+	(*moves)++;
 	ft_printf("%spb\n%s", BLUE, END);
 	return ;
 }
