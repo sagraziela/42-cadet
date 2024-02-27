@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 11:25:38 by gde-souz          #+#    #+#             */
-/*   Updated: 2024/02/23 11:33:52 by root             ###   ########.fr       */
+/*   Updated: 2024/02/27 11:59:32 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,11 +115,14 @@ int	get_list_length(t_tab *list)
 	int		count;
 	t_tab	*temp;
 
-	if (!list)
+	if (list == NULL)
 		return (0);
 	temp = list;
 	count = 1;
-	list = list->next;
+	if (list->next)
+		list = list->next;
+	else
+		return (count);
 	while (list->index != temp->index)
 	{
 		count++;

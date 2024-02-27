@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 13:36:25 by gde-souz          #+#    #+#             */
-/*   Updated: 2024/02/26 18:19:48 by gde-souz         ###   ########.fr       */
+/*   Updated: 2024/02/27 14:08:43 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,49 +71,30 @@ int	a_and_b_must_swap(t_tab *a_list, t_tab *b_list)
 
 void	sort(t_stack **stack)
 {
-	int	i;
-	int	b_len;
-
-	i = 0;
-	b_len = get_list_length((*stack)->b_list);
-	(*stack)->mid = b_len / 2;
 	while ((*stack)->b_list != NULL)
 	{
-		(*stack)->small = (*stack)->mid / 2;
-		i = 0;
-		while (i <= (*stack)->mid)
+		pa(&(*stack)->a_list, &(*stack)->b_list, &(*stack)->moves);
+		if ((*stack)->a_list->prev->index != (*stack)->length
+			&& (*stack)->a_list->index < (*stack)->a_list->prev->index)
 		{
-			if ((*stack)->b_list->index < (*stack)->mid)
+			while ((*stack)->a_list->prev->index != (*stack)->length
+				&& (*stack)->a_list->index < (*stack)->a_list->prev->index)
 			{
-				rb(&(*stack)->b_list, &(*stack)->moves);
+				rra(&(*stack)->a_list, &(*stack)->moves);
+				sa(&(*stack)->a_list, &(*stack)->moves);
 			}
-			else
-			{
-				if ((*stack)->b_list->next
-					&& (*stack)->b_list->index < (*stack)->b_list->next->index)
-					sb(&(*stack)->b_list, &(*stack)->moves);
-				while (((*stack)->a_list->prev->index > (*stack)->b_list->index)
-					&& ((*stack)->a_list->prev->index != (*stack)->length))
-				{
-					rra(&(*stack)->a_list, &(*stack)->moves);
-				}
-				pa(&(*stack)->a_list, &(*stack)->b_list, &(*stack)->moves);
-				if ((*stack)->a_list->index < (*stack)->small)
-				{
-					ra(&(*stack)->a_list, &(*stack)->moves);
-				}
-				while ((*stack)->a_list->index > (*stack)->a_list->next->index)
-				{
-					sa(&(*stack)->a_list, &(*stack)->moves);
-					ra(&(*stack)->a_list, &(*stack)->moves);
-				}
-			}
-			i++;
 		}
-		//print_sorted_list((*stack)->b_list, (*stack)->moves);
-		b_len = get_list_length((*stack)->b_list);
-		(*stack)->mid = b_len / 2;
+		else
+		{
+			while ((*stack)->a_list->index > (*stack)->a_list->next->index)
+			{
+				sa(&(*stack)->a_list, &(*stack)->moves);
+				ra(&(*stack)->a_list, &(*stack)->moves);
+			}
+		}
 	}
+	while ((*stack)->a_list->index != 1)
+		rra(&(*stack)->a_list, &(*stack)->moves);
 	print_sorted_list((*stack)->a_list, (*stack)->moves);
 }
 
