@@ -6,7 +6,7 @@
 /*   By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 11:25:38 by gde-souz          #+#    #+#             */
-/*   Updated: 2024/02/28 16:54:07 by gde-souz         ###   ########.fr       */
+/*   Updated: 2024/02/28 17:31:08 by gde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,23 +153,25 @@ void	set_cost_a(t_stack ***stack)
 	t_tab	*temp;
 
 	i = 0;
-	temp = (**stack)->a_list;
-	while (i < get_list_length(temp))
+	while (i < get_list_length((**stack)->a_list))
 	{
+		(**stack)->a_list->cost_a = 0;
+		temp = (**stack)->a_list;
 		while (temp->pos != 0)
 		{
-			if (get_list_length(temp) / 2 > (**stack)->a_list->pos)
+			if (get_list_length(temp) / 2 < (**stack)->a_list->pos)
 			{
-				(**stack)->a_list->cost_a++;
+				(**stack)->a_list->cost_a--;
 				temp = temp->next;
 			}
 			else
 			{
-				(**stack)->a_list->cost_a--;
+				(**stack)->a_list->cost_a++;
 				temp = temp->prev;
 			}
 		}
-		temp = temp->next;
+		//ft_printf("A = %d | pos_a = %d cost_a = %d\n", (**stack)->a_list->value, (**stack)->a_list->pos, (**stack)->a_list->cost_a);
+		(**stack)->a_list = (**stack)->a_list->next;
 		i++;
 	}
 }
@@ -177,32 +179,29 @@ void	set_cost_a(t_stack ***stack)
 void	set_cost_b(t_stack ***stack)
 {
 	int		i;
-	int		count;
 	t_tab	*temp;
 
 	i = 0;
-	count = 0;
-	temp = (**stack)->b_list;
-	while (i < get_list_length(temp))
+	while (i < get_list_length((**stack)->b_list))
 	{
+		(**stack)->b_list->cost_b = 0;
+		temp = (**stack)->b_list;
 		while (temp->pos != 0)
 		{
-			if (get_list_length(temp) / 2 > (**stack)->b_list->pos)
+			if (get_list_length(temp) / 2 < (**stack)->b_list->pos)
 			{
-				count++;
+				(**stack)->b_list->cost_b--;
 				temp = temp->next;
 			}
 			else
 			{
-				count--;
+				(**stack)->b_list->cost_b++;
 				temp = temp->prev;
 			}
 		}
-		(**stack)->b_list->cost_b = count;
-		ft_printf("B = %d | pos_b = %d cost_b = %d\n", temp->value, temp->pos, temp->cost_b);
+		ft_printf("B = %d | pos_b = %d cost_b = %d\n", (**stack)->b_list->value, (**stack)->b_list->pos, (**stack)->b_list->cost_b);
 		if ((**stack)->b_list->next)
 			(**stack)->b_list = (**stack)->b_list->next;
-		temp = (**stack)->b_list;
 		i++;
 	}
 }
