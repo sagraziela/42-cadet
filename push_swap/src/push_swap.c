@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 13:36:25 by gde-souz          #+#    #+#             */
-/*   Updated: 2024/02/27 14:08:43 by root             ###   ########.fr       */
+/*   Updated: 2024/02/27 20:48:33 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,31 +71,31 @@ int	a_and_b_must_swap(t_tab *a_list, t_tab *b_list)
 
 void	sort(t_stack **stack)
 {
-	while ((*stack)->b_list != NULL)
+	while ((*stack)->b_list)
 	{
 		pa(&(*stack)->a_list, &(*stack)->b_list, &(*stack)->moves);
-		if ((*stack)->a_list->prev->index != (*stack)->length
-			&& (*stack)->a_list->index < (*stack)->a_list->prev->index)
+		while ((*stack)->a_list->prev->index != (*stack)->length
+			&& ((*stack)->a_list->index < (*stack)->a_list->prev->index))
 		{
-			while ((*stack)->a_list->prev->index != (*stack)->length
-				&& (*stack)->a_list->index < (*stack)->a_list->prev->index)
-			{
-				rra(&(*stack)->a_list, &(*stack)->moves);
-				sa(&(*stack)->a_list, &(*stack)->moves);
-			}
+			rra(&(*stack)->a_list, &(*stack)->moves);
+			sa(&(*stack)->a_list, &(*stack)->moves);
+			if ((*stack)->b_list
+				&& (*stack)->b_list->index > (*stack)->a_list->prev->index
+				&& (*stack)->b_list->index < (*stack)->a_list->index)
+				pa(&(*stack)->a_list, &(*stack)->b_list, &(*stack)->moves);
 		}
-		else
+		while ((*stack)->a_list->index > (*stack)->a_list->next->index)
 		{
-			while ((*stack)->a_list->index > (*stack)->a_list->next->index)
-			{
-				sa(&(*stack)->a_list, &(*stack)->moves);
-				ra(&(*stack)->a_list, &(*stack)->moves);
-			}
+			sa(&(*stack)->a_list, &(*stack)->moves);
+			ra(&(*stack)->a_list, &(*stack)->moves);
+			if ((*stack)->b_list
+				&& (*stack)->b_list->index > (*stack)->a_list->prev->index
+				&& (*stack)->b_list->index < (*stack)->a_list->index)
+				pa(&(*stack)->a_list, &(*stack)->b_list, &(*stack)->moves);
 		}
+		print_sorted_list((*stack)->a_list, (*stack)->moves);
 	}
-	while ((*stack)->a_list->index != 1)
-		rra(&(*stack)->a_list, &(*stack)->moves);
-	print_sorted_list((*stack)->a_list, (*stack)->moves);
+	//print_sorted_list((*stack)->a_list, (*stack)->moves);
 }
 
 void	push_swap(t_stack *stack)
