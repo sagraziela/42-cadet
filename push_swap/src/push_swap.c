@@ -6,7 +6,7 @@
 /*   By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 13:36:25 by gde-souz          #+#    #+#             */
-/*   Updated: 2024/02/28 16:22:42 by gde-souz         ###   ########.fr       */
+/*   Updated: 2024/02/28 17:55:00 by gde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,31 @@ void	find_beginning(t_stack **stack)
 	print_sorted_list((*stack)->a_list, (*stack)->moves);
 }
 
+// void	sort(t_stack **stack)
+// {
+// 	int	i;
+// 	t_tab	*temp_a;
+// 	t_tab	*temp_b;
+
+// 	i = 0;
+// 	while (i < get_list_length((*stack)->b_list))
+// 	{
+// 		set_positions(&stack);
+// 		set_target(&stack);
+// 		set_cost_a(&stack);
+// 		set_cost_b(&stack);
+// 		while ((*stack)->b_list)
+// 		{
+// 			while ((*stack)->a_list)
+// 			{
+
+// 			}
+// 		}
+// 		pa(&(*stack)->a_list, &(*stack)->b_list, &(*stack)->moves);
+// 		//print_sorted_list((*stack)->a_list, (*stack)->moves);
+// 	}
+// }
+
 void	sort(t_stack **stack)
 {
 	while ((*stack)->b_list)
@@ -110,3 +135,26 @@ void	push_swap(t_stack *stack)
 		find_beginning(&stack);
 	}
 }
+
+// void	sort(t_stack **stack)
+// {
+// 	while ((*stack)->b_list)
+// 	{
+// 		set_positions(&stack);
+// 		set_target(&stack);
+// 		set_cost_a(&stack);
+// 		set_cost_b(&stack);
+// 		while ((*stack)->b_list
+// 			&& (*stack)->b_list->target_pos != (*stack)->a_list->pos)
+// 		{
+// 			if (get_list_length((*stack)->a_list) / 2
+// 				> (*stack)->b_list->target_pos)
+// 				ra(&(*stack)->a_list, &(*stack)->moves);
+// 			else if (get_list_length((*stack)->a_list) / 2
+// 				< (*stack)->b_list->target_pos)
+// 				rra(&(*stack)->a_list, &(*stack)->moves);
+// 		}
+// 		pa(&(*stack)->a_list, &(*stack)->b_list, &(*stack)->moves);
+// 		//print_sorted_list((*stack)->a_list, (*stack)->moves);
+// 	}
+// }
