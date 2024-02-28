@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sort_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 11:25:38 by gde-souz          #+#    #+#             */
-/*   Updated: 2024/02/27 11:59:32 by root             ###   ########.fr       */
+/*   Updated: 2024/02/28 14:05:54 by gde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,30 +82,67 @@ void	set_indexes(t_stack **stack)
 	}
 }
 
-void	set_positions(t_stack **stack)
+void	set_positions(t_stack ***stack)
+{
+	int		i;
+	t_tab	*temp_a;
+	t_tab	*temp_b;
+
+	temp_a = (**stack)->a_list;
+	(**stack)->a_list->pos = 0;
+	(**stack)->a_list = (**stack)->a_list->next;
+	temp_b = (**stack)->b_list;
+	(**stack)->b_list->pos = 0;
+	if ((**stack)->b_list->next != NULL)
+		(**stack)->b_list = (**stack)->b_list->next;
+	i = 1;
+	while ((**stack)->a_list != temp_a
+		|| (**stack)->b_list != temp_b)
+	{
+		if ((**stack)->a_list != temp_a)
+		{
+			(**stack)->a_list->pos = i;
+			(**stack)->a_list = (**stack)->a_list->next;
+		}
+		if ((**stack)->b_list && ((**stack)->b_list != temp_b))
+		{
+			(**stack)->b_list->pos = i;
+			(**stack)->b_list = (**stack)->b_list->next;
+		}
+		i++;
+	}
+}
+
+void	set_target(t_stack ***stack)
 {
 	int		i;
 	t_tab	*temp;
 
 	i = 0;
-	(*stack)->a_list->pos = i;
-	temp = (*stack)->a_list;
-	(*stack)->a_list = (*stack)->a_list->next;
-	while ((*stack)->a_list != temp)
+	temp = (**stack)->a_list;
+	while (i < get_list_length((**stack)->a_list))
 	{
-		(*stack)->a_list->pos = i;
-		(*stack)->a_list = (*stack)->a_list->next;
-		ft_printf("value: %d | pos: %d\n", (*stack)->a_list->value, (*stack)->a_list->pos);
+		if (temp->index > (**stack)->a_list->index)
+			temp = (**stack)->a_list;
+		(**stack)->a_list = (**stack)->a_list->next;
 		i++;
 	}
 	i = 0;
-	(*stack)->b_list->pos = i;
-	temp = (*stack)->b_list;
-	(*stack)->b_list = (*stack)->b_list->next;
-	while ((*stack)->b_list != temp)
+	while ((**stack)->b_list && i < get_list_length((**stack)->b_list))
 	{
-		(*stack)->b_list->pos = i;
-		(*stack)->b_list = (*stack)->b_list->next;
+		while (temp->index <= (**stack)->b_list->index
+			&& temp->index < (**stack)->length)
+		{
+			if (temp->index == (**stack)->b_list->index + 1)
+				break ;
+			temp = temp->next;
+		}
+		(**stack)->b_list->target_pos = temp->pos;
+		temp = (**stack)->a_list;
+		if ((**stack)->b_list->next)
+			(**stack)->b_list = (**stack)->b_list->next;
+		else
+			break ;
 		i++;
 	}
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 13:36:25 by gde-souz          #+#    #+#             */
-/*   Updated: 2024/02/27 20:48:33 by root             ###   ########.fr       */
+/*   Updated: 2024/02/28 14:09:53 by gde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,29 +73,27 @@ void	sort(t_stack **stack)
 {
 	while ((*stack)->b_list)
 	{
+		set_positions(&stack);
+		set_target(&stack);
+		while ((*stack)->b_list
+			&& (*stack)->b_list->target_pos != (*stack)->a_list->pos)
+		{
+			if (get_list_length((*stack)->a_list) / 2 > (*stack)->b_list->target_pos)
+				ra(&(*stack)->a_list, &(*stack)->moves);
+			else if (get_list_length((*stack)->a_list) / 2 < (*stack)->b_list->target_pos)
+				rra(&(*stack)->a_list, &(*stack)->moves);
+		}
 		pa(&(*stack)->a_list, &(*stack)->b_list, &(*stack)->moves);
-		while ((*stack)->a_list->prev->index != (*stack)->length
-			&& ((*stack)->a_list->index < (*stack)->a_list->prev->index))
-		{
-			rra(&(*stack)->a_list, &(*stack)->moves);
-			sa(&(*stack)->a_list, &(*stack)->moves);
-			if ((*stack)->b_list
-				&& (*stack)->b_list->index > (*stack)->a_list->prev->index
-				&& (*stack)->b_list->index < (*stack)->a_list->index)
-				pa(&(*stack)->a_list, &(*stack)->b_list, &(*stack)->moves);
-		}
-		while ((*stack)->a_list->index > (*stack)->a_list->next->index)
-		{
-			sa(&(*stack)->a_list, &(*stack)->moves);
-			ra(&(*stack)->a_list, &(*stack)->moves);
-			if ((*stack)->b_list
-				&& (*stack)->b_list->index > (*stack)->a_list->prev->index
-				&& (*stack)->b_list->index < (*stack)->a_list->index)
-				pa(&(*stack)->a_list, &(*stack)->b_list, &(*stack)->moves);
-		}
 		print_sorted_list((*stack)->a_list, (*stack)->moves);
 	}
-	//print_sorted_list((*stack)->a_list, (*stack)->moves);
+	while ((*stack)->a_list->index != 1)
+	{
+		if ((*stack)->length / 2 < (*stack)->a_list->index)
+			ra(&(*stack)->a_list, &(*stack)->moves);
+		else if ((*stack)->length / 2 > (*stack)->a_list->index)
+			rra(&(*stack)->a_list, &(*stack)->moves);
+	}
+	print_sorted_list((*stack)->a_list, (*stack)->moves);
 }
 
 void	push_swap(t_stack *stack)
@@ -118,39 +116,3 @@ void	push_swap(t_stack *stack)
 		sort(&stack);
 	}
 }
-
-// void	sort(t_stack **stack)
-// {
-// 	while ((*stack)->b_list != NULL)
-// 	{
-// 		if (((*stack)->b_list->next)
-// 			&& ((*stack)->b_list->index < (*stack)->b_list->next->index))
-// 		{
-// 			sb(&(*stack)->b_list, &(*stack)->moves);
-// 		}
-// 		while (((*stack)->a_list->prev->index > (*stack)->b_list->index)
-// 			&& ((*stack)->a_list->prev->index != (*stack)->length))
-// 		{
-// 			rra(&(*stack)->a_list, &(*stack)->moves);
-// 		}
-// 		pa(&(*stack)->a_list, &(*stack)->b_list, &(*stack)->moves);
-// 		if ((*stack)->a_list->index != (*stack)->a_list->next->index - 1)
-// 		{
-// 			while ((*stack)->a_list->index > (*stack)->a_list->next->index)
-// 			{
-// 				if ((*stack)->b_list->next
-// 					&& (*stack)->b_list->index < (*stack)->b_list->next->index)
-// 				{
-// 					ss(&(*stack)->a_list, &(*stack)->b_list, &(*stack)->moves);
-// 				}
-// 				else
-// 					sa(&(*stack)->a_list, &(*stack)->moves);
-// 				if ((*stack)->a_list->next->index - (*stack)->a_list->index > 1)
-// 				{
-// 					ra(&(*stack)->a_list, &(*stack)->moves);
-// 				}
-// 			}
-// 		}
-// 	}
-// 	print_sorted_list((*stack)->a_list, (*stack)->moves);
-// }
