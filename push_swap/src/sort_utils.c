@@ -6,7 +6,7 @@
 /*   By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 11:25:38 by gde-souz          #+#    #+#             */
-/*   Updated: 2024/02/28 14:05:54 by gde-souz         ###   ########.fr       */
+/*   Updated: 2024/02/28 16:54:07 by gde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,6 +143,66 @@ void	set_target(t_stack ***stack)
 			(**stack)->b_list = (**stack)->b_list->next;
 		else
 			break ;
+		i++;
+	}
+}
+
+void	set_cost_a(t_stack ***stack)
+{
+	int		i;
+	t_tab	*temp;
+
+	i = 0;
+	temp = (**stack)->a_list;
+	while (i < get_list_length(temp))
+	{
+		while (temp->pos != 0)
+		{
+			if (get_list_length(temp) / 2 > (**stack)->a_list->pos)
+			{
+				(**stack)->a_list->cost_a++;
+				temp = temp->next;
+			}
+			else
+			{
+				(**stack)->a_list->cost_a--;
+				temp = temp->prev;
+			}
+		}
+		temp = temp->next;
+		i++;
+	}
+}
+
+void	set_cost_b(t_stack ***stack)
+{
+	int		i;
+	int		count;
+	t_tab	*temp;
+
+	i = 0;
+	count = 0;
+	temp = (**stack)->b_list;
+	while (i < get_list_length(temp))
+	{
+		while (temp->pos != 0)
+		{
+			if (get_list_length(temp) / 2 > (**stack)->b_list->pos)
+			{
+				count++;
+				temp = temp->next;
+			}
+			else
+			{
+				count--;
+				temp = temp->prev;
+			}
+		}
+		(**stack)->b_list->cost_b = count;
+		ft_printf("B = %d | pos_b = %d cost_b = %d\n", temp->value, temp->pos, temp->cost_b);
+		if ((**stack)->b_list->next)
+			(**stack)->b_list = (**stack)->b_list->next;
+		temp = (**stack)->b_list;
 		i++;
 	}
 }

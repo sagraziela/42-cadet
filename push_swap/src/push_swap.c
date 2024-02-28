@@ -6,7 +6,7 @@
 /*   By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 13:36:25 by gde-souz          #+#    #+#             */
-/*   Updated: 2024/02/28 15:33:04 by gde-souz         ###   ########.fr       */
+/*   Updated: 2024/02/28 16:22:42 by gde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,17 +16,11 @@ void	sort_three(t_stack **stack)
 {
 	if ((*stack)->a_list->value > (*stack)->a_list->next->value
 		&& (*stack)->a_list->value > (*stack)->a_list->prev->value)
-	{
 		ra(&(*stack)->a_list, &(*stack)->moves);
-	}
 	if ((*stack)->a_list->prev->value < (*stack)->a_list->next->value)
-	{
 		rra(&(*stack)->a_list, &(*stack)->moves);
-	}
 	if ((*stack)->a_list->value > (*stack)->a_list->next->value)
-	{
 		sa(&(*stack)->a_list, &(*stack)->moves);
-	}
 }
 
 void	push_to_b(t_stack **stack)
@@ -78,6 +72,8 @@ void	sort(t_stack **stack)
 	{
 		set_positions(&stack);
 		set_target(&stack);
+		set_cost_a(&stack);
+		set_cost_b(&stack);
 		while ((*stack)->b_list
 			&& (*stack)->b_list->target_pos != (*stack)->a_list->pos)
 		{
