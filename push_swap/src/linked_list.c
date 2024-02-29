@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   linked_list.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 11:49:38 by gde-souz          #+#    #+#             */
-/*   Updated: 2024/02/28 16:11:49 by gde-souz         ###   ########.fr       */
+/*   Updated: 2024/02/29 18:48:03 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ t_tab	*create_new_node(int content)
 	new_node->target_pos = 0;
 	new_node->cost_a = 0;
 	new_node->cost_b = 0;
+	new_node->cost = 0;
 	return (new_node);
 }
 

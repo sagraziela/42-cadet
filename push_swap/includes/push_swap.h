@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 12:45:27 by gde-souz          #+#    #+#             */
-/*   Updated: 2024/02/28 16:19:32 by gde-souz         ###   ########.fr       */
+/*   Updated: 2024/02/29 18:36:42 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ typedef struct s_tab
 	int				target_pos;
 	int				cost_a;
 	int				cost_b;
+	int				cost;
 	struct s_tab	*prev;
 	struct s_tab	*next;
 }	t_tab;
@@ -61,6 +62,7 @@ void	set_positions(t_stack ***stack);
 void	set_target(t_stack ***stack);
 void	set_cost_a(t_stack ***stack);
 void	set_cost_b(t_stack ***stack);
+void	set_full_cost(t_stack ***stack);
 
 void	pa(t_tab **a_list, t_tab **b_list, int *moves);
 void	pb(t_tab **a_list, t_tab **b_list, int *moves);

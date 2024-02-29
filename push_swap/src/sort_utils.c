@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sort_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 11:25:38 by gde-souz          #+#    #+#             */
-/*   Updated: 2024/02/28 17:54:01 by gde-souz         ###   ########.fr       */
+/*   Updated: 2024/02/29 18:50:51 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ void	find_edges(t_stack	**stack)
 	highest = (*stack)->a_list->value;
 	lowest = (*stack)->a_list->value;
 	count = 1;
+	print_sorted_list((*stack)->a_list, (*stack)->moves);
 	list = (*stack)->a_list->next;
 	while (list != (*stack)->a_list)
 	{
@@ -204,6 +205,28 @@ void	set_cost_b(t_stack ***stack)
 			(**stack)->b_list = (**stack)->b_list->next;
 		i++;
 	}
+}
+
+void	set_full_cost(t_stack ***stack)
+{
+	int		i;
+	t_tab	*temp;
+
+	i = 0;
+	temp = (**stack)->b_list;
+	while (i < get_list_length((**stack)->b_list))
+	{
+		while ((**stack)->a_list->pos != (**stack)->b_list->target_pos)
+		{
+			(**stack)->a_list = (**stack)->a_list->next;
+		}
+		(**stack)->b_list->cost = (unsigned int)(**stack)->b_list->cost_b
+			+ (unsigned int)(**stack)->a_list->cost_a;
+		(**stack)->b_list->cost_a = (**stack)->a_list->cost_a;
+		(**stack)->b_list = (**stack)->b_list->next;
+		i++;
+	}
+	(**stack)->b_list = temp;
 }
 
 int	get_list_length(t_tab *list)

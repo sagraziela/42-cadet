@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 13:36:25 by gde-souz          #+#    #+#             */
-/*   Updated: 2024/02/28 17:55:00 by gde-souz         ###   ########.fr       */
+/*   Updated: 2024/02/29 18:54:27 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ void	push_to_b(t_stack **stack)
 		(*stack)->small = (*stack)->mid / 2;
 		while (i < a_len && get_list_length((*stack)->a_list) > 3)
 		{
+			//print_sorted_list((*stack)->b_list, (*stack)->moves);
 			if ((*stack)->a_list->index >= (*stack)->mid)
 				ra(&(*stack)->a_list, &(*stack)->moves);
 			else
@@ -66,53 +67,88 @@ void	find_beginning(t_stack **stack)
 	print_sorted_list((*stack)->a_list, (*stack)->moves);
 }
 
-// void	sort(t_stack **stack)
-// {
-// 	int	i;
-// 	t_tab	*temp_a;
-// 	t_tab	*temp_b;
+t_tab	*get_cheapest_nbr(t_tab *list)
+{
+	t_tab	*temp;
+	t_tab	*cheapest;
 
-// 	i = 0;
-// 	while (i < get_list_length((*stack)->b_list))
-// 	{
-// 		set_positions(&stack);
-// 		set_target(&stack);
-// 		set_cost_a(&stack);
-// 		set_cost_b(&stack);
-// 		while ((*stack)->b_list)
-// 		{
-// 			while ((*stack)->a_list)
-// 			{
-
-// 			}
-// 		}
-// 		pa(&(*stack)->a_list, &(*stack)->b_list, &(*stack)->moves);
-// 		//print_sorted_list((*stack)->a_list, (*stack)->moves);
-// 	}
-// }
+	cheapest = list;
+	temp = list;
+	list = list->next;
+	while (list != temp)
+	{
+		if (list->cost < cheapest->cost)
+			cheapest = list;
+		list = list->next;
+	}
+	return (cheapest);
+}
 
 void	sort(t_stack **stack)
 {
-	while ((*stack)->b_list)
+	int		i;
+	t_tab	*cheap_b;
+
+	i = 0;
+	while (i < get_list_length((*stack)->b_list))
 	{
 		set_positions(&stack);
 		set_target(&stack);
 		set_cost_a(&stack);
 		set_cost_b(&stack);
-		while ((*stack)->b_list
-			&& (*stack)->b_list->target_pos != (*stack)->a_list->pos)
+		set_full_cost(&stack);
+		cheap_b = get_cheapest_nbr((*stack)->b_list);
+		while (cheap_b->cost_a != 0 || cheap_b->cost_b != 0)
 		{
-			if (get_list_length((*stack)->a_list) / 2
-				> (*stack)->b_list->target_pos)
-				ra(&(*stack)->a_list, &(*stack)->moves);
-			else if (get_list_length((*stack)->a_list) / 2
-				< (*stack)->b_list->target_pos)
+			if (cheap_b->cost_a < 0)
+			{
 				rra(&(*stack)->a_list, &(*stack)->moves);
+				cheap_b->cost_a++;
+			}
+			else if (cheap_b->cost_a > 0)
+			{
+				ra(&(*stack)->a_list, &(*stack)->moves);
+				cheap_b->cost_a--;
+			}
+			if (cheap_b->cost_b < 0)
+			{
+				rrb(&(*stack)->a_list, &(*stack)->moves);
+				cheap_b->cost_b++;
+			}
+			else if (cheap_b->cost_b > 0)
+			{
+				rb(&(*stack)->a_list, &(*stack)->moves);
+				cheap_b->cost_b--;
+			}
 		}
 		pa(&(*stack)->a_list, &(*stack)->b_list, &(*stack)->moves);
 		//print_sorted_list((*stack)->a_list, (*stack)->moves);
+		i++;
 	}
 }
+
+// void	sort(t_stack **stack)
+// {
+// 	while ((*stack)->b_list)
+// 	{
+// 		set_positions(&stack);
+// 		set_target(&stack);
+// 		set_cost_a(&stack);
+// 		set_cost_b(&stack);
+// 		while ((*stack)->b_list
+// 			&& (*stack)->b_list->target_pos != (*stack)->a_list->pos)
+// 		{
+// 			if (get_list_length((*stack)->a_list) / 2
+// 				> (*stack)->b_list->target_pos)
+// 				ra(&(*stack)->a_list, &(*stack)->moves);
+// 			else if (get_list_length((*stack)->a_list) / 2
+// 				< (*stack)->b_list->target_pos)
+// 				rra(&(*stack)->a_list, &(*stack)->moves);
+// 		}
+// 		pa(&(*stack)->a_list, &(*stack)->b_list, &(*stack)->moves);
+// 		//print_sorted_list((*stack)->a_list, (*stack)->moves);
+// 	}
+// }
 
 void	push_swap(t_stack *stack)
 {
