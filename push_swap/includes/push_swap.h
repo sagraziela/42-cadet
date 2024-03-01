@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 12:45:27 by gde-souz          #+#    #+#             */
-/*   Updated: 2024/02/29 18:36:42 by root             ###   ########.fr       */
+/*   Updated: 2024/03/01 12:06:01 by gde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ typedef struct s_tab
 	int				target_pos;
 	int				cost_a;
 	int				cost_b;
-	int				cost;
+	unsigned int	cost;
 	struct s_tab	*prev;
 	struct s_tab	*next;
 }	t_tab;

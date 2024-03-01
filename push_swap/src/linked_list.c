@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   linked_list.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 11:49:38 by gde-souz          #+#    #+#             */
-/*   Updated: 2024/02/29 18:48:03 by root             ###   ########.fr       */
+/*   Updated: 2024/03/01 14:36:39 by gde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,18 +16,10 @@ t_tab	*create_new_node(int content)
 {
 	t_tab	*new_node;
 
-	new_node = (t_tab *)malloc(sizeof(t_tab));
+	new_node = (t_tab *)ft_calloc(1, sizeof(t_tab));
 	if (!new_node)
 		return (NULL);
 	new_node->value = content;
-	new_node->index = 0;
-	new_node->next = NULL;
-	new_node->prev = NULL;
-	new_node->pos = 0;
-	new_node->target_pos = 0;
-	new_node->cost_a = 0;
-	new_node->cost_b = 0;
-	new_node->cost = 0;
 	return (new_node);
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 13:36:25 by gde-souz          #+#    #+#             */
-/*   Updated: 2024/02/29 18:54:27 by root             ###   ########.fr       */
+/*   Updated: 2024/03/01 17:04:30 by gde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,17 +57,23 @@ void	push_to_b(t_stack **stack)
 
 void	find_beginning(t_stack **stack)
 {
-	while ((*stack)->a_list->index != 1)
+	if ((*stack)->length / 2 < (*stack)->a_list->index)
 	{
-		if ((*stack)->length / 2 < (*stack)->a_list->index)
+		while ((*stack)->a_list->index != 1)
 			ra(&(*stack)->a_list, &(*stack)->moves);
-		else if ((*stack)->length / 2 > (*stack)->a_list->index)
+	}
+	else if ((*stack)->length / 2 > (*stack)->a_list->index)
+	{
+		while ((*stack)->a_list->index != 1)
+		{
+			ft_printf("HELLO ---- %d -- idx: %d\n", (*stack)->a_list->value, (*stack)->a_list->index);
 			rra(&(*stack)->a_list, &(*stack)->moves);
+		}
 	}
 	print_sorted_list((*stack)->a_list, (*stack)->moves);
 }
 
-t_tab	*get_cheapest_nbr(t_tab *list)
+void	get_cheapest_nbr(t_tab *list)
 {
 	t_tab	*temp;
 	t_tab	*cheapest;
@@ -75,54 +81,54 @@ t_tab	*get_cheapest_nbr(t_tab *list)
 	cheapest = list;
 	temp = list;
 	list = list->next;
-	while (list != temp)
+	while (list && list != temp)
 	{
 		if (list->cost < cheapest->cost)
 			cheapest = list;
 		list = list->next;
 	}
-	return (cheapest);
 }
 
 void	sort(t_stack **stack)
 {
 	int		i;
-	t_tab	*cheap_b;
 
 	i = 0;
-	while (i < get_list_length((*stack)->b_list))
+	while ((*stack)->b_list)
 	{
 		set_positions(&stack);
 		set_target(&stack);
 		set_cost_a(&stack);
 		set_cost_b(&stack);
 		set_full_cost(&stack);
-		cheap_b = get_cheapest_nbr((*stack)->b_list);
-		while (cheap_b->cost_a != 0 || cheap_b->cost_b != 0)
+		get_cheapest_nbr((*stack)->b_list);
+		ft_printf("b_list: %d | cost: %d | cost_a: %d | cost_b: %d\n", (*stack)->b_list->value, (*stack)->b_list->cost, (*stack)->b_list->cost_a, (*stack)->b_list->cost_b);
+		while ((*stack)->b_list->cost_a != 0 || (*stack)->b_list->cost_b != 0)
 		{
-			if (cheap_b->cost_a < 0)
+			if ((*stack)->b_list->cost_a < 0)
 			{
 				rra(&(*stack)->a_list, &(*stack)->moves);
-				cheap_b->cost_a++;
+				(*stack)->b_list->cost_a++;
 			}
-			else if (cheap_b->cost_a > 0)
+			else if ((*stack)->b_list->cost_a > 0)
 			{
 				ra(&(*stack)->a_list, &(*stack)->moves);
-				cheap_b->cost_a--;
+				(*stack)->b_list->cost_a--;
 			}
-			if (cheap_b->cost_b < 0)
+			if ((*stack)->b_list->cost_b < 0)
 			{
-				rrb(&(*stack)->a_list, &(*stack)->moves);
-				cheap_b->cost_b++;
+				rrb(&(*stack)->b_list, &(*stack)->moves);
+				(*stack)->b_list->cost_b++;
 			}
-			else if (cheap_b->cost_b > 0)
+			else if ((*stack)->b_list->cost_b > 0)
 			{
-				rb(&(*stack)->a_list, &(*stack)->moves);
-				cheap_b->cost_b--;
+				rb(&(*stack)->b_list, &(*stack)->moves);
+				(*stack)->b_list->cost_b--;
 			}
 		}
 		pa(&(*stack)->a_list, &(*stack)->b_list, &(*stack)->moves);
-		//print_sorted_list((*stack)->a_list, (*stack)->moves);
+		//ft_printf("A: %d\n", (*stack)->a_list->value);
+		print_sorted_list((*stack)->a_list, (*stack)->moves);
 		i++;
 	}
 }
@@ -168,7 +174,7 @@ void	push_swap(t_stack *stack)
 		print_sorted_list(stack->b_list, stack->moves);
 		ft_printf("\n");
 		sort(&stack);
-		find_beginning(&stack);
+		//find_beginning(&stack);
 	}
 }
 

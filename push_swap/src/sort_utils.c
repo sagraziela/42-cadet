@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sort_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 11:25:38 by gde-souz          #+#    #+#             */
-/*   Updated: 2024/02/29 18:50:51 by root             ###   ########.fr       */
+/*   Updated: 2024/03/01 17:55:46 by gde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,7 +171,7 @@ void	set_cost_a(t_stack ***stack)
 				temp = temp->prev;
 			}
 		}
-		//ft_printf("A = %d | pos_a = %d cost_a = %d\n", (**stack)->a_list->value, (**stack)->a_list->pos, (**stack)->a_list->cost_a);
+		//ft_printf("A = %d | cost_a = %d\n", (**stack)->a_list->value, (**stack)->a_list->cost_a);
 		(**stack)->a_list = (**stack)->a_list->next;
 		i++;
 	}
@@ -209,20 +209,26 @@ void	set_cost_b(t_stack ***stack)
 
 void	set_full_cost(t_stack ***stack)
 {
-	int		i;
-	t_tab	*temp;
+	int					i;
+	unsigned int		cost_a;
+	unsigned int		cost_b;
+	t_tab				*temp;
 
 	i = 0;
 	temp = (**stack)->b_list;
 	while (i < get_list_length((**stack)->b_list))
 	{
+		//ft_printf("AAA = %d | cost_a = %d\n", (**stack)->a_list->value, (**stack)->a_list->cost_a);
 		while ((**stack)->a_list->pos != (**stack)->b_list->target_pos)
 		{
 			(**stack)->a_list = (**stack)->a_list->next;
 		}
-		(**stack)->b_list->cost = (unsigned int)(**stack)->b_list->cost_b
-			+ (unsigned int)(**stack)->a_list->cost_a;
 		(**stack)->b_list->cost_a = (**stack)->a_list->cost_a;
+		cost_a = (**stack)->a_list->cost_a;
+		cost_b = (**stack)->b_list->cost_b;
+		(**stack)->b_list->cost = (**stack)->a_list->cost_a + (unsigned int)(**stack)->b_list->cost_b;
+		ft_printf("%d -- pos: %d -- target: %d\n", (**stack)->b_list->value, (**stack)->b_list->pos, (**stack)->b_list->target_pos);
+		//ft_printf("value: %d | cost: %d | cost_a: %d | cost_b: %d\n", (**stack)->b_list->value, (**stack)->b_list->cost, (**stack)->a_list->cost_a, (**stack)->b_list->cost_b);
 		(**stack)->b_list = (**stack)->b_list->next;
 		i++;
 	}
