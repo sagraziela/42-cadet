@@ -6,7 +6,7 @@
 /*   By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 11:25:38 by gde-souz          #+#    #+#             */
-/*   Updated: 2024/03/01 17:55:46 by gde-souz         ###   ########.fr       */
+/*   Updated: 2024/03/04 17:48:13 by gde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,17 +16,20 @@ void	print_sorted_list(t_tab *list, int moves)
 {
 	t_tab	*temp;
 
-	temp = list;
-	ft_printf("RESULT =");
-	ft_printf(" %d |", list->value);
-	list = list->next;
-	while (list != temp)
+	if (list)
 	{
+		temp = list;
+		ft_printf("RESULT =");
 		ft_printf(" %d |", list->value);
 		list = list->next;
+		while (list && list != temp)
+		{
+			ft_printf(" %d |", list->value);
+			list = list->next;
+		}
+		ft_printf("\n");
+		ft_printf("COUNT = %d\n", moves);
 	}
-	ft_printf("\n");
-	ft_printf("COUNT = %d\n", moves);
 }
 
 void	find_edges(t_stack	**stack)
@@ -210,29 +213,35 @@ void	set_cost_b(t_stack ***stack)
 void	set_full_cost(t_stack ***stack)
 {
 	int					i;
-	unsigned int		cost_a;
-	unsigned int		cost_b;
-	t_tab				*temp;
+	t_tab				*temp_a;
+	t_tab				*temp_b;
 
 	i = 0;
-	temp = (**stack)->b_list;
+	temp_a = (**stack)->a_list;
+	temp_b = (**stack)->b_list;
 	while (i < get_list_length((**stack)->b_list))
 	{
-		//ft_printf("AAA = %d | cost_a = %d\n", (**stack)->a_list->value, (**stack)->a_list->cost_a);
 		while ((**stack)->a_list->pos != (**stack)->b_list->target_pos)
 		{
+			ft_printf("A = %d\n", (**stack)->a_list->value);
 			(**stack)->a_list = (**stack)->a_list->next;
 		}
+		//ft_printf("A = %d		|	B = %d\ncost_a = %d	|	cost_b = %d\n\n", (**stack)->a_list->value, (**stack)->b_list->value, (**stack)->a_list->cost_a, (**stack)->b_list->cost_b);
 		(**stack)->b_list->cost_a = (**stack)->a_list->cost_a;
-		cost_a = (**stack)->a_list->cost_a;
-		cost_b = (**stack)->b_list->cost_b;
-		(**stack)->b_list->cost = (**stack)->a_list->cost_a + (unsigned int)(**stack)->b_list->cost_b;
-		ft_printf("%d -- pos: %d -- target: %d\n", (**stack)->b_list->value, (**stack)->b_list->pos, (**stack)->b_list->target_pos);
+		if ((**stack)->a_list->cost_a < 0)
+			(**stack)->a_list->cost_a *= -1;
+		if ((**stack)->b_list->cost_b < 0)
+			(**stack)->a_list->cost_b = (**stack)->b_list->cost_b * (-1);
+		else
+			(**stack)->a_list->cost_b = (**stack)->b_list->cost_b;
+		(**stack)->b_list->cost = (**stack)->a_list->cost_a + (**stack)->a_list->cost_b;
+		//ft_printf("%d -- pos: %d -- target: %d\n", (**stack)->b_list->value, (**stack)->b_list->pos, (**stack)->b_list->target_pos);
 		//ft_printf("value: %d | cost: %d | cost_a: %d | cost_b: %d\n", (**stack)->b_list->value, (**stack)->b_list->cost, (**stack)->a_list->cost_a, (**stack)->b_list->cost_b);
 		(**stack)->b_list = (**stack)->b_list->next;
 		i++;
 	}
-	(**stack)->b_list = temp;
+	(**stack)->a_list = temp_a;
+	(**stack)->b_list = temp_b;
 }
 
 int	get_list_length(t_tab *list)
