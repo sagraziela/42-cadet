@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 13:36:25 by gde-souz          #+#    #+#             */
-/*   Updated: 2024/03/04 17:46:57 by gde-souz         ###   ########.fr       */
+/*   Updated: 2024/03/05 19:54:20 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,15 +124,16 @@ void	sort(t_stack **stack)
 	i = 0;
 	while ((*stack)->b_list)
 	{
-		set_positions(&stack);
+		set_positions(&(*stack)->a_list);
+		set_positions(&(*stack)->b_list);
 		set_target(&stack);
 		set_cost_a(&stack);
 		set_cost_b(&stack);
 		set_full_cost(&stack);
 		cheapest = get_cheapest_nbr((*stack)->b_list);
+		ft_printf("cheapest: %d | cost: %d | cost_a: %d | cost_b: %d\n", cheapest->value, cheapest->cost, cheapest->cost_a, cheapest->cost_b);
 		while (cheapest->cost_a != 0 || cheapest->cost_b != 0)
 		{
-			ft_printf("cheapest: %d | cost: %d | cost_a: %d | cost_b: %d\n", cheapest->value, cheapest->cost, cheapest->cost_a, cheapest->cost_b);
 			if (cheapest->cost_a < 0)
 			{
 				rra(&(*stack)->a_list, &(*stack)->moves);
@@ -163,12 +164,12 @@ void	sort(t_stack **stack)
 
 void	push_swap(t_stack *stack)
 {
-	if (stack->length <= 3)
+	if (stack->length <= 3 && stack->length > 1)
 	{
 		sort_three(&stack);
 		print_sorted_list(stack->a_list, stack->moves);
 	}
-	else
+	else if (stack->length > 3)
 	{
 		ft_printf("%sDEVELOPING...%s\n", YELLOW, END);
 		find_edges(&stack);
@@ -182,26 +183,3 @@ void	push_swap(t_stack *stack)
 		find_beginning(&stack);
 	}
 }
-
-// void	sort(t_stack **stack)
-// {
-// 	while ((*stack)->b_list)
-// 	{
-// 		set_positions(&stack);
-// 		set_target(&stack);
-// 		set_cost_a(&stack);
-// 		set_cost_b(&stack);
-// 		while ((*stack)->b_list
-// 			&& (*stack)->b_list->target_pos != (*stack)->a_list->pos)
-// 		{
-// 			if (get_list_length((*stack)->a_list) / 2
-// 				> (*stack)->b_list->target_pos)
-// 				ra(&(*stack)->a_list, &(*stack)->moves);
-// 			else if (get_list_length((*stack)->a_list) / 2
-// 				< (*stack)->b_list->target_pos)
-// 				rra(&(*stack)->a_list, &(*stack)->moves);
-// 		}
-// 		pa(&(*stack)->a_list, &(*stack)->b_list, &(*stack)->moves);
-// 		//print_sorted_list((*stack)->a_list, (*stack)->moves);
-// 	}
-// }

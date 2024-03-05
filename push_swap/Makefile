@@ -14,6 +14,7 @@ SRC = ./src/main.c \
 		./src/linked_list.c \
 		./src/push_swap.c \
 		./src/sort_utils.c \
+		./src/costs.c \
 		./src/push.c \
 		./src/swap.c \
 		./src/rotate.c \

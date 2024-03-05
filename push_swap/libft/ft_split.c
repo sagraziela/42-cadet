@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/02 12:27:46 by gde-souz          #+#    #+#             */
-/*   Updated: 2023/11/21 13:34:03 by gde-souz         ###   ########.fr       */
+/*   Updated: 2024/03/05 19:45:03 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,19 @@ static char	*ft_strndup(const char *s, size_t n)
 	return (memory);
 }
 
+static void	clear_arr(char **arr)
+{
+	int	i;
+
+	i = 0;
+	while (*arr[i] != '\0')
+	{
+		free(arr[i]);
+		i++;
+	}
+	free(arr);
+}
+
 static void	apply_split(char **arr, char const *s, char c)
 {
 	int		i;
@@ -62,7 +75,7 @@ static void	apply_split(char **arr, char const *s, char c)
 			arr[j] = ft_strndup(s + src, (i - src));
 			if (!arr[j])
 			{
-				free(arr);
+				clear_arr(arr);
 				break ;
 			}
 			j++;
