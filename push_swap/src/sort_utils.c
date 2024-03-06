@@ -6,7 +6,7 @@
 /*   By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 11:25:38 by gde-souz          #+#    #+#             */
-/*   Updated: 2024/03/06 11:22:19 by gde-souz         ###   ########.fr       */
+/*   Updated: 2024/03/06 11:31:45 by gde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,31 +104,31 @@ void	set_positions(t_tab **list)
 	}
 }
 
-void	set_target(t_stack ***stack)
+void	set_target(t_stack **stack)
 {
 	int		i;
 	t_tab	*temp;
 
-	temp = (**stack)->a_list;
+	temp = (*stack)->a_list;
 	i = 0;
-	while ((**stack)->b_list && i < get_list_length((**stack)->b_list))
+	while ((*stack)->b_list && i < get_list_length((*stack)->b_list))
 	{
-		while ((**stack)->a_list->index > (**stack)->a_list->prev->index)
-			(**stack)->a_list = (**stack)->a_list->prev;
-		while ((**stack)->a_list->index < (**stack)->b_list->index)
+		while ((*stack)->a_list->index > (*stack)->a_list->prev->index)
+			(*stack)->a_list = (*stack)->a_list->prev;
+		while ((*stack)->a_list->index < (*stack)->b_list->index)
 		{
-			if ((**stack)->a_list->index == (**stack)->b_list->index + 1)
+			if ((*stack)->a_list->index == (*stack)->b_list->index + 1)
 				break ;
-			(**stack)->a_list = (**stack)->a_list->next;
+			(*stack)->a_list = (*stack)->a_list->next;
 		}
-		(**stack)->b_list->target_pos = (**stack)->a_list->pos;
-		if ((**stack)->b_list->next)
-			(**stack)->b_list = (**stack)->b_list->next;
+		(*stack)->b_list->target_pos = (*stack)->a_list->pos;
+		if ((*stack)->b_list->next)
+			(*stack)->b_list = (*stack)->b_list->next;
 		else
 			break ;
 		i++;
 	}
-	(**stack)->a_list = temp;
+	(*stack)->a_list = temp;
 }
 
 int	get_list_length(t_tab *list)

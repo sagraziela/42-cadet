@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 11:23:59 by gde-souz          #+#    #+#             */
-/*   Updated: 2024/03/05 20:31:11 by root             ###   ########.fr       */
+/*   Updated: 2024/03/06 11:49:47 by gde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,8 @@ int	get_length(char **nbr_list)
 		j = 0;
 		while (nbr_list[i][j])
 		{
-			if ((nbr_list[i][j] < 48 && nbr_list[i][j] != 43 && nbr_list[i][j] != 45)
-				|| nbr_list[i][j] > 57)
+			if ((nbr_list[i][j] < 48 && nbr_list[i][j] != 43
+				&& nbr_list[i][j] != 45) || nbr_list[i][j] > 57)
 				return (0);
 			j++;
 		}
@@ -87,7 +87,8 @@ int	*char_to_int(char **list, int len)
 	while (len-- > 0)
 	{
 		n = ft_atoi(list[len]);
-		if (n > 2147483647 || n < -2147483648 || is_repeated(nbr_list, n, len + 1))
+		if (n > 2147483647 || n < -2147483648
+			|| is_repeated(nbr_list, n, len + 1))
 		{
 			free(nbr_list);
 			clear_char_arr(list);
