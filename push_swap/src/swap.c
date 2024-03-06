@@ -6,7 +6,7 @@
 /*   By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 12:09:13 by gde-souz          #+#    #+#             */
-/*   Updated: 2024/02/26 13:31:41 by gde-souz         ###   ########.fr       */
+/*   Updated: 2024/03/06 14:29:20 by gde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	sa(t_tab **list, int *moves)
 	temp->prev = *list;
 	next->prev = temp;
 	(*moves)++;
-	ft_printf("%ssa\n%s", CYAN, END);
+	ft_printf("sa\n");
 	return ;
 }
 
@@ -55,7 +55,7 @@ void	sb(t_tab **list, int *moves)
 		next->prev = temp;
 	}
 	(*moves)++;
-	ft_printf("%ssb\n%s", CYAN, END);
+	ft_printf("sb\n");
 	return ;
 }
 
@@ -92,6 +92,6 @@ void	ss(t_tab **a_list, t_tab **b_list, int *moves)
 	else
 		aux_swap(&b_list, temp, temp->prev, (*b_list)->next);
 	(*moves)++;
-	ft_printf("%sss\n%s", BLUE, END);
+	ft_printf("ss\n");
 	return ;
 }

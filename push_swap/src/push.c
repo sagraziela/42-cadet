@@ -6,7 +6,7 @@
 /*   By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 12:07:19 by gde-souz          #+#    #+#             */
-/*   Updated: 2024/03/01 11:13:51 by gde-souz         ###   ########.fr       */
+/*   Updated: 2024/03/06 14:29:50 by gde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	pa(t_tab **a_list, t_tab **b_list, int *moves)
 	}
 	update_list(&a_list, temp_b);
 	(*moves)++;
-	ft_printf("%spa\n%s", BLUE, END);
+	ft_printf("pa\n");
 	return ;
 }
 
@@ -73,6 +73,6 @@ void	pb(t_tab **a_list, t_tab **b_list, int *moves)
 	else
 		update_list(&b_list, temp_b);
 	(*moves)++;
-	ft_printf("%spb\n%s", BLUE, END);
+	ft_printf("pb\n");
 	return ;
 }

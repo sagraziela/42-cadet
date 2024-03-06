@@ -6,7 +6,7 @@
 /*   By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 12:13:58 by gde-souz          #+#    #+#             */
-/*   Updated: 2024/03/06 12:48:54 by gde-souz         ###   ########.fr       */
+/*   Updated: 2024/03/06 14:41:39 by gde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,4 +85,18 @@ void	clear_stack(t_stack **stack)
 	}
 	free(*stack);
 	return ;
+}
+
+void	find_beginning(t_stack **stack)
+{
+	if ((*stack)->length / 2 < (*stack)->a_list->index)
+	{
+		while ((*stack)->a_list->index != 1)
+			ra(&(*stack)->a_list, &(*stack)->moves);
+	}
+	else if ((*stack)->length / 2 > (*stack)->a_list->index)
+	{
+		while ((*stack)->a_list->index != 1)
+			rra(&(*stack)->a_list, &(*stack)->moves);
+	}
 }

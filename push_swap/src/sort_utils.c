@@ -6,7 +6,7 @@
 /*   By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 11:25:38 by gde-souz          #+#    #+#             */
-/*   Updated: 2024/03/06 12:48:24 by gde-souz         ###   ########.fr       */
+/*   Updated: 2024/03/06 14:31:18 by gde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ void	find_edges(t_stack	**stack)
 	highest = (*stack)->a_list->value;
 	lowest = (*stack)->a_list->value;
 	count = 1;
-	print_sorted_list((*stack)->a_list, (*stack)->moves);
 	list = (*stack)->a_list->next;
 	while (list != (*stack)->a_list)
 	{
