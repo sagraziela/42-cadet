@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sort_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 11:25:38 by gde-souz          #+#    #+#             */
-/*   Updated: 2024/03/05 16:47:30 by root             ###   ########.fr       */
+/*   Updated: 2024/03/06 11:22:19 by gde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,13 +117,11 @@ void	set_target(t_stack ***stack)
 			(**stack)->a_list = (**stack)->a_list->prev;
 		while ((**stack)->a_list->index < (**stack)->b_list->index)
 		{
-			//ft_printf("A = %d | a_pos: %d\n", (**stack)->a_list->value, (**stack)->a_list->pos);
 			if ((**stack)->a_list->index == (**stack)->b_list->index + 1)
 				break ;
 			(**stack)->a_list = (**stack)->a_list->next;
 		}
 		(**stack)->b_list->target_pos = (**stack)->a_list->pos;
-		// ft_printf("B = %d | target = %d | A = %d | a_pos: %d\n", (**stack)->b_list->value, (**stack)->b_list->target_pos, (**stack)->a_list->value, (**stack)->a_list->pos);
 		if ((**stack)->b_list->next)
 			(**stack)->b_list = (**stack)->b_list->next;
 		else

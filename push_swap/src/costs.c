@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   costs.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 13:07:58 by root              #+#    #+#             */
-/*   Updated: 2024/03/05 18:16:29 by root             ###   ########.fr       */
+/*   Updated: 2024/03/06 11:21:17 by gde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,6 @@ void	set_cost_a(t_stack ***stack)
 				temp = temp->prev;
 			}
 		}
-        if ((**stack)->a_list->value == 55)
-		    ft_printf("A = %d | cost_a = %d\n\n", (**stack)->a_list->value, (**stack)->a_list->cost_a);
 		(**stack)->a_list = (**stack)->a_list->next;
 		i++;
 	}
@@ -65,11 +63,22 @@ void	set_cost_b(t_stack ***stack)
 				temp = temp->prev;
 			}
 		}
-		//ft_printf("B = %d | pos_b = %d cost_b = %d\n", (**stack)->b_list->value, (**stack)->b_list->pos, (**stack)->b_list->cost_b);
 		if ((**stack)->b_list->next)
 			(**stack)->b_list = (**stack)->b_list->next;
 		i++;
 	}
+}
+
+int	sum_costs(int cost_a, int cost_b)
+{
+	int	cost;
+
+	if (cost_a < 0)
+		cost_a *= (-1);
+	if (cost_b < 0)
+		cost_b *= (-1);
+	cost = cost_a + cost_b;
+	return (cost);
 }
 
 void	set_full_cost(t_stack ***stack)
@@ -84,22 +93,10 @@ void	set_full_cost(t_stack ***stack)
 	while (i < get_list_length((**stack)->b_list))
 	{
 		while ((**stack)->a_list->pos != (**stack)->b_list->target_pos)
-		{
-            // if ((**stack)->b_list->value == 55)
-			//     ft_printf("A = %d | cost = %d\n", (**stack)->a_list->value, (**stack)->a_list->cost_a);
 			(**stack)->a_list = (**stack)->a_list->next;
-		}
-        if ((**stack)->b_list->value == 50)
-            ft_printf("A = %d | cost_a = %d | pos: %d\n\n", (**stack)->a_list->value, (**stack)->a_list->cost_a, (**stack)->a_list->pos);
 		(**stack)->b_list->cost_a = (**stack)->a_list->cost_a;
-		if ((**stack)->a_list->cost_a < 0)
-			(**stack)->a_list->cost_a = (**stack)->a_list->cost_a * (-1);
-		if ((**stack)->b_list->cost_b < 0)
-			(**stack)->a_list->cost_b = (**stack)->b_list->cost_b * (-1);
-		else
-			(**stack)->a_list->cost_b = (**stack)->b_list->cost_b;
-		(**stack)->b_list->cost = (**stack)->a_list->cost_a + (**stack)->a_list->cost_b;
-		//ft_printf("value: %d | cost: %d | cost_a: %d | cost_b: %d\n", (**stack)->b_list->value, (**stack)->b_list->cost, (**stack)->a_list->cost_a, (**stack)->b_list->cost_b);
+		(**stack)->b_list->cost
+			= sum_costs((**stack)->a_list->cost_a, (**stack)->b_list->cost_b);
 		(**stack)->b_list = (**stack)->b_list->next;
 		i++;
 	}

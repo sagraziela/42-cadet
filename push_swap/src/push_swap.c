@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 13:36:25 by gde-souz          #+#    #+#             */
-/*   Updated: 2024/03/05 19:54:20 by root             ###   ########.fr       */
+/*   Updated: 2024/03/06 11:27:08 by gde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,36 +23,6 @@ void	sort_three(t_stack **stack)
 		sa(&(*stack)->a_list, &(*stack)->moves);
 }
 
-// void	push_to_b(t_stack **stack)
-// {
-// 	int	i;
-// 	int	a_len;
-
-// 	a_len = (*stack)->length;
-// 	(*stack)->mid = a_len / 2;
-// 	while (a_len > 3)
-// 	{
-// 		i = 0;
-// 		(*stack)->small = (*stack)->mid / 2;
-// 		while (i++ < a_len && get_list_length((*stack)->a_list) > 3)
-// 		{
-// 			//print_sorted_list((*stack)->b_list, (*stack)->moves);
-// 			if ((*stack)->a_list->index >= (*stack)->length - 2)
-// 				ra(&(*stack)->a_list, &(*stack)->moves);
-// 			else
-// 			{
-// 				pb(&(*stack)->a_list, &(*stack)->b_list, &(*stack)->moves);
-// 				if ((*stack)->b_list->next
-// 					&& (*stack)->b_list->index < (*stack)->mid)
-// 					rb(&(*stack)->b_list, &(*stack)->moves);
-// 			}
-// 		}
-// 		print_sorted_list((*stack)->b_list, (*stack)->moves);
-// 		a_len = get_list_length((*stack)->a_list);
-// 		(*stack)->mid = (*stack)->length - (a_len / 2);
-// 	}
-// }
-
 void	push_to_b(t_stack **stack)
 {
 	int	i;
@@ -66,7 +36,6 @@ void	push_to_b(t_stack **stack)
 		(*stack)->small = (*stack)->mid / 2;
 		while (i++ < a_len && get_list_length((*stack)->a_list) > 3)
 		{
-			//print_sorted_list((*stack)->b_list, (*stack)->moves);
 			if ((*stack)->a_list->index >= (*stack)->mid)
 				ra(&(*stack)->a_list, &(*stack)->moves);
 			else
@@ -110,7 +79,6 @@ t_tab	*get_cheapest_nbr(t_tab *list)
 	{
 		if (list->cost < cheapest->cost)
 			cheapest = list;
-		//ft_printf("list: %d | cost: %d | cost_a: %d | cost_b: %d\n", list->value, list->cost, list->cost_a, list->cost_b);
 		list = list->next;
 	}
 	return (cheapest);
@@ -131,7 +99,6 @@ void	sort(t_stack **stack)
 		set_cost_b(&stack);
 		set_full_cost(&stack);
 		cheapest = get_cheapest_nbr((*stack)->b_list);
-		ft_printf("cheapest: %d | cost: %d | cost_a: %d | cost_b: %d\n", cheapest->value, cheapest->cost, cheapest->cost_a, cheapest->cost_b);
 		while (cheapest->cost_a != 0 || cheapest->cost_b != 0)
 		{
 			if (cheapest->cost_a < 0)
@@ -156,8 +123,6 @@ void	sort(t_stack **stack)
 			}
 		}
 		pa(&(*stack)->a_list, &(*stack)->b_list, &(*stack)->moves);
-		print_sorted_list((*stack)->a_list, (*stack)->moves);
-		print_sorted_list((*stack)->b_list, (*stack)->moves);
 		i++;
 	}
 }
