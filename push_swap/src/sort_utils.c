@@ -6,7 +6,7 @@
 /*   By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 11:25:38 by gde-souz          #+#    #+#             */
-/*   Updated: 2024/03/06 11:31:45 by gde-souz         ###   ########.fr       */
+/*   Updated: 2024/03/06 12:48:24 by gde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,25 +129,4 @@ void	set_target(t_stack **stack)
 		i++;
 	}
 	(*stack)->a_list = temp;
-}
-
-int	get_list_length(t_tab *list)
-{
-	int		count;
-	t_tab	*temp;
-
-	if (list == NULL)
-		return (0);
-	temp = list;
-	count = 1;
-	if (list->next)
-		list = list->next;
-	else
-		return (count);
-	while (list->index != temp->index)
-	{
-		count++;
-		list = list->next;
-	}
-	return (count);
 }

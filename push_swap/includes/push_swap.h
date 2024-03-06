@@ -6,7 +6,7 @@
 /*   By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 12:45:27 by gde-souz          #+#    #+#             */
-/*   Updated: 2024/03/06 11:48:36 by gde-souz         ###   ########.fr       */
+/*   Updated: 2024/03/06 12:46:30 by gde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,13 @@ typedef struct s_stack {
 }	t_stack;
 
 int		main(int argc, char **argv);
+int		is_sorted(int *nbr);
+int		is_repeated(int *list, int n, int len);
+int		get_length(char **nbr_list);
+void	clear_stack(t_stack **stack);
 t_tab	*create_new_node(int content);
 void	ft_lstadd_node(t_tab **lst, t_tab *new);
-t_tab	*create_list(int *list);
+t_tab	*create_list(int *list, int len);
 int		get_list_length(t_tab *list);
 void	sort_three(t_stack **stack);
 void	push_swap(t_stack *stack);

@@ -6,7 +6,7 @@
 /*   By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 11:49:38 by gde-souz          #+#    #+#             */
-/*   Updated: 2024/03/01 14:36:39 by gde-souz         ###   ########.fr       */
+/*   Updated: 2024/03/06 12:45:29 by gde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	ft_lstadd_node(t_tab **head, t_tab *new)
 	}
 }
 
-t_tab	*create_list(int *list)
+t_tab	*create_list(int *list, int len)
 {
 	int		i;
 	t_tab	*new_node;
@@ -59,12 +59,32 @@ t_tab	*create_list(int *list)
 
 	i = 0;
 	head = NULL;
-	while (list[i])
+	while (i < len)
 	{
 		new_node = create_new_node(list[i]);
 		ft_lstadd_node(&head, new_node);
 		i++;
 	}
-	ft_printf("%sHEAD = %d%s\n", GREEN, head->value, END);
 	return (head);
+}
+
+int	get_list_length(t_tab *list)
+{
+	int		count;
+	t_tab	*temp;
+
+	if (list == NULL)
+		return (0);
+	temp = list;
+	count = 1;
+	if (list->next)
+		list = list->next;
+	else
+		return (count);
+	while (list->index != temp->index)
+	{
+		count++;
+		list = list->next;
+	}
+	return (count);
 }

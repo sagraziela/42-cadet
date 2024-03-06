@@ -11,6 +11,7 @@ LIBFT = $(addprefix $(PATH_LIBFT), libft.a)
 
 # push_swap
 SRC = ./src/main.c \
+		./src/main_utils.c \
 		./src/linked_list.c \
 		./src/push_swap.c \
 		./src/sort_utils.c \
