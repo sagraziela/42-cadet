@@ -44,17 +44,6 @@ $(NAME): $(LIBFT) $(OBJ)
 	@echo "$(GREEN)The [$(CYAN)PUSH_SWAP$(GREEN)] has been compiled! 🤠$(END)"
 	@echo "$(GREEN)--------------------------------------------------$(END)"
 
-# Target to build the bonus part
-# bonus: $(LIBFT) $(OBJ_BONUS)
-# 	@rm -f $(OBJ)
-# 	@rm -rf $(OBJ_PATH)
-# 	@cp $(LIBFT) $(NAME)
-# 	@cp $(NAME)
-# 	$(CC) $(OBJ_BONUS) $(LIBFT) -L$(PATH_LIBFT) -L$(PATH_GNL) -lft $(MLX_FLAGS) -o $(NAME)
-# 	@echo "$(GREEN)--------------------------------------------------"
-# 	@echo "$(GREEN)The [$(CYAN)FDF_BONUS$(GREEN)] has been compiled! 🤠"
-# 	@echo "$(GREEN)--------------------------------------------------"
-
 # Builds dependencies
 $(LIBFT):
 	@make -C $(PATH_LIBFT)

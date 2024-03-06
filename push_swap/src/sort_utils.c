@@ -6,7 +6,7 @@
 /*   By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 11:25:38 by gde-souz          #+#    #+#             */
-/*   Updated: 2024/03/06 14:31:18 by gde-souz         ###   ########.fr       */
+/*   Updated: 2024/03/06 17:06:51 by gde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,13 +110,16 @@ void	set_target(t_stack **stack)
 
 	temp = (*stack)->a_list;
 	i = 0;
-	while ((*stack)->b_list && i < get_list_length((*stack)->b_list))
+	while (i++ < get_list_length((*stack)->b_list))
 	{
 		while ((*stack)->a_list->index > (*stack)->a_list->prev->index)
 			(*stack)->a_list = (*stack)->a_list->prev;
 		while ((*stack)->a_list->index < (*stack)->b_list->index)
 		{
-			if ((*stack)->a_list->index == (*stack)->b_list->index + 1)
+			if ((*stack)->a_list->index == (*stack)->b_list->index + 1
+				|| ((*stack)->a_list->prev->index
+					== (*stack)->b_list->index - 1)
+				|| (*stack)->b_list->index == (*stack)->length)
 				break ;
 			(*stack)->a_list = (*stack)->a_list->next;
 		}
@@ -125,7 +128,6 @@ void	set_target(t_stack **stack)
 			(*stack)->b_list = (*stack)->b_list->next;
 		else
 			break ;
-		i++;
 	}
 	(*stack)->a_list = temp;
 }

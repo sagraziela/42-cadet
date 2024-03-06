@@ -6,7 +6,7 @@
 /*   By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 13:36:25 by gde-souz          #+#    #+#             */
-/*   Updated: 2024/03/06 14:52:55 by gde-souz         ###   ########.fr       */
+/*   Updated: 2024/03/06 18:44:32 by gde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,34 +23,6 @@ void	sort_three(t_stack **stack)
 		sa(&(*stack)->a_list, &(*stack)->moves);
 }
 
-int	check_five(t_stack **stack)
-{
-	int	i;
-
-	i = 0;
-	if ((*stack)->length == 5)
-	{
-		while (i++ < (*stack)->length
-			&& (*stack)->a_list->value > (*stack)->a_list->next->value)
-			(*stack)->a_list = (*stack)->a_list->next;
-		(*stack)->a_list = (*stack)->a_list->next;
-		if (i == (*stack)->length)
-		{
-			ft_printf("CHEGOU AQUI\n");
-			pb(&(*stack)->a_list, &(*stack)->b_list, &(*stack)->moves);
-			pb(&(*stack)->a_list, &(*stack)->b_list, &(*stack)->moves);
-			ra(&(*stack)->a_list, &(*stack)->moves);
-			sa(&(*stack)->a_list, &(*stack)->moves);
-			pa(&(*stack)->a_list, &(*stack)->b_list, &(*stack)->moves);
-			ra(&(*stack)->a_list, &(*stack)->moves);
-			pa(&(*stack)->a_list, &(*stack)->b_list, &(*stack)->moves);
-			ra(&(*stack)->a_list, &(*stack)->moves);
-			return (1);
-		}
-	}
-	return (0);
-}
-
 void	push_to_b(t_stack **stack)
 {
 	int	i;
@@ -64,7 +36,8 @@ void	push_to_b(t_stack **stack)
 		(*stack)->small = (*stack)->mid / 2;
 		while (i++ < a_len && get_list_length((*stack)->a_list) > 3)
 		{
-			if ((*stack)->a_list->index >= (*stack)->mid)
+			if ((*stack)->a_list->index >= (*stack)->mid
+				&& (*stack)->length > 5)
 				ra(&(*stack)->a_list, &(*stack)->moves);
 			else
 			{
@@ -113,7 +86,7 @@ void	push_swap(t_stack *stack)
 
 	if (stack->length <= 3 && stack->length > 1)
 		sort_three(&stack);
-	else if (stack->length > 3 && !check_five(&stack))
+	else if (stack->length > 3)
 	{
 		find_edges(&stack);
 		set_indexes(&stack);
@@ -132,5 +105,4 @@ void	push_swap(t_stack *stack)
 		}
 		find_beginning(&stack);
 	}
-	//print_sorted_list(stack->a_list, stack->moves);
 }

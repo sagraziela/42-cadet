@@ -6,7 +6,7 @@
 /*   By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 12:13:58 by gde-souz          #+#    #+#             */
-/*   Updated: 2024/03/06 14:41:39 by gde-souz         ###   ########.fr       */
+/*   Updated: 2024/03/06 17:53:37 by gde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	is_sorted(int *nbr)
 	int	i;
 
 	i = 0;
-	while (nbr[i + 1] != '\0')
+	while (nbr[i + 1] != '\0' || nbr[i + 1] == 0)
 	{
 		if (nbr[i] > nbr[i + 1])
 			return (0);
@@ -89,7 +89,7 @@ void	clear_stack(t_stack **stack)
 
 void	find_beginning(t_stack **stack)
 {
-	if ((*stack)->length / 2 < (*stack)->a_list->index)
+	if ((*stack)->length / 2 <= (*stack)->a_list->index)
 	{
 		while ((*stack)->a_list->index != 1)
 			ra(&(*stack)->a_list, &(*stack)->moves);
