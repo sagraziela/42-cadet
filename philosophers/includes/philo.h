@@ -20,4 +20,10 @@
 # include <sys/time.h>
 # include <pthread.h>
 
+typedef struct s_list
+{
+    pthread_t       philo;
+    struct s_list   *next;
+}   t_list;
+
 #endif

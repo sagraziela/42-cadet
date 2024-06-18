@@ -13,39 +13,41 @@
 #include "../includes/philo.h"
 
 int	balance = 0;
+pthread_mutex_t mutex;
 
-int	read_balance(void)
+void    *my_func()
 {
-	usleep(250000);
-	return (balance);
-}
-void    *my_func(void *var)
-{
-    (void)var;
-    sleep(2);
-    printf("Entered my_func\n");
+    int i;
+
+    i = 0;
+    while (i++ < 1000000)
+    {
+        pthread_mutex_lock(&mutex);
+        balance++;
+        pthread_mutex_unlock(&mutex);
+    }
     return (NULL);
 }
 
-void    *my_func2(void *var)
+int main(int argc, char **argv)
 {
-    (void)var;
-    sleep(2);
-    printf("ENTERED MY_FUNC\n");
-    return (NULL);
-}
+    t_list *list;
+    int     n_philo;
+    int     i;
 
-int main(void)
-{
-    pthread_t thrd1;
-    pthread_t thrd2;
-    pthread_mutex_t mutex;
-
-    printf("Before thread\n");
-    pthread_create(&thrd1, NULL, my_func, NULL);
-    pthread_join(thrd1, NULL);
-    pthread_create(&thrd2, NULL, my_func2, NULL);
-    pthread_join(thrd2, NULL);
-    printf("After thread\n");
+    i = 1;
+    n_philo = atoi(argv[0]);
+    pthread_mutex_init(&mutex, NULL);
+    while (i <= n_philo)
+    {
+        new_node();
+        // CREATE LIST WITH THE NUMBERS OF PIHLOSOPHERS PASSED AS ARGUMENT
+        if (pthread_create(&list->philo, NULL, my_func, NULL) != 0)
+            return (1);
+        if (pthread_join(&list->philo, NULL) != 0)
+            return (2);
+        i++;
+    }
+    printf("Balance: %d\n", balance);
     exit(0);
 }

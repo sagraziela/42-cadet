@@ -6,10 +6,6 @@ NAME_BONUS = philo_bonus
 CFLAGS = -Wall -Wextra -Werror -g
 INCLUDES = -I ./includes/ -I $(LIBFT_PATH)/
 
-# Libft
-LIBFT_PATH	=	./libft
-LIBFT		=	$(LIBFT_PATH)/libft.a
-
 SRC = ./src/main.c
 
 # Objects
@@ -28,32 +24,28 @@ END = \033[0m
 all: $(NAME)
 
 # Target to build the mandatory part
-$(NAME): $(OBJ) $(LIBFT) $(FTPRINTF)
-	@$(CC) $(CFLAGS) $(OBJ) -o $@ -L$(LIBFT_PATH) -lft
+$(NAME): $(OBJ)
+	@$(CC) $(CFLAGS) $(OBJ) -o $@
 	@echo "$(GREEN)--------------------------------------------------$(END)"
-	@echo "$(GREEN)The [$(CYAN)MINI-SHELL$(GREEN)] has been compiled! 🐚🌊$(END)"
+	@echo "$(GREEN)The [$(CYAN)PHILO$(GREEN)] has been compiled! 🧐🤔📚$(END)"
 	@echo "$(GREEN)--------------------------------------------------$(END)"
 
 valgrind: all
 	@echo "Running the program with valgrind..."
-	valgrind --leak-check=full --show-leak-kinds=all --trace-children=yes --track-origins=yes --track-fds=yes --suppressions=readline.supp ./minishell
+	valgrind --leak-check=full --show-leak-kinds=all --trace-children=yes --track-origins=yes --track-fds=yes ./philo
 
 run: all
 	@echo "Running the program..."
-	./minishell
+	./philo
 
 bonus: $(NAME_BONUS)
 
 # Target to build the bonus part
-$(NAME_BONUS): $(OBJ_BONUS) $(LIBFT) $(FTPRINTF)
-	@$(CC) $(CFLAGS) $(OBJ) -o $@ -L$(FTPRINTF_PATH) -lftprintf -L$(LIBFT_PATH) -lft
+$(NAME_BONUS): $(OBJ_BONUS)
+	@$(CC) $(CFLAGS) $(OBJ) -o $@
 	@echo "$(GREEN)--------------------------------------------------$(END)"
-	@echo "$(GREEN)The [$(CYAN)MINI-SHELL$(GREEN)] has been compiled! 🐚🌊$(END)"
+	@echo "$(GREEN)The [$(CYAN)PHILO$(GREEN)] has been compiled! 🧐🤔📚$(END)"
 	@echo "$(GREEN)--------------------------------------------------$(END)"
-
-# Builds dependencies
-$(LIBFT):
-	@make -C $(LIBFT_PATH)
 
 # Builds mandatory object files
 $(OBJ_PATH)%.o: src/%.c
@@ -69,7 +61,6 @@ $(OBJ_PATH_BONUS)%.o: src/%.c
 clean:
 	@rm -f $(OBJ)
 	@rm -rf $(OBJ_PATH)
-	@make -C $(LIBFT_PATH) clean
 	@echo "$(WHITE)-----------------------------------$(END)"
 	@echo "$(WHITE)    Object files were cleaned!$(END)"
 	@echo "$(WHITE)-----------------------------------$(END)"
@@ -80,7 +71,6 @@ fclean: clean
 	@echo "$(WHITE)        Cleaning all... 🧹$(END)"
 	@echo "$(WHITE)-----------------------------------$(END)"
 	@rm -f $(NAME)
-	@make -C $(LIBFT_PATH) fclean
 	@echo "$(WHITE)-----------------------------------$(END)"
 	@echo "$(WHITE)    ✨ Cleaning complete! ✨$(END)"
 	@echo "$(WHITE)-----------------------------------$(END)"
