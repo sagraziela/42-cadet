@@ -6,7 +6,8 @@ NAME_BONUS = philo_bonus
 CFLAGS = -Wall -Wextra -Werror -g
 INCLUDES = -I ./includes/ -I $(LIBFT_PATH)/
 
-SRC = ./src/main.c
+SRC = ./src/main.c \
+		./src/init.c
 
 # Objects
 OBJ_PATH = src/build/

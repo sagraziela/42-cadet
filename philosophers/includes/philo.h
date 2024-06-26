@@ -21,16 +21,32 @@
 # include <time.h>
 # include <pthread.h>
 
+typedef enum e_bool
+{
+    TRUE = 1,
+    FALSE = 0
+}           t_bool;
+
 typedef struct s_philo
 {
     pthread_t       thread;
     int             id;
-    size_t          start_time;
+    t_bool          must_stop;
+    size_t          init_time;
     size_t          time_to_die;
     size_t          time_to_eat;
     size_t          time_to_sleep;
+    pthread_mutex_t r_fork;
+    pthread_mutex_t l_fork;
     struct s_philo  *next;
 }               t_philo;
+
+typedef struct s_program
+{
+    t_bool  dead_flag;
+    t_philo *philos;
+    pthread_mutex_t mutex_eat;
+}               t_program;
 
 // typedef struct s_philo
 // {
@@ -61,5 +77,8 @@ typedef struct s_philo
 // 	pthread_mutex_t	write_lock;
 // 	t_philo			*philos;
 // }					t_program;
+
+void    init_program(t_program **program);
+void    new_philo(t_philo **philo);
 
 #endif

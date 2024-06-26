@@ -24,81 +24,79 @@ void    get_current_time(void)
     gettimeofday(&tval, NULL);
     t = tval.tv_sec;
     info = localtime(&t);
-    strftime(buffer, sizeof(buffer), "%H:%M:%S\n", info);
-    printf("%s", buffer);
+    strftime(buffer, sizeof(buffer), "%H:%M:%S", info);
+    printf("%s\n", buffer);
+    //return (buffer);
 }
 
-void    new_philo(t_philo **philo)
+void   get_action_time(void)
 {
-    t_philo *new_philo;
-    t_philo *head;
-    int     new_id;
+    // int     total;
+    // char    *init_time;
 
-    if (!(*philo))
+    // total = 0;
+    // init_time = get_current_time();
+}
+
+void    *dinner(void *arg)
+{
+    t_philo *philo;
+    int     i;
+
+    philo = (t_philo*)arg;
+    i = 0;
+    while (i++ < 3)
     {
-        *philo = malloc(sizeof(t_philo));
-        (*philo)->id = 1;
-        (*philo)->next = NULL;
-        return ;
+        if (!philo->must_stop)
+        {
+            pthread_mutex_lock(&mutex);
+            printf("Philo %d EAT - %ld -", philo->id, philo->time_to_eat);
+            get_current_time();
+            usleep(philo->time_to_eat);
+            pthread_mutex_unlock(&mutex);
+            philo->must_stop = TRUE;
+        }
+        printf("Philo %d SLEEP - %ld - ", philo->id, philo->time_to_sleep);
+        get_current_time();
+        usleep(philo->time_to_sleep);
+        printf("Philo %d THINK - %d - ", philo->id, 1000000);
+        get_current_time();
+        philo->must_stop = FALSE;
     }
-    head = *philo;
-    while ((*philo)->next)
-        *philo = (*philo)->next;
-    new_id = (*philo)->id + 1;
-    new_philo = malloc(sizeof(t_philo));
-    if (!new_philo)
-        return ;
-    new_philo->id = new_id;
-    new_philo->next = NULL;
-    (*philo)->next = new_philo;
-    *philo = head;
-}
-
-void    *my_func(void *philo)
-{
-    int id;
-
-    id = ((t_philo*)philo)->id;
-    pthread_mutex_lock(&mutex);
-    printf("Philo %d EAT - ", id);
-    get_current_time();
-    usleep(3000000);
-    printf("Philo %d SLEEP - ", id);
-    get_current_time();
-    usleep(3000000);
-    printf("Philo %d THINK - ", id);
-    get_current_time();
-    usleep(3000000);
-    pthread_mutex_unlock(&mutex);
     return (NULL);
 }
 
 int main(void)
 {
-    t_philo *philos_list;
-    t_philo *temp;
-    int     i;
-    int     n_philo;
+    t_program   *program;
+    t_philo     *temp;
+    int         i;
+    int         n_philo;
 
     i = 1;
     n_philo = 2;
-    philos_list = NULL;
+    init_program(&program);
     pthread_mutex_init(&mutex, NULL);
     while (i <= n_philo)
     {
-        new_philo(&philos_list);
+        new_philo(&program->philos);
         i++;
     }
-    temp = philos_list;
-    while (philos_list)
+    temp = program->philos;
+    while (temp)
     {
-        printf("ID: %d\n", philos_list->id);
-        if (pthread_create(&philos_list->thread, NULL, my_func, (void*)philos_list) != 0)
+        printf("ID: %d\n", temp->id);
+        if (pthread_create(&temp->thread, NULL, dinner, (void*)temp) != 0)
             return (1);
-        if (pthread_join(philos_list->thread, NULL) != 0)
-            return (2);
-        philos_list = philos_list->next;
+        temp = temp->next;
     }
-    philos_list = temp;
+    temp = program->philos;
+    while (temp)
+    {
+        if (pthread_join(temp->thread, NULL) != 0)
+            return (2);
+        temp = temp->next;
+    }
+    temp = program->philos;
     exit(0);
 }
