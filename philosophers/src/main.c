@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 06:58:14 by root              #+#    #+#             */
-/*   Updated: 2024/06/20 15:53:30 by root             ###   ########.fr       */
+/*   Updated: 2024/06/29 16:53:46 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ void    get_current_time(void)
     info = localtime(&t);
     strftime(buffer, sizeof(buffer), "%H:%M:%S", info);
     printf("%s\n", buffer);
-    //return (buffer);
 }
 
 void   get_action_time(void)
@@ -45,7 +44,7 @@ void    *dinner(void *arg)
 
     philo = (t_philo*)arg;
     i = 0;
-    while (i++ < 3)
+    while (i < 3)
     {
         if (!philo->must_stop)
         {
@@ -62,41 +61,33 @@ void    *dinner(void *arg)
         printf("Philo %d THINK - %d - ", philo->id, 1000000);
         get_current_time();
         philo->must_stop = FALSE;
+        i++;
     }
     return (NULL);
 }
 
 int main(void)
 {
-    t_program   *program;
-    t_philo     *temp;
+    t_philo     philos[64];
+    int         philos_num;
     int         i;
-    int         n_philo;
 
-    i = 1;
-    n_philo = 2;
-    init_program(&program);
+    i = 0;
+    philos_num = 2;
     pthread_mutex_init(&mutex, NULL);
-    while (i <= n_philo)
+    while (i < philos_num)
     {
-        new_philo(&program->philos);
+        init_philo(&(philos[i]), i);
+        if (pthread_create(&philos[i].thread, NULL, dinner, (void*)&philos[i]) != 0)
+            return (1);
         i++;
     }
-    temp = program->philos;
-    while (temp)
+   i = 0;
+    while (i < philos_num)
     {
-        printf("ID: %d\n", temp->id);
-        if (pthread_create(&temp->thread, NULL, dinner, (void*)temp) != 0)
-            return (1);
-        temp = temp->next;
-    }
-    temp = program->philos;
-    while (temp)
-    {
-        if (pthread_join(temp->thread, NULL) != 0)
+        if (pthread_join(philos[i].thread, NULL) != 0)
             return (2);
-        temp = temp->next;
+       i++;
     }
-    temp = program->philos;
     exit(0);
 }

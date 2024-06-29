@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 06:59:16 by root              #+#    #+#             */
-/*   Updated: 2024/06/20 15:34:15 by root             ###   ########.fr       */
+/*   Updated: 2024/06/29 16:57:51 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,12 @@ typedef enum e_bool
     FALSE = 0
 }           t_bool;
 
+typedef struct s_forks
+{
+    pthread_mutex_t left_fork;
+    pthread_mutex_t right_fork;
+}               t_forks;
+
 typedef struct s_philo
 {
     pthread_t       thread;
@@ -36,17 +42,15 @@ typedef struct s_philo
     size_t          time_to_die;
     size_t          time_to_eat;
     size_t          time_to_sleep;
-    pthread_mutex_t r_fork;
-    pthread_mutex_t l_fork;
-    struct s_philo  *next;
+    t_forks         *forks;
 }               t_philo;
 
-typedef struct s_program
-{
-    t_bool  dead_flag;
-    t_philo *philos;
-    pthread_mutex_t mutex_eat;
-}               t_program;
+// typedef struct s_dine
+// {
+//     t_bool  dead_flag;
+//     t_philo philos[64];
+//     pthread_mutex_t mutex_eat;
+// }               t_dine;
 
 // typedef struct s_philo
 // {
@@ -78,7 +82,7 @@ typedef struct s_program
 // 	t_philo			*philos;
 // }					t_program;
 
-void    init_program(t_program **program);
+void    init_philo(t_philo philo[64], int philos_num);
 void    new_philo(t_philo **philo);
 
 #endif
