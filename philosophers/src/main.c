@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 06:58:14 by root              #+#    #+#             */
-/*   Updated: 2024/06/29 16:53:46 by root             ###   ########.fr       */
+/*   Updated: 2024/07/01 21:28:57 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,27 +14,35 @@
 
 pthread_mutex_t mutex;
 
-void    get_current_time(void)
+// void   time_in_milliseconds(char *str)
+// {
+//     t_time  *time;
+//     size_t  total;
+    
+//     time = malloc(sizeof(t_time));
+//     time.
+// }
+
+size_t    get_current_time(void)
 {
     struct  timeval tval;
     time_t  t;
     struct  tm *info;
-    char    buffer[64];
+   // char    buffer[64];
+    t_time  *time;
+    size_t  total;
     
     gettimeofday(&tval, NULL);
     t = tval.tv_sec;
     info = localtime(&t);
-    strftime(buffer, sizeof(buffer), "%H:%M:%S", info);
-    printf("%s\n", buffer);
-}
-
-void   get_action_time(void)
-{
-    // int     total;
-    // char    *init_time;
-
-    // total = 0;
-    // init_time = get_current_time();
+   // strftime(buffer, sizeof(buffer), "%H", info);
+    time = malloc(sizeof(t_time));
+    time->hour = info->tm_hour * 60 * 60 * 1000;
+    time->min = info->tm_min * 60 * 1000;
+    time->sec = info->tm_sec * 1000;
+    total = time->hour + time->min + time->sec;
+    printf("%ld\n", total);
+    return (total);
 }
 
 void    *dinner(void *arg)
@@ -50,10 +58,12 @@ void    *dinner(void *arg)
         {
             pthread_mutex_lock(&mutex);
             printf("Philo %d EAT - %ld -", philo->id, philo->time_to_eat);
-            get_current_time();
+            if (!philo->last_meal)
+                philo->init_time = get_current_time();
             usleep(philo->time_to_eat);
-            pthread_mutex_unlock(&mutex);
+            philo->last_meal = get_current_time();
             philo->must_stop = TRUE;
+            pthread_mutex_unlock(&mutex);
         }
         printf("Philo %d SLEEP - %ld - ", philo->id, philo->time_to_sleep);
         get_current_time();

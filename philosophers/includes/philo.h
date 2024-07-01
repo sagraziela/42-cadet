@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 06:59:16 by root              #+#    #+#             */
-/*   Updated: 2024/06/29 16:57:51 by root             ###   ########.fr       */
+/*   Updated: 2024/07/01 21:02:49 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,12 +38,24 @@ typedef struct s_philo
     pthread_t       thread;
     int             id;
     t_bool          must_stop;
+    size_t          last_meal;
     size_t          init_time;
     size_t          time_to_die;
     size_t          time_to_eat;
     size_t          time_to_sleep;
     t_forks         *forks;
 }               t_philo;
+
+typedef struct s_time
+{
+    char    str_hour[3];
+    char    str_min[3];
+    char    str_sec[3];
+    size_t  hour;
+    size_t  min;
+    size_t  sec;
+}               t_time;
+
 
 // typedef struct s_dine
 // {
