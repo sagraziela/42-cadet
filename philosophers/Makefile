@@ -33,7 +33,7 @@ $(NAME): $(OBJ)
 
 valgrind: all
 	@echo "Running the program with valgrind..."
-	valgrind --leak-check=full --show-leak-kinds=all --trace-children=yes --track-origins=yes --track-fds=yes ./philo
+	valgrind --leak-check=full --show-leak-kinds=all --trace-children=yes --track-origins=yes ./philo
 
 run: all
 	@echo "Running the program..."
