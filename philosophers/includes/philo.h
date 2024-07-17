@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 06:59:16 by root              #+#    #+#             */
-/*   Updated: 2024/07/17 10:35:17 by root             ###   ########.fr       */
+/*   Updated: 2024/07/17 14:57:33 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,23 +29,27 @@ typedef enum e_bool
     FALSE = 0
 }           t_bool;
 
-typedef struct s_forks
-{
-    pthread_mutex_t **left_fork;
-    pthread_mutex_t **right_fork;
-}               t_forks;
+// typedef struct s_forks
+// {
+//     pthread_mutex_t **left_fork;
+//     pthread_mutex_t **right_fork;
+// }               t_forks;
 
 typedef struct s_philo
 {
     pthread_t       thread;
     int             id;
     t_bool          must_stop;
+    int             meal_counter;
     size_t          last_meal;
     size_t          init_time;
     size_t          time_to_die;
     size_t          time_to_eat;
     size_t          time_to_sleep;
-    t_forks         *forks;
+    int             l_fork;
+    int             r_fork;
+    pthread_mutex_t **left_fork;
+    pthread_mutex_t **right_fork;
 }               t_philo;
 
 typedef struct s_time
@@ -53,16 +57,21 @@ typedef struct s_time
     size_t  hour;
     size_t  min;
     size_t  sec;
+    size_t  total_millisec;
 }               t_time;
 
 
 typedef struct s_dinner
 {
+    int             philos_num;
+    int             idx;
     t_bool          dead_flag;
-    t_philo         philos[TABLE_SIZE];
-    pthread_mutex_t table_forks[TABLE_SIZE];
+    t_philo         *philos[TABLE_SIZE];
+    pthread_mutex_t *table_forks[TABLE_SIZE];
     t_time          *time;
-    int             meals;
+    size_t          start;
+    size_t          end;
+    int             total_meals;
     pthread_mutex_t mutex_eat;
 }               t_dinner;
 
@@ -97,7 +106,7 @@ typedef struct s_dinner
 // }					t_program;
 
 void        init_dinner(t_dinner **dinner, int philos_num);
-t_philo     init_philo(pthread_mutex_t (*table_forks)[TABLE_SIZE], int id, int n);
+void        init_philo(t_philo **philo, pthread_mutex_t *(*table_forks)[TABLE_SIZE], int id, int n);
 void        new_philo(t_philo **philo);
 
 #endif
