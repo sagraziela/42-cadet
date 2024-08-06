@@ -6,25 +6,32 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 06:58:14 by root              #+#    #+#             */
-/*   Updated: 2024/07/17 15:25:11 by root             ###   ########.fr       */
+/*   Updated: 2024/08/06 16:25:19 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
-void    clear(t_dinner **dinner, int philos_num)
+void    clear(t_philo *(*philos)[64])
 {
     int i;
+    int philos_num;
 
     i = 0;
+    philos_num = (*philos)[0]->dinner->philos_num;
     while (i < philos_num)
     {
-        pthread_mutex_destroy((*(*dinner)->philos[i]->left_fork));
-        free((*dinner)->philos[i]);
-        free((*dinner)->table_forks[i]);
+        pthread_mutex_destroy((*philos)[0]->dinner->table_forks[i]);
+        free((*philos)[0]->dinner->table_forks[i]);
         i++;
     }
-    free(*dinner);
+    i = 0;
+    free((*philos)[i]->dinner);
+    while (i < philos_num)
+    {
+        free((*philos)[i]);
+        i++;
+    }
 }
 
 size_t    get_current_time(void)
@@ -47,6 +54,30 @@ size_t    get_current_time(void)
     return (total);
 }
 
+void    handle_mutexes(t_philo **philo)
+{
+    t_dinner    **dinner;
+    size_t      time;
+
+    dinner = &((*philo)->dinner);
+    pthread_mutex_lock((*dinner)->table_forks[(*philo)->left_fork]);
+    pthread_mutex_lock((*dinner)->table_forks[(*philo)->right_fork]);
+    time = get_current_time();
+    printf("Philo %d EAT 🍽 - %ld - %ld\n", (*philo)->id, (*dinner)->time_to_eat, time);
+    if (!(*philo)->last_meal)
+        (*philo)->init_time = get_current_time();
+    usleep((*dinner)->time_to_eat);
+    pthread_mutex_unlock((*dinner)->table_forks[(*philo)->left_fork]);
+    pthread_mutex_unlock((*dinner)->table_forks[(*philo)->right_fork]);
+    time = get_current_time();
+    (*philo)->last_meal = time;
+    (*philo)->time_to_die = time + 3000;       //NEEDS TO BE DINAMIC
+    printf("Philo %d SLEEP 💤 - %ld - %ld\n", (*philo)->id, (*dinner)->time_to_sleep, time);
+    usleep((*dinner)->time_to_sleep);
+    time = get_current_time();
+    printf("Philo %d THINK 🤔 - %d - %ld\n", (*philo)->id, 1000000, time);
+}
+
 void    *dine(void *arg)
 {
     t_philo     *philo;
@@ -55,23 +86,19 @@ void    *dine(void *arg)
 
     philo = (t_philo*)arg;
     n = 0;
-    while (n < 3)
+    while (n < philo->dinner->total_meals)
     {
-        pthread_mutex_lock(*(philo->left_fork));
-        pthread_mutex_lock(*(philo->right_fork));
-        printf("Philo %d EAT - %ld - %ld\n", philo->id, philo->time_to_eat, get_current_time());
-        if (!philo->last_meal)
-            philo->init_time = get_current_time();
-        usleep(philo->time_to_eat);
-        philo->last_meal = get_current_time();
-        pthread_mutex_unlock(*(philo->left_fork));
-        pthread_mutex_unlock(*(philo->right_fork));
         time = get_current_time();
-        printf("Philo %d SLEEP - %ld - %ld\n", philo->id, philo->time_to_sleep, time);
-        usleep(philo->time_to_sleep);
-        time = get_current_time();
-        printf("Philo %d THINK - %d - %ld\n", philo->id, 1000000, time);
-        n++;
+        if (time < philo->time_to_die)
+        {
+            handle_mutexes(&philo);
+            n++;
+        }
+        else
+        {
+            printf("PHILO %d IS DEAD :(\n", philo->id);
+            break ;
+        }
     }
     return (NULL);
 }
@@ -79,29 +106,30 @@ void    *dine(void *arg)
 int main(void)
 {
     t_dinner    *dinner;
+    t_philo     *philos[TABLE_SIZE];
     int         philos_num;
     int         i;
 
     i = 0;
     philos_num = 2;         //NEEDS TO BE DINAMIC!
-    dinner = malloc(sizeof(t_dinner));
-    init_dinner(&dinner, philos_num);
-    while (i < dinner->philos_num)
+    dinner = init_dinner(philos_num, 3, 3000000, 2000000);
+    while (i < philos_num)
     {
-        dinner->philos[i] = malloc(sizeof(t_philo));
-        init_philo(&dinner->philos[i], &dinner->table_forks, i, philos_num);
-        if (pthread_create(&dinner->philos[i]->thread, NULL, dine, (void*)dinner->philos[i]) != 0)
+        philos[i] = malloc(sizeof(t_philo));
+        init_philo(&philos[i], i, philos_num, &dinner);
+        philos[i]->dinner = dinner;
+        if (pthread_create(&philos[i]->thread, NULL, dine, (void*)philos[i]) != 0)
             return (1);
-        dinner->idx++;
+        philos[i]->dinner->idx++;
         i++;
     }
    i = 0;
     while (i < philos_num)
     {
-        if (pthread_join(dinner->philos[i]->thread, NULL) != 0)
+        if (pthread_join(philos[i]->thread, NULL) != 0)
             return (2);
        i++;
     }
-    clear(&dinner, dinner->philos_num);
+    clear(&philos);
     exit(0);
 }
