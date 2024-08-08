@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 06:59:16 by root              #+#    #+#             */
-/*   Updated: 2024/08/06 16:05:27 by root             ###   ########.fr       */
+/*   Updated: 2024/08/06 19:29:09 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,6 @@ typedef enum e_bool
     FALSE = 0
 }           t_bool;
 
-// typedef struct s_forks
-// {
-//     pthread_mutex_t **left_fork;
-//     pthread_mutex_t **right_fork;
-// }               t_forks;
-
 typedef struct s_time
 {
     size_t  hour;
@@ -51,8 +45,7 @@ typedef struct s_time
 typedef struct s_dinner
 {
     int             philos_num;
-    int             idx;
-    t_bool          dead_flag;
+    pthread_t       life_checker;
     pthread_mutex_t *table_forks[TABLE_SIZE];
     t_time          *time;
     size_t          start;
@@ -61,7 +54,7 @@ typedef struct s_dinner
     size_t          time_to_eat;
     size_t          time_to_sleep;
     int             total_meals;
-    //pthread_mutex_t mutex_eat;
+    t_bool          dead_flag;
 }               t_dinner;
 
 typedef struct s_philo
@@ -78,39 +71,12 @@ typedef struct s_philo
     t_dinner    *dinner;
 }               t_philo;
 
-
-// typedef struct s_philo
-// {
-// 	pthread_t		thread;
-// 	int				id;
-// 	int				eating;
-// 	int				meals_eaten;
-// 	size_t			last_meal;
-// 	size_t			time_to_die;
-// 	size_t			time_to_eat;
-// 	size_t			time_to_sleep;
-// 	size_t			start_time;
-// 	int				num_of_philos;
-// 	int				num_times_to_eat;
-// 	int				*dead;
-// 	pthread_mutex_t	*r_fork;
-// 	pthread_mutex_t	*l_fork;
-// 	pthread_mutex_t	*write_lock;
-// 	pthread_mutex_t	*dead_lock;
-// 	pthread_mutex_t	*meal_lock;
-// }					t_philo;
-
-// typedef struct s_program
-// {
-// 	int				dead_flag;
-// 	pthread_mutex_t	dead_lock;
-// 	pthread_mutex_t	meal_lock;
-// 	pthread_mutex_t	write_lock;
-// 	t_philo			*philos;
-// }					t_program;
-
 t_dinner    *init_dinner(int philos_num, int meals, size_t time_eat, size_t time_sleep);
-void        init_philo(t_philo **philo, int id, int n, t_dinner **dinner);
+void        init_philo(t_philo **philo, int id, int n, size_t time_die);
+void        handle_thread(t_philo **philo);
+void        lock_forks(t_dinner **dinner, int left, int right, int id);
+void        unlock_forks(t_dinner **dinner, int left, int right);
 size_t      get_current_time(void);
-
+size_t      to_micro(size_t num);
+void        clear(t_philo *(*philos)[64]);
 #endif

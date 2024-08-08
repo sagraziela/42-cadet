@@ -7,7 +7,9 @@ CFLAGS = -Wall -Wextra -Werror -g
 INCLUDES = -I ./includes/ -I $(LIBFT_PATH)/
 
 SRC = ./src/main.c \
-		./src/init.c
+		./src/init.c \
+		./src/threads.c \
+		./src/utils.c
 
 # Objects
 OBJ_PATH = src/build/
