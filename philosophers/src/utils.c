@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 17:52:25 by root              #+#    #+#             */
-/*   Updated: 2024/08/06 17:53:15 by root             ###   ########.fr       */
+/*   Updated: 2024/08/12 14:38:56 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ void    clear(t_philo *(*philos)[64])
         i++;
     }
     i = 0;
+    pthread_mutex_destroy((*philos)[i]->dinner->halt_mutex);
+    free((*philos)[i]->dinner->halt_mutex);
     free((*philos)[i]->dinner);
     while (i < philos_num)
     {
@@ -37,24 +39,18 @@ void    clear(t_philo *(*philos)[64])
 size_t    get_current_time(void)
 {
     struct  timeval tval;
-    time_t  t;
-    struct  tm *info;
-    t_time  *time;
     size_t  total;
     
-    gettimeofday(&tval, NULL);
-    t = tval.tv_sec;
-    info = localtime(&t);
-    time = malloc(sizeof(t_time));
-    time->hour = info->tm_hour * 60 * 60 * 1000;
-    time->min = info->tm_min * 60 * 1000;
-    time->sec = info->tm_sec * 1000;
-    total = time->hour + time->min + time->sec;
-    free(time);
+    if (gettimeofday(&tval, NULL) != 0)
+    {
+        printf("Error getting timestamp.\n");
+        return (0);
+    }
+    total = (tval.tv_sec * 1000000) + tval.tv_usec;
     return (total);
 }
 
-size_t  to_micro(size_t num)
+size_t  get_dinner_time(t_dinner **dinner, size_t time)
 {
-    return (num * 1000);
+    return ((time - (*dinner)->init_time) / 1000);
 }

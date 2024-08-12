@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 06:58:14 by root              #+#    #+#             */
-/*   Updated: 2024/08/06 19:32:44 by root             ###   ########.fr       */
+/*   Updated: 2024/08/12 14:58:33 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ void    *dine(void *arg)
 
     philo = (t_philo*)arg;
     n = 0;
-    while (n < philo->dinner->total_meals)
+    while ((!philo->dinner->infinite_dinner && n < philo->dinner->total_meals && !shall_halt(&philo->dinner, &philo)) ||
+    (philo->dinner->infinite_dinner && !shall_halt(&philo->dinner, &philo)))
     {
         handle_thread(&philo);
         n++;
@@ -35,14 +36,14 @@ int main(void)
     int         i;
 
     i = 0;
-    philos_num = 3;         //NEEDS TO BE DINAMIC!
-    dinner = init_dinner(philos_num, 3, 3000, 2000);
-    dinner->time_to_die = 5000;
+    philos_num = 5;         //NEEDS TO BE DINAMIC!
+    dinner = init_dinner(philos_num, 2, 3000, 2000);
+    dinner->time_to_die = 6000 * 1000;
+    // if (argc == 5)
+    //     dinner->infinite_dinner = TRUE;
     while (i < philos_num)
     {
-        philos[i] = malloc(sizeof(t_philo));
-        init_philo(&philos[i], i + 1, philos_num, dinner->time_to_die);
-        philos[i]->dinner = dinner;
+        philos[i] = init_philo(&dinner, i + 1, philos_num);
         if (pthread_create(&philos[i]->thread, NULL, dine, (void*)philos[i]) != 0)
             return (1);
         i++;
