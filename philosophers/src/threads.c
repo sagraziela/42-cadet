@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 17:49:00 by root              #+#    #+#             */
-/*   Updated: 2024/08/12 14:57:53 by root             ###   ########.fr       */
+/*   Updated: 2024/08/13 15:43:03 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ t_bool  check_if_alive(t_philo **philo)
     if (time >= (*philo)->time_of_death && !shall_halt(&(*philo)->dinner, philo))
     {
         to_halt(&(*philo)->dinner, philo);
-        printf("%ld %d IS DeEaAaD 💀\n", get_dinner_time(&(*philo)->dinner, time), (*philo)->id);
+        print_action(philo, &(*philo)->dinner, DIE);
         return (FALSE);
     }
     return (TRUE);
@@ -48,29 +48,31 @@ t_bool  check_if_alive(t_philo **philo)
 
 void    lock_forks(t_dinner **dinner, t_philo **philo)
 {
-    size_t  time;
-
     if (!shall_halt(dinner, philo))
     {
-        pthread_mutex_lock((*dinner)->table_forks[(*philo)->left_fork]);
+        if ((*dinner)->meals_had == 0 && (*philo)->id % 2 == 1)
+            pthread_mutex_lock((*dinner)->eat_mutex);
+        pthread_mutex_lock(&(*dinner)->table_forks[(*philo)->left_fork]);
         if (!check_if_alive(philo) || shall_halt(dinner, philo))
             return ;
-        time = get_current_time();
-        printf("%ld %d has taken L fork.\n", get_dinner_time(dinner, time), (*philo)->id);
-        pthread_mutex_lock((*dinner)->table_forks[(*philo)->right_fork]);
+        print_action(philo, dinner, L_FORK);
+        pthread_mutex_lock(&(*dinner)->table_forks[(*philo)->right_fork]);
         if (!check_if_alive(philo) || shall_halt(dinner, philo))
             return ;
-        time = get_current_time();
-        printf("%ld %d has taken R fork.\n", get_dinner_time(dinner, time), (*philo)->id);
+        if ((*dinner)->eat_mutex)
+            pthread_mutex_unlock((*dinner)->eat_mutex);
+        print_action(philo, dinner, R_FORK);
     }
 }
 
 void    unlock_forks(t_dinner **dinner, int left, int right)
 {
-    if ((*dinner)->table_forks[left])
-        pthread_mutex_unlock((*dinner)->table_forks[left]);
-    if ((*dinner)->table_forks[right])
-        pthread_mutex_unlock((*dinner)->table_forks[right]);
+    if (&(*dinner)->table_forks[left])
+        pthread_mutex_unlock(&(*dinner)->table_forks[left]);
+    if (&(*dinner)->table_forks[right])
+        pthread_mutex_unlock(&(*dinner)->table_forks[right]);
+    if ((*dinner)->eat_mutex)
+            pthread_mutex_unlock((*dinner)->eat_mutex);
     return ;
 }
 
@@ -82,19 +84,16 @@ void    handle_sleep(t_dinner **dinner, t_philo **philo)
     if (((*dinner)->time_to_sleep + time) < (*philo)->time_of_death
         && !shall_halt(dinner, philo))
     {
-        printf("%ld %d is sleeping 💤\n", get_dinner_time(dinner, time), (*philo)->id);
+        print_action(philo, dinner, SLEEP);
         usleep((*dinner)->time_to_sleep);
         if (check_if_alive(philo) && !shall_halt(dinner, philo))
-        {
-            time = get_current_time();
-            printf("%ld %d is thinking 🤔\n", get_dinner_time(dinner, time), (*philo)->id);
-        }
+            print_action(philo, dinner, THINK);
     }
     else if (!shall_halt(dinner, philo))
     {
         usleep(((*philo)->time_of_death - time));
         to_halt(dinner, philo);
-        printf("PHILO %d IS DEAD 💀\n", (*philo)->id);
+        print_action(philo, dinner, DIE);
     }
     return ;
 }
@@ -111,27 +110,23 @@ void    handle_eat(t_dinner **dinner, t_philo **philo)
             unlock_forks(dinner, (*philo)->left_fork, (*philo)->right_fork);
             return ;
         }
-        time = get_current_time();
-        printf("%ld %d is eating 🍽\n", get_dinner_time(dinner, time), (*philo)->id);
+        print_action(philo, dinner, EAT);
         usleep((*dinner)->time_to_eat);
+        (*dinner)->meals_had++;
+        time = get_current_time();
+        (*philo)->time_of_death = time + (*dinner)->time_to_die;
     }
     unlock_forks(dinner, (*philo)->left_fork, (*philo)->right_fork);
 }
 
-void    handle_thread(t_philo **philo)
-{
-    t_dinner    **dinner;
-    size_t      time;
+// void    handle_thread(t_philo **philo)
+// {
+//     t_dinner    **dinner;
 
-    dinner = &((*philo)->dinner);
-    if (!shall_halt(dinner, philo))
-    {
-        handle_eat(dinner, philo);
-        time = get_current_time();
-        (*philo)->last_meal = time;
-        (*philo)->time_of_death = time + (*dinner)->time_to_die;
-        if (!shall_halt(dinner, philo))
-            handle_sleep(dinner, philo);
-    }
-    return ;
-}
+//     dinner = &((*philo)->dinner);
+//     if (!shall_halt(dinner, philo))
+//         handle_eat(dinner, philo);
+//     if (!shall_halt(dinner, philo))
+//         handle_sleep(dinner, philo);
+//     return ;
+// }
