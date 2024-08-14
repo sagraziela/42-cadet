@@ -8,20 +8,16 @@ INCLUDES = -I ./includes/ -I $(LIBFT_PATH)/
 
 SRC = ./src/main.c \
 		./src/init.c \
+		./src/handle_input.c \
 		./src/threads.c \
-		./src/utils.c
+		./src/threads_utils.c \
+		./src/timestamp.c \
+		./src/print_msg.c \
+		./src/clear.c
 
 # Objects
 OBJ_PATH = src/build/
 OBJ = $(addprefix $(OBJ_PATH), $(notdir $(SRC:.c=.o)))
-#OBJ_PATH_BONUS = ./build_bonus/
-#OBJ_BONUS = $(addprefix $(OBJ_PATH_BONUS), $(notdir $(SRC_BONUS:.c=.o)))
-
-# Color codes of output on terminal
-GREEN = \e[1;32m
-WHITE = \033[1;37m
-CYAN= \033[0;36m
-END = \033[0m
 
 # Default target to compile the mandatory part
 all: $(NAME)
@@ -35,11 +31,18 @@ $(NAME): $(OBJ)
 
 valgrind: all
 	@echo "Running the program with valgrind..."
-	valgrind --leak-check=full --show-leak-kinds=all --trace-children=yes --track-origins=yes ./philo
+	valgrind --leak-check=full --show-leak-kinds=all --trace-children=yes --track-origins=yes ./philo 5 7000 3000 2000 3
 
 run: all
 	@echo "Running the program..."
-	./philo
+	./philo 105 800 200 200
+
+# 105 800 200 200
+# 200 800 200 200
+# No one should die
+
+# 4 200 205 200
+# A philo should die
 
 bonus: $(NAME_BONUS)
 

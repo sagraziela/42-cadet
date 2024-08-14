@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 06:59:16 by root              #+#    #+#             */
-/*   Updated: 2024/08/13 19:05:32 by root             ###   ########.fr       */
+/*   Updated: 2024/08/14 14:43:38 by gde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,10 @@ typedef struct s_dinner
     int             philos_num;
     pthread_t       life_checker;
     pthread_mutex_t *table_forks;
-    pthread_mutex_t *halt_mutex;
+    pthread_mutex_t *stop_mutex;
     pthread_mutex_t *print_mutex;
     pthread_mutex_t *eat_mutex;
-    t_bool          halt;
+    t_bool          stop;
     t_time          *time;
     size_t          init_time;
     size_t          time_to_die;
@@ -71,7 +71,6 @@ typedef struct s_philo
     size_t      last_meal;
     size_t      init_time;
     size_t      time_of_death;
-    t_bool      halt;
     int         left_fork;
     int         right_fork;
     t_dinner    *dinner;
@@ -79,6 +78,7 @@ typedef struct s_philo
 
 t_dinner    *init_dinner(int argc, char **argv);
 t_philo     **init_philo(t_dinner **dinner, int num);
+t_bool      handle_args(int argc, char *argv[], t_dinner **dinner);
 void        handle_thread(t_philo **philo);
 void        handle_eat(t_dinner **dinner, t_philo **philo);
 void        handle_sleep(t_dinner **dinner, t_philo **philo);
@@ -86,7 +86,9 @@ void        lock_forks(t_dinner **dinner, t_philo **philo);
 void        unlock_forks(t_dinner **dinner, int left, int right);
 size_t      get_current_time(void);
 size_t      get_dinner_time(t_dinner **dinner, size_t time);
-t_bool      shall_halt(t_dinner **dinner, t_philo **philo);
+void        to_stop(t_dinner **dinner);
+t_bool      must_stop(t_dinner **dinner, t_philo **philo);
+t_bool      check_if_alive(t_philo **philo);
 void        print_action(t_philo **philo, t_dinner **dinner, char *action);
 void        print_error(void);
 void        clear(t_philo **philos);

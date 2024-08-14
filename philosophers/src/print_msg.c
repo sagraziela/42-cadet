@@ -3,73 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 17:52:25 by root              #+#    #+#             */
-/*   Updated: 2024/08/13 19:37:18 by root             ###   ########.fr       */
+/*   Updated: 2024/08/14 14:51:03 by gde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
-void    clear_table_forks(t_dinner **dinner)
-{
-    int i;
-
-    i = 0;
-    while (i < (*dinner)->philos_num)
-    {
-        pthread_mutex_destroy(&(*dinner)->table_forks[i]);
-        i++;
-    }
-    free((*dinner)->table_forks);
-    return ;
-}
-
-void    clear(t_philo **philos)
-{
-    int i;
-    int philos_num;
-
-    i = 0;
-    philos_num = philos[0]->dinner->philos_num;
-    clear_table_forks(&philos[i]->dinner);
-    pthread_mutex_destroy(philos[i]->dinner->halt_mutex);
-    pthread_mutex_destroy(philos[i]->dinner->print_mutex);
-    pthread_mutex_destroy(philos[i]->dinner->eat_mutex);
-    free(philos[i]->dinner->halt_mutex);
-    free(philos[i]->dinner->print_mutex);
-    free(philos[i]->dinner->eat_mutex);
-    free(philos[i]->dinner);
-    while (i < philos_num - 1)
-    {
-        free(philos[i]);
-        i++;
-    }
-    free(philos);
-    return ;
-}
-
-size_t    get_current_time(void)
-{
-    struct  timeval tval;
-    size_t  total;
-    
-    if (gettimeofday(&tval, NULL) != 0)
-    {
-        printf("Error getting timestamp.\n");
-        return (0);
-    }
-    total = (tval.tv_sec * 1000000) + tval.tv_usec;
-    return (total);
-}
-
-size_t  get_dinner_time(t_dinner **dinner, size_t time)
-{
-    return ((time - (*dinner)->init_time) / 1000);
-}
-
-int	ft_strcmp(const char *s1, const char *s2)
+static int	ft_strcmp(const char *s1, const char *s2)
 {
 	size_t	i;
 
@@ -85,15 +28,15 @@ void    print_action(t_philo **philo, t_dinner **dinner, char *action)
 
     pthread_mutex_lock((*dinner)->print_mutex);
     time = get_dinner_time(dinner, get_current_time());
-    if (!ft_strcmp(action, L_FORK) && !shall_halt(dinner, philo))
+    if (!ft_strcmp(action, L_FORK) && !must_stop(dinner, philo))
         printf("%s%ld %d has taken L fork.%s\n", GREEN, time, (*philo)->id, COLOUR_RESET);
-    if (!ft_strcmp(action, R_FORK) && !shall_halt(dinner, philo))
+    if (!ft_strcmp(action, R_FORK) && !must_stop(dinner, philo))
         printf("%s%ld %d has taken R fork.%s\n", GREEN, time, (*philo)->id, COLOUR_RESET);
-    if (!ft_strcmp(action, EAT) && !shall_halt(dinner, philo))
+    if (!ft_strcmp(action, EAT) && !must_stop(dinner, philo))
         printf("%s%ld %d is eating.%s\n", YELLOW, time, (*philo)->id, COLOUR_RESET);
-    if (!ft_strcmp(action, SLEEP) && !shall_halt(dinner, philo))
+    if (!ft_strcmp(action, SLEEP) && !must_stop(dinner, philo))
         printf("%s%ld %d is sleeping.%s\n", LILAC, time, (*philo)->id, COLOUR_RESET);
-    if (!ft_strcmp(action, THINK) && !shall_halt(dinner, philo))
+    if (!ft_strcmp(action, THINK) && !must_stop(dinner, philo))
         printf("%s%ld %d is thinking.%s\n", BLUE, time, (*philo)->id, COLOUR_RESET);
     if (!ft_strcmp(action, DIE))
         printf("%s%ld %d died.%s\n", BRED, time, (*philo)->id, COLOUR_RESET);

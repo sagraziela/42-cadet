@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 06:58:14 by root              #+#    #+#             */
-/*   Updated: 2024/08/13 19:25:31 by root             ###   ########.fr       */
+/*   Updated: 2024/08/14 13:48:42 by gde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,12 @@ void    *dine(void *arg)
     philo = (t_philo*)arg;
     dinner = &philo->dinner;
     n = 0;
-    while ((!philo->dinner->infinite_dinner && n < philo->dinner->total_meals && !shall_halt(&philo->dinner, &philo)) ||
-    (philo->dinner->infinite_dinner && !shall_halt(&philo->dinner, &philo)))
+    while ((!philo->dinner->infinite_dinner && n < philo->dinner->total_meals && !must_stop(&philo->dinner, &philo)) ||
+    (philo->dinner->infinite_dinner && !must_stop(&philo->dinner, &philo)))
     {
-        if (!shall_halt(dinner, &philo))
+        if (!must_stop(dinner, &philo))
             handle_eat(dinner, &philo);
-        if (!shall_halt(dinner, &philo))
+        if (!must_stop(dinner, &philo))
             handle_sleep(dinner, &philo);
         n++;
     }
@@ -37,22 +37,20 @@ int main(int argc, char **argv)
 {
     t_dinner    *dinner;
     t_philo     **philos;
-    int         philos_num;
     int         i;
 
     i = 0;
-    philos_num = 2;
     dinner = init_dinner(argc, argv);
-    if ((argc == 5 || argc == 6) && dinner)
+    if (dinner)
     {
-        philos = init_philo(&dinner, philos_num);
-        while (i < philos_num)
+        philos = init_philo(&dinner, dinner->philos_num);
+        while (i < dinner->philos_num)
         {
             pthread_create(&philos[i]->thread, NULL, dine, (void *)philos[i]);
             i++;
         }
         i = 0;
-        while (i < philos_num)
+        while (i < dinner->philos_num)
         {
             pthread_join(philos[i]->thread, NULL);
             i++;
