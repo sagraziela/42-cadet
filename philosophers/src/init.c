@@ -7,7 +7,7 @@ t_philo **init_philo(t_dinner **dinner, int num)
 
         philo = (t_philo **)malloc(sizeof(t_philo*) * (num + 1));
         if (!philo)
-        return (NULL);
+                return (NULL);
         i = 0;
         while (i < num)
         {
@@ -37,9 +37,8 @@ t_dinner    *init_dinner(int argc, char **argv)
         dinner = malloc(sizeof(t_dinner));
         if (!dinner)
                 return (NULL);
-        if ((argc != 5 && argc != 6) || !handle_args(argc, argv, &dinner))
+        if (!handle_args(argc, argv, &dinner) || dinner->philos_num == 0)
         {
-                //printf("chegou aqui - - argc = %d\n", argc);
                 free(dinner);
                 return (NULL);
         }

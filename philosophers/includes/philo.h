@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 06:59:16 by root              #+#    #+#             */
-/*   Updated: 2024/08/14 14:43:38 by gde-souz         ###   ########.fr       */
+/*   Updated: 2024/08/15 14:56:37 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,12 +82,12 @@ t_bool      handle_args(int argc, char *argv[], t_dinner **dinner);
 void        handle_thread(t_philo **philo);
 void        handle_eat(t_dinner **dinner, t_philo **philo);
 void        handle_sleep(t_dinner **dinner, t_philo **philo);
-void        lock_forks(t_dinner **dinner, t_philo **philo);
+t_bool      lock_forks(t_dinner **dinner, t_philo **philo);
 void        unlock_forks(t_dinner **dinner, int left, int right);
 size_t      get_current_time(void);
 size_t      get_dinner_time(t_dinner **dinner, size_t time);
 void        to_stop(t_dinner **dinner);
-t_bool      must_stop(t_dinner **dinner, t_philo **philo);
+t_bool      must_stop(t_dinner **dinner);
 t_bool      check_if_alive(t_philo **philo);
 void        print_action(t_philo **philo, t_dinner **dinner, char *action);
 void        print_error(void);

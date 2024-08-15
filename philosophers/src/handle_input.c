@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   handle_input                                       :+:      :+:    :+:   */
+/*   handle_input.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 12:29:08 by gde-souz          #+#    #+#             */
-/*   Updated: 2024/08/14 12:29:40 by gde-souz         ###   ########.fr       */
+/*   Updated: 2024/08/15 16:19:02 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,11 +62,11 @@ static long	ft_atoi(const char *nptr)
 
 static t_bool  args_are_valid(int argc, char **argv)
 {
-        int     i;
-        long    temp;
+	int     i;
+	long    temp;
 
-        i = 0;
-        while (++i < argc)
+	i = 0;
+	while (++i < argc)
 	{
 		temp = ft_atoi(argv[i]);
 		if (!ft_isnumeric(argv[i]) || (temp > INT_MAX || temp < 0))
@@ -77,7 +77,7 @@ static t_bool  args_are_valid(int argc, char **argv)
 
 t_bool  handle_args(int argc, char *argv[], t_dinner **dinner)
 {
-        if (!args_are_valid(argc, argv))
+        if ((argc != 5 && argc != 6) || !args_are_valid(argc, argv))
                 return (FALSE);
         (*dinner)->philos_num = ft_atoi(argv[1]);
         (*dinner)->time_to_die = ft_atoi(argv[2]) * 1000;

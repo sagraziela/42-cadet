@@ -31,11 +31,11 @@ $(NAME): $(OBJ)
 
 valgrind: all
 	@echo "Running the program with valgrind..."
-	valgrind --leak-check=full --show-leak-kinds=all --trace-children=yes --track-origins=yes ./philo 5 7000 3000 2000 3
+	valgrind --leak-check=full --show-leak-kinds=all --trace-children=yes --track-origins=yes ./philo 50 1000 200 200 1
 
 run: all
 	@echo "Running the program..."
-	./philo 105 800 200 200
+	./philo 200 800 500 200
 
 # 105 800 200 200
 # 200 800 200 200

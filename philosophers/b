@@ -1,0 +1,1002 @@
+Running the program...
+./philo 200 800 200 200 1
+[0;32m0 1 has taken L fork.[0m
+[0;32m0 1 has taken R fork.[0m
+[0;33m0 1 is eating.[0m
+[0;32m0 3 has taken L fork.[0m
+[0;32m0 3 has taken R fork.[0m
+[0;33m0 3 is eating.[0m
+[0;32m0 5 has taken L fork.[0m
+[0;32m0 5 has taken R fork.[0m
+[0;33m0 5 is eating.[0m
+[0;32m0 7 has taken L fork.[0m
+[0;32m0 7 has taken R fork.[0m
+[0;33m0 7 is eating.[0m
+[0;32m0 9 has taken L fork.[0m
+[0;32m0 9 has taken R fork.[0m
+[0;33m0 9 is eating.[0m
+[0;32m2 11 has taken L fork.[0m
+[0;32m2 11 has taken R fork.[0m
+[0;33m2 11 is eating.[0m
+[0;32m2 13 has taken L fork.[0m
+[0;32m2 13 has taken R fork.[0m
+[0;33m2 13 is eating.[0m
+[0;32m2 15 has taken L fork.[0m
+[0;32m2 15 has taken R fork.[0m
+[0;33m2 15 is eating.[0m
+[0;32m2 17 has taken L fork.[0m
+[0;32m2 17 has taken R fork.[0m
+[0;33m2 17 is eating.[0m
+[0;32m2 19 has taken L fork.[0m
+[0;32m2 19 has taken R fork.[0m
+[0;33m2 19 is eating.[0m
+[0;32m2 21 has taken L fork.[0m
+[0;32m2 21 has taken R fork.[0m
+[0;33m2 21 is eating.[0m
+[0;32m3 23 has taken L fork.[0m
+[0;32m3 23 has taken R fork.[0m
+[0;33m3 23 is eating.[0m
+[0;32m3 25 has taken L fork.[0m
+[0;32m3 25 has taken R fork.[0m
+[0;33m3 25 is eating.[0m
+[0;32m3 27 has taken L fork.[0m
+[0;32m3 27 has taken R fork.[0m
+[0;33m3 27 is eating.[0m
+[0;32m3 29 has taken L fork.[0m
+[0;32m3 29 has taken R fork.[0m
+[0;33m3 29 is eating.[0m
+[0;32m3 31 has taken L fork.[0m
+[0;32m3 31 has taken R fork.[0m
+[0;33m3 31 is eating.[0m
+[0;32m3 33 has taken L fork.[0m
+[0;32m3 33 has taken R fork.[0m
+[0;33m3 33 is eating.[0m
+[0;32m3 35 has taken L fork.[0m
+[0;32m3 35 has taken R fork.[0m
+[0;33m3 35 is eating.[0m
+[0;32m3 37 has taken L fork.[0m
+[0;32m3 37 has taken R fork.[0m
+[0;33m3 37 is eating.[0m
+[0;32m4 39 has taken L fork.[0m
+[0;32m4 39 has taken R fork.[0m
+[0;33m4 39 is eating.[0m
+[0;32m5 41 has taken L fork.[0m
+[0;32m5 41 has taken R fork.[0m
+[0;33m5 41 is eating.[0m
+[0;32m5 43 has taken L fork.[0m
+[0;32m5 43 has taken R fork.[0m
+[0;33m5 43 is eating.[0m
+[0;32m5 45 has taken L fork.[0m
+[0;32m5 45 has taken R fork.[0m
+[0;33m5 45 is eating.[0m
+[0;32m6 47 has taken L fork.[0m
+[0;32m6 47 has taken R fork.[0m
+[0;33m6 47 is eating.[0m
+[0;32m6 49 has taken L fork.[0m
+[0;32m6 49 has taken R fork.[0m
+[0;33m6 49 is eating.[0m
+[0;32m6 51 has taken L fork.[0m
+[0;32m6 51 has taken R fork.[0m
+[0;33m6 51 is eating.[0m
+[0;32m6 53 has taken L fork.[0m
+[0;32m6 53 has taken R fork.[0m
+[0;33m7 53 is eating.[0m
+[0;32m7 55 has taken L fork.[0m
+[0;32m7 55 has taken R fork.[0m
+[0;33m7 55 is eating.[0m
+[0;32m7 57 has taken L fork.[0m
+[0;32m7 57 has taken R fork.[0m
+[0;33m7 57 is eating.[0m
+[0;32m7 59 has taken L fork.[0m
+[0;32m7 59 has taken R fork.[0m
+[0;33m7 59 is eating.[0m
+[0;32m7 61 has taken L fork.[0m
+[0;32m7 61 has taken R fork.[0m
+[0;33m7 61 is eating.[0m
+[0;32m7 63 has taken L fork.[0m
+[0;32m7 63 has taken R fork.[0m
+[0;33m7 63 is eating.[0m
+[0;32m8 65 has taken L fork.[0m
+[0;32m8 65 has taken R fork.[0m
+[0;33m8 65 is eating.[0m
+[0;32m8 67 has taken L fork.[0m
+[0;32m8 67 has taken R fork.[0m
+[0;33m8 67 is eating.[0m
+[0;32m8 69 has taken L fork.[0m
+[0;32m8 69 has taken R fork.[0m
+[0;33m8 69 is eating.[0m
+[0;32m8 71 has taken L fork.[0m
+[0;32m8 71 has taken R fork.[0m
+[0;33m8 71 is eating.[0m
+[0;32m8 73 has taken L fork.[0m
+[0;32m8 73 has taken R fork.[0m
+[0;33m8 73 is eating.[0m
+[0;32m8 75 has taken L fork.[0m
+[0;32m8 75 has taken R fork.[0m
+[0;33m8 75 is eating.[0m
+[0;32m8 77 has taken L fork.[0m
+[0;32m8 77 has taken R fork.[0m
+[0;33m8 77 is eating.[0m
+[0;32m9 79 has taken L fork.[0m
+[0;32m9 79 has taken R fork.[0m
+[0;33m9 79 is eating.[0m
+[0;32m9 81 has taken L fork.[0m
+[0;32m9 81 has taken R fork.[0m
+[0;33m9 81 is eating.[0m
+[0;32m9 83 has taken L fork.[0m
+[0;32m9 83 has taken R fork.[0m
+[0;33m9 83 is eating.[0m
+[0;32m9 85 has taken L fork.[0m
+[0;32m9 85 has taken R fork.[0m
+[0;33m9 85 is eating.[0m
+[0;32m9 87 has taken L fork.[0m
+[0;32m9 87 has taken R fork.[0m
+[0;33m9 87 is eating.[0m
+[0;32m9 89 has taken L fork.[0m
+[0;32m9 89 has taken R fork.[0m
+[0;33m9 89 is eating.[0m
+[0;32m9 91 has taken L fork.[0m
+[0;32m9 91 has taken R fork.[0m
+[0;33m9 91 is eating.[0m
+[0;32m9 93 has taken L fork.[0m
+[0;32m9 93 has taken R fork.[0m
+[0;33m9 93 is eating.[0m
+[0;32m10 95 has taken L fork.[0m
+[0;32m10 95 has taken R fork.[0m
+[0;33m10 95 is eating.[0m
+[0;32m10 97 has taken L fork.[0m
+[0;32m10 97 has taken R fork.[0m
+[0;33m10 97 is eating.[0m
+[0;32m10 99 has taken L fork.[0m
+[0;32m10 99 has taken R fork.[0m
+[0;33m10 99 is eating.[0m
+[0;32m14 103 has taken L fork.[0m
+[0;32m14 103 has taken R fork.[0m
+[0;33m14 103 is eating.[0m
+[0;32m14 101 has taken L fork.[0m
+[0;32m14 101 has taken R fork.[0m
+[0;33m14 101 is eating.[0m
+[0;32m15 105 has taken L fork.[0m
+[0;32m15 105 has taken R fork.[0m
+[0;33m15 105 is eating.[0m
+[0;32m15 107 has taken L fork.[0m
+[0;32m15 107 has taken R fork.[0m
+[0;33m15 107 is eating.[0m
+[0;32m15 109 has taken L fork.[0m
+[0;32m15 109 has taken R fork.[0m
+[0;33m15 109 is eating.[0m
+[0;32m15 111 has taken L fork.[0m
+[0;32m15 111 has taken R fork.[0m
+[0;33m15 111 is eating.[0m
+[0;32m15 113 has taken L fork.[0m
+[0;32m15 113 has taken R fork.[0m
+[0;33m15 113 is eating.[0m
+[0;32m16 115 has taken L fork.[0m
+[0;32m16 115 has taken R fork.[0m
+[0;33m16 115 is eating.[0m
+[0;32m16 119 has taken L fork.[0m
+[0;32m16 119 has taken R fork.[0m
+[0;33m16 119 is eating.[0m
+[0;32m16 117 has taken L fork.[0m
+[0;32m16 117 has taken R fork.[0m
+[0;33m16 117 is eating.[0m
+[0;32m17 121 has taken L fork.[0m
+[0;32m17 121 has taken R fork.[0m
+[0;33m17 121 is eating.[0m
+[0;32m17 123 has taken L fork.[0m
+[0;32m17 123 has taken R fork.[0m
+[0;33m17 123 is eating.[0m
+[0;32m17 125 has taken L fork.[0m
+[0;32m17 125 has taken R fork.[0m
+[0;33m17 125 is eating.[0m
+[0;32m17 128 has taken L fork.[0m
+[0;32m17 128 has taken R fork.[0m
+[0;33m17 128 is eating.[0m
+[0;32m17 127 has taken L fork.[0m
+[0;32m17 130 has taken L fork.[0m
+[0;32m17 130 has taken R fork.[0m
+[0;33m17 130 is eating.[0m
+[0;32m17 132 has taken L fork.[0m
+[0;32m17 132 has taken R fork.[0m
+[0;33m17 132 is eating.[0m
+[0;32m18 134 has taken L fork.[0m
+[0;32m18 134 has taken R fork.[0m
+[0;33m18 134 is eating.[0m
+[0;32m18 136 has taken L fork.[0m
+[0;32m18 136 has taken R fork.[0m
+[0;33m18 136 is eating.[0m
+[0;32m18 138 has taken L fork.[0m
+[0;32m18 138 has taken R fork.[0m
+[0;33m18 138 is eating.[0m
+[0;32m18 140 has taken L fork.[0m
+[0;32m18 140 has taken R fork.[0m
+[0;33m18 140 is eating.[0m
+[0;32m19 143 has taken L fork.[0m
+[0;32m19 143 has taken R fork.[0m
+[0;33m19 143 is eating.[0m
+[0;32m19 145 has taken L fork.[0m
+[0;32m19 145 has taken R fork.[0m
+[0;33m19 145 is eating.[0m
+[0;32m19 142 has taken L fork.[0m
+[0;32m19 147 has taken L fork.[0m
+[0;32m19 147 has taken R fork.[0m
+[0;33m19 147 is eating.[0m
+[0;32m19 149 has taken L fork.[0m
+[0;32m19 149 has taken R fork.[0m
+[0;33m19 149 is eating.[0m
+[0;32m20 151 has taken L fork.[0m
+[0;32m20 151 has taken R fork.[0m
+[0;33m21 151 is eating.[0m
+[0;32m21 153 has taken L fork.[0m
+[0;32m21 153 has taken R fork.[0m
+[0;33m21 153 is eating.[0m
+[0;32m21 155 has taken L fork.[0m
+[0;32m21 155 has taken R fork.[0m
+[0;33m21 155 is eating.[0m
+[0;32m21 157 has taken L fork.[0m
+[0;32m21 157 has taken R fork.[0m
+[0;33m21 157 is eating.[0m
+[0;32m22 159 has taken L fork.[0m
+[0;32m22 159 has taken R fork.[0m
+[0;33m22 159 is eating.[0m
+[0;32m23 161 has taken L fork.[0m
+[0;32m23 161 has taken R fork.[0m
+[0;33m23 161 is eating.[0m
+[0;32m23 163 has taken L fork.[0m
+[0;32m23 163 has taken R fork.[0m
+[0;33m23 163 is eating.[0m
+[0;32m23 165 has taken L fork.[0m
+[0;32m23 165 has taken R fork.[0m
+[0;33m23 165 is eating.[0m
+[0;32m23 167 has taken L fork.[0m
+[0;32m23 167 has taken R fork.[0m
+[0;33m23 167 is eating.[0m
+[0;32m23 169 has taken L fork.[0m
+[0;32m23 169 has taken R fork.[0m
+[0;33m23 169 is eating.[0m
+[0;32m23 171 has taken L fork.[0m
+[0;32m23 171 has taken R fork.[0m
+[0;33m23 171 is eating.[0m
+[0;32m23 173 has taken L fork.[0m
+[0;32m23 173 has taken R fork.[0m
+[0;33m23 173 is eating.[0m
+[0;32m24 175 has taken L fork.[0m
+[0;32m24 175 has taken R fork.[0m
+[0;33m24 175 is eating.[0m
+[0;32m24 177 has taken L fork.[0m
+[0;32m24 177 has taken R fork.[0m
+[0;33m24 177 is eating.[0m
+[0;32m24 179 has taken L fork.[0m
+[0;32m24 179 has taken R fork.[0m
+[0;33m24 179 is eating.[0m
+[0;32m24 181 has taken L fork.[0m
+[0;32m24 181 has taken R fork.[0m
+[0;33m24 181 is eating.[0m
+[0;32m24 183 has taken L fork.[0m
+[0;32m24 183 has taken R fork.[0m
+[0;33m24 183 is eating.[0m
+[0;32m25 185 has taken L fork.[0m
+[0;32m25 185 has taken R fork.[0m
+[0;33m25 185 is eating.[0m
+[0;32m25 187 has taken L fork.[0m
+[0;32m25 187 has taken R fork.[0m
+[0;33m25 187 is eating.[0m
+[0;32m26 189 has taken L fork.[0m
+[0;32m26 189 has taken R fork.[0m
+[0;33m26 189 is eating.[0m
+[0;32m26 191 has taken L fork.[0m
+[0;32m26 191 has taken R fork.[0m
+[0;33m26 191 is eating.[0m
+[0;32m26 193 has taken L fork.[0m
+[0;32m26 193 has taken R fork.[0m
+[0;33m26 193 is eating.[0m
+[0;32m26 195 has taken L fork.[0m
+[0;32m26 195 has taken R fork.[0m
+[0;33m26 195 is eating.[0m
+[0;32m26 197 has taken L fork.[0m
+[0;32m26 197 has taken R fork.[0m
+[0;33m26 197 is eating.[0m
+[0;32m27 199 has taken L fork.[0m
+[0;32m27 199 has taken R fork.[0m
+[0;33m27 199 is eating.[0m
+[0;35m200 3 is sleeping.[0m
+[0;35m200 1 is sleeping.[0m
+[0;32m200 6 has taken L fork.[0m
+[0;32m201 4 has taken L fork.[0m
+[0;32m201 4 has taken R fork.[0m
+[0;33m201 4 is eating.[0m
+[0;35m201 7 is sleeping.[0m
+[0;35m201 9 is sleeping.[0m
+[0;32m201 8 has taken L fork.[0m
+[0;32m201 8 has taken R fork.[0m
+[0;33m201 8 is eating.[0m
+[0;32m201 10 has taken L fork.[0m
+[0;32m201 6 has taken R fork.[0m
+[0;33m201 6 is eating.[0m
+[0;32m201 2 has taken L fork.[0m
+[0;32m201 2 has taken R fork.[0m
+[0;33m201 2 is eating.[0m
+[0;35m201 5 is sleeping.[0m
+[0;35m202 13 is sleeping.[0m
+[0;35m202 15 is sleeping.[0m
+[0;32m202 14 has taken L fork.[0m
+[0;32m202 14 has taken R fork.[0m
+[0;33m202 14 is eating.[0m
+[0;32m202 16 has taken L fork.[0m
+[0;35m202 11 is sleeping.[0m
+[0;35m202 19 is sleeping.[0m
+[0;32m202 12 has taken L fork.[0m
+[0;32m202 12 has taken R fork.[0m
+[0;32m202 10 has taken R fork.[0m
+[0;33m202 12 is eating.[0m
+[0;32m202 16 has taken R fork.[0m
+[0;33m202 16 is eating.[0m
+[0;33m202 10 is eating.[0m
+[0;35m202 17 is sleeping.[0m
+[0;32m203 20 has taken L fork.[0m
+[0;35m203 21 is sleeping.[0m
+[0;32m203 22 has taken L fork.[0m
+[0;32m203 22 has taken R fork.[0m
+[0;33m203 22 is eating.[0m
+[0;32m203 30 has taken L fork.[0m
+[0;35m203 25 is sleeping.[0m
+[0;32m203 24 has taken L fork.[0m
+[0;32m203 24 has taken R fork.[0m
+[0;32m203 26 has taken L fork.[0m
+[0;33m203 24 is eating.[0m
+[0;32m203 26 has taken R fork.[0m
+[0;33m203 26 is eating.[0m
+[0;32m203 28 has taken L fork.[0m
+[0;35m203 31 is sleeping.[0m
+[0;35m203 27 is sleeping.[0m
+[0;32m203 32 has taken L fork.[0m
+[0;32m203 30 has taken R fork.[0m
+[0;33m203 30 is eating.[0m
+[0;35m203 23 is sleeping.[0m
+[0;32m203 18 has taken L fork.[0m
+[0;32m203 18 has taken R fork.[0m
+[0;33m203 18 is eating.[0m
+[0;32m203 28 has taken R fork.[0m
+[0;33m203 28 is eating.[0m
+[0;35m203 29 is sleeping.[0m
+[0;35m203 33 is sleeping.[0m
+[0;32m203 32 has taken R fork.[0m
+[0;32m203 34 has taken L fork.[0m
+[0;33m203 32 is eating.[0m
+[0;35m204 37 is sleeping.[0m
+[0;32m204 20 has taken R fork.[0m
+[0;33m204 20 is eating.[0m
+[0;32m204 38 has taken L fork.[0m
+[0;35m204 35 is sleeping.[0m
+[0;32m204 36 has taken L fork.[0m
+[0;32m204 36 has taken R fork.[0m
+[0;33m204 36 is eating.[0m
+[0;32m204 34 has taken R fork.[0m
+[0;33m204 34 is eating.[0m
+[0;35m204 39 is sleeping.[0m
+[0;32m204 38 has taken R fork.[0m
+[0;33m204 38 is eating.[0m
+[0;32m204 40 has taken L fork.[0m
+[0;35m205 41 is sleeping.[0m
+[0;32m205 40 has taken R fork.[0m
+[0;33m205 40 is eating.[0m
+[0;32m205 42 has taken L fork.[0m
+[0;35m205 43 is sleeping.[0m
+[0;32m205 44 has taken L fork.[0m
+[0;32m206 44 has taken R fork.[0m
+[0;33m206 44 is eating.[0m
+[0;32m206 42 has taken R fork.[0m
+[0;33m206 42 is eating.[0m
+[0;35m206 45 is sleeping.[0m
+[0;35m206 47 is sleeping.[0m
+[0;32m206 48 has taken L fork.[0m
+[0;32m206 46 has taken L fork.[0m
+[0;32m206 46 has taken R fork.[0m
+[0;33m206 46 is eating.[0m
+[0;35m206 51 is sleeping.[0m
+[0;35m206 49 is sleeping.[0m
+[0;32m206 52 has taken L fork.[0m
+[0;32m206 48 has taken R fork.[0m
+[0;33m207 48 is eating.[0m
+[0;32m207 50 has taken L fork.[0m
+[0;32m207 50 has taken R fork.[0m
+[0;33m207 50 is eating.[0m
+[0;35m207 53 is sleeping.[0m
+[0;32m207 52 has taken R fork.[0m
+[0;33m207 52 is eating.[0m
+[0;32m207 54 has taken L fork.[0m
+[0;32m207 54 has taken R fork.[0m
+[0;33m207 54 is eating.[0m
+[0;32m207 56 has taken L fork.[0m
+[0;35m207 55 is sleeping.[0m
+[0;35m208 57 is sleeping.[0m
+[0;32m208 56 has taken R fork.[0m
+[0;33m208 56 is eating.[0m
+[0;35m208 61 is sleeping.[0m
+[0;32m208 58 has taken L fork.[0m
+[0;32m208 62 has taken L fork.[0m
+[0;35m208 65 is sleeping.[0m
+[0;35m208 63 is sleeping.[0m
+[0;32m208 66 has taken L fork.[0m
+[0;35m208 59 is sleeping.[0m
+[0;35m208 69 is sleeping.[0m
+[0;32m208 64 has taken L fork.[0m
+[0;32m208 64 has taken R fork.[0m
+[0;33m208 64 is eating.[0m
+[0;35m208 67 is sleeping.[0m
+[0;32m208 58 has taken R fork.[0m
+[0;33m208 58 is eating.[0m
+[0;32m208 68 has taken L fork.[0m
+[0;32m208 68 has taken R fork.[0m
+[0;33m208 68 is eating.[0m
+[0;32m208 66 has taken R fork.[0m
+[0;32m208 70 has taken L fork.[0m
+[0;32m208 70 has taken R fork.[0m
+[0;33m208 70 is eating.[0m
+[0;35m208 71 is sleeping.[0m
+[0;32m208 60 has taken L fork.[0m
+[0;32m208 60 has taken R fork.[0m
+[0;33m208 60 is eating.[0m
+[0;32m208 72 has taken L fork.[0m
+[0;33m208 66 is eating.[0m
+[0;32m208 62 has taken R fork.[0m
+[0;33m208 62 is eating.[0m
+[0;35m208 73 is sleeping.[0m
+[0;32m209 74 has taken L fork.[0m
+[0;32m209 74 has taken R fork.[0m
+[0;33m209 74 is eating.[0m
+[0;32m209 72 has taken R fork.[0m
+[0;35m209 77 is sleeping.[0m
+[0;33m209 72 is eating.[0m
+[0;32m209 78 has taken L fork.[0m
+[0;35m209 79 is sleeping.[0m
+[0;32m209 80 has taken L fork.[0m
+[0;35m209 75 is sleeping.[0m
+[0;32m209 78 has taken R fork.[0m
+[0;33m209 78 is eating.[0m
+[0;35m209 81 is sleeping.[0m
+[0;32m209 80 has taken R fork.[0m
+[0;33m209 80 is eating.[0m
+[0;35m209 83 is sleeping.[0m
+[0;32m209 82 has taken L fork.[0m
+[0;32m209 82 has taken R fork.[0m
+[0;33m209 82 is eating.[0m
+[0;32m209 76 has taken L fork.[0m
+[0;32m209 76 has taken R fork.[0m
+[0;33m209 76 is eating.[0m
+[0;32m209 84 has taken L fork.[0m
+[0;35m209 85 is sleeping.[0m
+[0;35m209 87 is sleeping.[0m
+[0;35m209 91 is sleeping.[0m
+[0;32m209 86 has taken L fork.[0m
+[0;32m209 86 has taken R fork.[0m
+[0;33m209 86 is eating.[0m
+[0;32m209 88 has taken L fork.[0m
+[0;32m210 92 has taken L fork.[0m
+[0;35m210 95 is sleeping.[0m
+[0;32m210 96 has taken L fork.[0m
+[0;35m210 89 is sleeping.[0m
+[0;35m210 93 is sleeping.[0m
+[0;32m210 92 has taken R fork.[0m
+[0;33m210 92 is eating.[0m
+[0;32m210 88 has taken R fork.[0m
+[0;32m210 84 has taken R fork.[0m
+[0;32m210 90 has taken L fork.[0m
+[0;35m210 97 is sleeping.[0m
+[0;32m210 98 has taken L fork.[0m
+[0;32m210 90 has taken R fork.[0m
+[0;33m210 90 is eating.[0m
+[0;32m210 94 has taken L fork.[0m
+[0;33m210 88 is eating.[0m
+[0;33m210 84 is eating.[0m
+[0;32m210 96 has taken R fork.[0m
+[0;33m210 96 is eating.[0m
+[0;32m210 94 has taken R fork.[0m
+[0;33m210 94 is eating.[0m
+[0;32m210 98 has taken R fork.[0m
+[0;33m210 98 is eating.[0m
+[0;35m210 99 is sleeping.[0m
+[0;32m210 100 has taken L fork.[0m
+[0;35m215 105 is sleeping.[0m
+[0;32m215 100 has taken R fork.[0m
+[0;33m215 100 is eating.[0m
+[0;35m215 101 is sleeping.[0m
+[0;35m215 103 is sleeping.[0m
+[0;32m216 106 has taken L fork.[0m
+[0;32m216 104 has taken L fork.[0m
+[0;32m216 104 has taken R fork.[0m
+[0;33m216 104 is eating.[0m
+[0;35m216 111 is sleeping.[0m
+[0;32m216 102 has taken L fork.[0m
+[0;35m216 109 is sleeping.[0m
+[0;35m216 107 is sleeping.[0m
+[0;35m216 113 is sleeping.[0m
+[0;32m216 110 has taken L fork.[0m
+[0;32m216 102 has taken R fork.[0m
+[0;32m216 106 has taken R fork.[0m
+[0;32m216 112 has taken L fork.[0m
+[0;32m216 112 has taken R fork.[0m
+[0;33m216 106 is eating.[0m
+[0;32m216 110 has taken R fork.[0m
+[0;33m216 102 is eating.[0m
+[0;33m216 110 is eating.[0m
+[0;32m216 114 has taken L fork.[0m
+[0;32m216 108 has taken L fork.[0m
+[0;32m216 108 has taken R fork.[0m
+[0;33m216 108 is eating.[0m
+[0;33m216 112 is eating.[0m
+[0;32m216 114 has taken R fork.[0m
+[0;33m216 114 is eating.[0m
+[0;35m216 115 is sleeping.[0m
+[0;32m216 116 has taken L fork.[0m
+[0;35m216 119 is sleeping.[0m
+[0;32m216 116 has taken R fork.[0m
+[0;33m216 116 is eating.[0m
+[0;35m217 117 is sleeping.[0m
+[0;32m217 118 has taken L fork.[0m
+[0;32m217 118 has taken R fork.[0m
+[0;33m217 118 is eating.[0m
+[0;32m217 120 has taken L fork.[0m
+[0;35m217 121 is sleeping.[0m
+[0;32m217 120 has taken R fork.[0m
+[0;33m217 120 is eating.[0m
+[0;35m217 123 is sleeping.[0m
+[0;32m217 122 has taken L fork.[0m
+[0;32m217 122 has taken R fork.[0m
+[0;33m217 122 is eating.[0m
+[0;32m218 124 has taken L fork.[0m
+[0;32m218 124 has taken R fork.[0m
+[0;33m218 124 is eating.[0m
+[0;35m218 125 is sleeping.[0m
+[0;35m218 132 is sleeping.[0m
+[0;35m218 130 is sleeping.[0m
+[0;32m218 133 has taken L fork.[0m
+[0;32m218 127 has taken R fork.[0m
+[0;33m218 127 is eating.[0m
+[0;32m218 126 has taken L fork.[0m
+[0;32m218 131 has taken L fork.[0m
+[0;32m218 131 has taken R fork.[0m
+[0;32m218 137 has taken L fork.[0m
+[0;33m218 131 is eating.[0m
+[0;35m218 138 is sleeping.[0m
+[0;35m218 128 is sleeping.[0m
+[0;32m218 139 has taken L fork.[0m
+[0;35m218 134 is sleeping.[0m
+[0;32m218 129 has taken L fork.[0m
+[0;32m218 135 has taken L fork.[0m
+[0;32m218 135 has taken R fork.[0m
+[0;32m218 129 has taken R fork.[0m
+[0;32m218 137 has taken R fork.[0m
+[0;33m218 129 is eating.[0m
+[0;33m218 137 is eating.[0m
+[0;35m218 140 is sleeping.[0m
+[0;32m218 133 has taken R fork.[0m
+[0;32m218 139 has taken R fork.[0m
+[0;35m218 136 is sleeping.[0m
+[0;33m218 135 is eating.[0m
+[0;33m218 139 is eating.[0m
+[0;32m218 141 has taken L fork.[0m
+[0;33m218 133 is eating.[0m
+[0;35m219 145 is sleeping.[0m
+[0;35m219 147 is sleeping.[0m
+[0;32m219 148 has taken L fork.[0m
+[0;32m219 148 has taken R fork.[0m
+[0;33m219 148 is eating.[0m
+[0;35m219 149 is sleeping.[0m
+[0;35m219 143 is sleeping.[0m
+[0;32m219 146 has taken L fork.[0m
+[0;32m219 146 has taken R fork.[0m
+[0;33m219 146 is eating.[0m
+[0;32m219 144 has taken L fork.[0m
+[0;32m219 142 has taken R fork.[0m
+[0;32m219 150 has taken L fork.[0m
+[0;33m219 142 is eating.[0m
+[0;32m219 144 has taken R fork.[0m
+[0;33m219 144 is eating.[0m
+[0;35m221 153 is sleeping.[0m
+[0;32m221 154 has taken L fork.[0m
+[0;32m222 152 has taken L fork.[0m
+[0;32m222 154 has taken R fork.[0m
+[0;35m222 155 is sleeping.[0m
+[0;33m222 154 is eating.[0m
+[0;32m222 152 has taken R fork.[0m
+[0;32m222 150 has taken R fork.[0m
+[0;32m222 156 has taken L fork.[0m
+[0;33m222 150 is eating.[0m
+[0;32m222 156 has taken R fork.[0m
+[0;33m222 156 is eating.[0m
+[0;35m222 151 is sleeping.[0m
+[0;32m222 158 has taken L fork.[0m
+[0;33m222 152 is eating.[0m
+[0;35m222 157 is sleeping.[0m
+[0;35m223 159 is sleeping.[0m
+[0;35m223 163 is sleeping.[0m
+[0;32m223 158 has taken R fork.[0m
+[0;33m223 158 is eating.[0m
+[0;35m223 161 is sleeping.[0m
+[0;35m223 167 is sleeping.[0m
+[0;32m223 162 has taken L fork.[0m
+[0;32m223 162 has taken R fork.[0m
+[0;33m223 162 is eating.[0m
+[0;32m223 160 has taken L fork.[0m
+[0;32m223 160 has taken R fork.[0m
+[0;33m223 160 is eating.[0m
+[0;32m223 164 has taken L fork.[0m
+[0;32m223 168 has taken L fork.[0m
+[0;35m223 165 is sleeping.[0m
+[0;32m223 164 has taken R fork.[0m
+[0;33m223 164 is eating.[0m
+[0;35m224 169 is sleeping.[0m
+[0;32m224 168 has taken R fork.[0m
+[0;33m224 168 is eating.[0m
+[0;35m224 171 is sleeping.[0m
+[0;35m224 177 is sleeping.[0m
+[0;35m224 175 is sleeping.[0m
+[0;32m224 166 has taken L fork.[0m
+[0;32m224 166 has taken R fork.[0m
+[0;33m224 166 is eating.[0m
+[0;32m224 176 has taken L fork.[0m
+[0;32m224 178 has taken L fork.[0m
+[0;32m224 176 has taken R fork.[0m
+[0;33m224 176 is eating.[0m
+[0;32m224 172 has taken L fork.[0m
+[0;32m224 172 has taken R fork.[0m
+[0;33m224 172 is eating.[0m
+[0;32m224 170 has taken L fork.[0m
+[0;32m224 170 has taken R fork.[0m
+[0;33m224 170 is eating.[0m
+[0;35m224 173 is sleeping.[0m
+[0;32m224 174 has taken L fork.[0m
+[0;32m224 174 has taken R fork.[0m
+[0;33m224 174 is eating.[0m
+[0;32m224 178 has taken R fork.[0m
+[0;33m224 178 is eating.[0m
+[0;32m224 180 has taken L fork.[0m
+[0;35m224 179 is sleeping.[0m
+[0;35m225 183 is sleeping.[0m
+[0;32m225 184 has taken L fork.[0m
+[0;32m225 180 has taken R fork.[0m
+[0;33m225 180 is eating.[0m
+[0;35m225 181 is sleeping.[0m
+[0;32m225 182 has taken L fork.[0m
+[0;32m225 182 has taken R fork.[0m
+[0;33m225 182 is eating.[0m
+[0;32m225 184 has taken R fork.[0m
+[0;33m225 184 is eating.[0m
+[0;35m225 185 is sleeping.[0m
+[0;35m225 187 is sleeping.[0m
+[0;32m226 186 has taken L fork.[0m
+[0;32m226 186 has taken R fork.[0m
+[0;33m226 186 is eating.[0m
+[0;32m226 188 has taken L fork.[0m
+[0;32m226 188 has taken R fork.[0m
+[0;33m226 188 is eating.[0m
+[0;32m226 190 has taken L fork.[0m
+[0;35m226 189 is sleeping.[0m
+[0;35m226 193 is sleeping.[0m
+[0;32m226 194 has taken L fork.[0m
+[0;32m226 190 has taken R fork.[0m
+[0;33m226 190 is eating.[0m
+[0;35m226 191 is sleeping.[0m
+[0;32m226 192 has taken L fork.[0m
+[0;32m226 192 has taken R fork.[0m
+[0;33m226 192 is eating.[0m
+[0;32m226 194 has taken R fork.[0m
+[0;33m226 194 is eating.[0m
+[0;35m226 195 is sleeping.[0m
+[0;32m227 196 has taken L fork.[0m
+[0;35m227 197 is sleeping.[0m
+[0;32m227 196 has taken R fork.[0m
+[0;33m227 196 is eating.[0m
+[0;32m227 198 has taken L fork.[0m
+[0;35m227 199 is sleeping.[0m
+[0;32m227 198 has taken R fork.[0m
+[0;33m227 198 is eating.[0m
+[0;32m227 200 has taken L fork.[0m
+[0;32m227 200 has taken R fork.[0m
+[0;33m227 200 is eating.[0m
+[0;36m401 1 is thinking.[0m
+[0;36m401 7 is thinking.[0m
+[0;35m401 6 is sleeping.[0m
+[0;35m401 2 is sleeping.[0m
+[0;36m401 5 is thinking.[0m
+[0;36m401 9 is thinking.[0m
+[0;36m402 3 is thinking.[0m
+[0;35m402 8 is sleeping.[0m
+[0;35m402 4 is sleeping.[0m
+[0;36m403 11 is thinking.[0m
+[0;35m403 12 is sleeping.[0m
+[0;35m403 10 is sleeping.[0m
+[0;36m403 17 is thinking.[0m
+[0;36m403 21 is thinking.[0m
+[0;36m403 19 is thinking.[0m
+[0;36m403 13 is thinking.[0m
+[0;36m403 15 is thinking.[0m
+[0;35m403 16 is sleeping.[0m
+[0;35m403 14 is sleeping.[0m
+[0;35m404 24 is sleeping.[0m
+[0;36m404 25 is thinking.[0m
+[0;36m404 27 is thinking.[0m
+[0;36m404 33 is thinking.[0m
+[0;36m404 31 is thinking.[0m
+[0;35m404 30 is sleeping.[0m
+[0;35m404 26 is sleeping.[0m
+[0;35m404 18 is sleeping.[0m
+[0;36m404 23 is thinking.[0m
+[0;36m404 29 is thinking.[0m
+[0;36m404 37 is thinking.[0m
+[0;35m404 28 is sleeping.[0m
+[0;35m404 22 is sleeping.[0m
+[0;35m404 32 is sleeping.[0m
+[0;35m404 20 is sleeping.[0m
+[0;35m404 36 is sleeping.[0m
+[0;36m404 35 is thinking.[0m
+[0;35m404 34 is sleeping.[0m
+[0;36m404 39 is thinking.[0m
+[0;35m405 38 is sleeping.[0m
+[0;36m405 41 is thinking.[0m
+[0;35m406 40 is sleeping.[0m
+[0;36m406 43 is thinking.[0m
+[0;35m406 44 is sleeping.[0m
+[0;35m406 42 is sleeping.[0m
+[0;36m406 47 is thinking.[0m
+[0;36m406 45 is thinking.[0m
+[0;35m407 48 is sleeping.[0m
+[0;35m407 46 is sleeping.[0m
+[0;35m407 50 is sleeping.[0m
+[0;36m407 49 is thinking.[0m
+[0;36m407 51 is thinking.[0m
+[0;35m407 52 is sleeping.[0m
+[0;36m407 53 is thinking.[0m
+[0;35m408 54 is sleeping.[0m
+[0;36m408 55 is thinking.[0m
+[0;35m408 56 is sleeping.[0m
+[0;36m408 57 is thinking.[0m
+[0;36m408 65 is thinking.[0m
+[0;36m408 61 is thinking.[0m
+[0;35m408 64 is sleeping.[0m
+[0;35m408 68 is sleeping.[0m
+[0;36m408 71 is thinking.[0m
+[0;35m408 70 is sleeping.[0m
+[0;35m408 60 is sleeping.[0m
+[0;36m408 63 is thinking.[0m
+[0;36m408 67 is thinking.[0m
+[0;35m408 66 is sleeping.[0m
+[0;36m408 59 is thinking.[0m
+[0;36m408 69 is thinking.[0m
+[0;36m409 73 is thinking.[0m
+[0;35m409 74 is sleeping.[0m
+[0;35m409 72 is sleeping.[0m
+[0;36m409 79 is thinking.[0m
+[0;35m409 78 is sleeping.[0m
+[0;36m409 77 is thinking.[0m
+[0;36m409 75 is thinking.[0m
+[0;35m409 76 is sleeping.[0m
+[0;35m409 80 is sleeping.[0m
+[0;36m410 87 is thinking.[0m
+[0;35m410 86 is sleeping.[0m
+[0;35m410 96 is sleeping.[0m
+[0;36m410 95 is thinking.[0m
+[0;35m410 84 is sleeping.[0m
+[0;35m410 92 is sleeping.[0m
+[0;35m411 90 is sleeping.[0m
+[0;36m411 93 is thinking.[0m
+[0;35m411 98 is sleeping.[0m
+[0;35m411 88 is sleeping.[0m
+[0;36m411 99 is thinking.[0m
+[0;35m414 62 is sleeping.[0m
+[0;35m414 58 is sleeping.[0m
+[0;36m414 81 is thinking.[0m
+[0;35m414 82 is sleeping.[0m
+[0;36m414 83 is thinking.[0m
+[0;36m414 91 is thinking.[0m
+[0;36m414 89 is thinking.[0m
+[0;36m414 85 is thinking.[0m
+[0;36m414 97 is thinking.[0m
+[0;35m414 94 is sleeping.[0m
+[0;36m416 103 is thinking.[0m
+[0;36m416 101 is thinking.[0m
+[0;36m416 113 is thinking.[0m
+[0;35m416 114 is sleeping.[0m
+[0;36m416 109 is thinking.[0m
+[0;35m416 108 is sleeping.[0m
+[0;35m416 110 is sleeping.[0m
+[0;35m416 102 is sleeping.[0m
+[0;36m416 105 is thinking.[0m
+[0;35m416 106 is sleeping.[0m
+[0;36m416 115 is thinking.[0m
+[0;35m416 100 is sleeping.[0m
+[0;36m416 111 is thinking.[0m
+[0;36m416 107 is thinking.[0m
+[0;35m416 112 is sleeping.[0m
+[0;35m416 104 is sleeping.[0m
+[0;36m417 119 is thinking.[0m
+[0;35m417 116 is sleeping.[0m
+[0;35m417 118 is sleeping.[0m
+[0;36m417 117 is thinking.[0m
+[0;36m417 121 is thinking.[0m
+[0;36m418 123 is thinking.[0m
+[0;35m418 122 is sleeping.[0m
+[0;36m418 130 is thinking.[0m
+[0;35m418 120 is sleeping.[0m
+[0;35m418 124 is sleeping.[0m
+[0;36m418 125 is thinking.[0m
+[0;36m418 132 is thinking.[0m
+[0;35m418 127 is sleeping.[0m
+[0;35m418 131 is sleeping.[0m
+[0;36m418 138 is thinking.[0m
+[0;36m418 140 is thinking.[0m
+[0;35m418 137 is sleeping.[0m
+[0;36m418 136 is thinking.[0m
+[0;36m418 128 is thinking.[0m
+[0;35m418 139 is sleeping.[0m
+[0;35m418 135 is sleeping.[0m
+[0;32m418 126 has taken R fork.[0m
+[0;35m418 129 is sleeping.[0m
+[0;33m419 126 is eating.[0m
+[0;36m419 134 is thinking.[0m
+[0;35m419 133 is sleeping.[0m
+[0;36m419 143 is thinking.[0m
+[0;36m420 149 is thinking.[0m
+[0;35m420 146 is sleeping.[0m
+[0;35m420 142 is sleeping.[0m
+[0;36m420 147 is thinking.[0m
+[0;36m420 145 is thinking.[0m
+[0;32m420 141 has taken R fork.[0m
+[0;33m420 141 is eating.[0m
+[0;35m420 144 is sleeping.[0m
+[0;35m420 148 is sleeping.[0m
+[0;35m422 154 is sleeping.[0m
+[0;36m422 153 is thinking.[0m
+[0;35m422 150 is sleeping.[0m
+[0;36m423 155 is thinking.[0m
+[0;35m423 156 is sleeping.[0m
+[0;36m423 151 is thinking.[0m
+[0;36m423 157 is thinking.[0m
+[0;35m423 152 is sleeping.[0m
+[0;36m423 161 is thinking.[0m
+[0;35m424 162 is sleeping.[0m
+[0;36m424 163 is thinking.[0m
+[0;36m424 167 is thinking.[0m
+[0;35m424 160 is sleeping.[0m
+[0;35m424 158 is sleeping.[0m
+[0;36m424 165 is thinking.[0m
+[0;35m424 164 is sleeping.[0m
+[0;36m424 159 is thinking.[0m
+[0;35m424 166 is sleeping.[0m
+[0;36m424 171 is thinking.[0m
+[0;36m424 175 is thinking.[0m
+[0;35m424 170 is sleeping.[0m
+[0;35m424 172 is sleeping.[0m
+[0;36m424 169 is thinking.[0m
+[0;35m424 174 is sleeping.[0m
+[0;36m424 173 is thinking.[0m
+[0;36m424 177 is thinking.[0m
+[0;35m425 178 is sleeping.[0m
+[0;36m425 179 is thinking.[0m
+[0;35m425 180 is sleeping.[0m
+[0;36m425 181 is thinking.[0m
+[0;35m425 182 is sleeping.[0m
+[0;35m425 176 is sleeping.[0m
+[0;36m425 183 is thinking.[0m
+[0;35m425 168 is sleeping.[0m
+[0;36m425 185 is thinking.[0m
+[0;35m426 184 is sleeping.[0m
+[0;36m426 187 is thinking.[0m
+[0;35m426 186 is sleeping.[0m
+[0;36m426 189 is thinking.[0m
+[0;36m426 193 is thinking.[0m
+[0;35m426 190 is sleeping.[0m
+[0;35m426 188 is sleeping.[0m
+[0;36m426 191 is thinking.[0m
+[0;35m427 192 is sleeping.[0m
+[0;35m427 194 is sleeping.[0m
+[0;36m427 195 is thinking.[0m
+[0;36m427 197 is thinking.[0m
+[0;35m427 196 is sleeping.[0m
+[0;35m427 200 is sleeping.[0m
+[0;36m427 199 is thinking.[0m
+[0;35m427 198 is sleeping.[0m
+[0;36m602 8 is thinking.[0m
+[0;36m602 6 is thinking.[0m
+[0;36m602 2 is thinking.[0m
+[0;36m602 4 is thinking.[0m
+[0;36m603 12 is thinking.[0m
+[0;36m603 10 is thinking.[0m
+[0;36m604 16 is thinking.[0m
+[0;36m604 14 is thinking.[0m
+[0;36m604 30 is thinking.[0m
+[0;36m604 18 is thinking.[0m
+[0;36m604 20 is thinking.[0m
+[0;36m604 28 is thinking.[0m
+[0;36m604 24 is thinking.[0m
+[0;36m604 26 is thinking.[0m
+[0;36m604 22 is thinking.[0m
+[0;36m604 32 is thinking.[0m
+[0;36m605 36 is thinking.[0m
+[0;36m605 34 is thinking.[0m
+[0;36m605 38 is thinking.[0m
+[0;36m606 40 is thinking.[0m
+[0;36m606 44 is thinking.[0m
+[0;36m606 42 is thinking.[0m
+[0;36m607 48 is thinking.[0m
+[0;36m607 50 is thinking.[0m
+[0;36m607 46 is thinking.[0m
+[0;36m607 52 is thinking.[0m
+[0;36m608 54 is thinking.[0m
+[0;36m608 56 is thinking.[0m
+[0;36m608 68 is thinking.[0m
+[0;36m609 66 is thinking.[0m
+[0;36m609 64 is thinking.[0m
+[0;36m609 70 is thinking.[0m
+[0;36m609 60 is thinking.[0m
+[0;36m609 78 is thinking.[0m
+[0;36m609 74 is thinking.[0m
+[0;36m609 72 is thinking.[0m
+[0;36m610 76 is thinking.[0m
+[0;36m610 80 is thinking.[0m
+[0;36m610 86 is thinking.[0m
+[0;36m610 96 is thinking.[0m
+[0;36m611 84 is thinking.[0m
+[0;36m611 92 is thinking.[0m
+[0;36m611 90 is thinking.[0m
+[0;36m611 98 is thinking.[0m
+[0;36m611 88 is thinking.[0m
+[0;36m614 58 is thinking.[0m
+[0;36m614 62 is thinking.[0m
+[0;36m614 82 is thinking.[0m
+[0;36m614 94 is thinking.[0m
+[0;36m616 110 is thinking.[0m
+[0;36m616 102 is thinking.[0m
+[0;36m616 114 is thinking.[0m
+[0;36m617 104 is thinking.[0m
+[0;36m617 106 is thinking.[0m
+[0;36m617 112 is thinking.[0m
+[0;36m617 100 is thinking.[0m
+[0;36m617 108 is thinking.[0m
+[0;36m617 116 is thinking.[0m
+[0;36m617 118 is thinking.[0m
+[0;36m618 120 is thinking.[0m
+[0;36m618 122 is thinking.[0m
+[0;36m618 137 is thinking.[0m
+[0;36m618 127 is thinking.[0m
+[0;36m619 139 is thinking.[0m
+[0;36m619 133 is thinking.[0m
+[0;35m619 126 is sleeping.[0m
+[0;36m619 124 is thinking.[0m
+[0;36m619 135 is thinking.[0m
+[0;36m619 131 is thinking.[0m
+[0;36m619 129 is thinking.[0m
+[0;36m621 146 is thinking.[0m
+[0;36m621 142 is thinking.[0m
+[0;35m621 141 is sleeping.[0m
+[0;36m621 144 is thinking.[0m
+[0;36m621 148 is thinking.[0m
+[0;36m623 154 is thinking.[0m
+[0;36m623 150 is thinking.[0m
+[0;36m623 156 is thinking.[0m
+[0;36m623 152 is thinking.[0m
+[0;36m624 170 is thinking.[0m
+[0;36m625 158 is thinking.[0m
+[0;36m625 172 is thinking.[0m
+[0;36m625 168 is thinking.[0m
+[0;36m626 184 is thinking.[0m
+[0;36m626 164 is thinking.[0m
+[0;36m626 186 is thinking.[0m
+[0;36m626 166 is thinking.[0m
+[0;36m627 160 is thinking.[0m
+[0;36m627 162 is thinking.[0m
+[0;36m627 180 is thinking.[0m
+[0;36m627 182 is thinking.[0m
+[0;36m627 176 is thinking.[0m
+[0;36m627 194 is thinking.[0m
+[0;36m627 188 is thinking.[0m
+[0;36m627 196 is thinking.[0m
+[0;36m628 198 is thinking.[0m
+[0;36m628 200 is thinking.[0m
+[0;36m629 174 is thinking.[0m
+[0;36m629 178 is thinking.[0m
+[0;36m629 190 is thinking.[0m
+[0;36m632 192 is thinking.[0m
+[0;36m819 126 is thinking.[0m
+[0;36m822 141 is thinking.[0m

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 06:58:14 by root              #+#    #+#             */
-/*   Updated: 2024/08/14 13:48:42 by gde-souz         ###   ########.fr       */
+/*   Updated: 2024/08/15 16:16:41 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,12 @@ void    *dine(void *arg)
     philo = (t_philo*)arg;
     dinner = &philo->dinner;
     n = 0;
-    while ((!philo->dinner->infinite_dinner && n < philo->dinner->total_meals && !must_stop(&philo->dinner, &philo)) ||
-    (philo->dinner->infinite_dinner && !must_stop(&philo->dinner, &philo)))
+    while ((!philo->dinner->infinite_dinner && n < philo->dinner->total_meals && !must_stop(dinner)) ||
+    (philo->dinner->infinite_dinner && !must_stop(dinner)))
     {
-        if (!must_stop(dinner, &philo))
+        if (!must_stop(dinner))
             handle_eat(dinner, &philo);
-        if (!must_stop(dinner, &philo))
+        if (!must_stop(dinner))
             handle_sleep(dinner, &philo);
         n++;
     }

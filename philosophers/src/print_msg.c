@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   print_msg.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 17:52:25 by root              #+#    #+#             */
-/*   Updated: 2024/08/14 14:51:03 by gde-souz         ###   ########.fr       */
+/*   Updated: 2024/08/15 16:22:01 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,18 +28,20 @@ void    print_action(t_philo **philo, t_dinner **dinner, char *action)
 
     pthread_mutex_lock((*dinner)->print_mutex);
     time = get_dinner_time(dinner, get_current_time());
-    if (!ft_strcmp(action, L_FORK) && !must_stop(dinner, philo))
+    if (!ft_strcmp(action, L_FORK) && !must_stop(dinner))
         printf("%s%ld %d has taken L fork.%s\n", GREEN, time, (*philo)->id, COLOUR_RESET);
-    if (!ft_strcmp(action, R_FORK) && !must_stop(dinner, philo))
+    if (!ft_strcmp(action, R_FORK) && !must_stop(dinner))
         printf("%s%ld %d has taken R fork.%s\n", GREEN, time, (*philo)->id, COLOUR_RESET);
-    if (!ft_strcmp(action, EAT) && !must_stop(dinner, philo))
+    if (!ft_strcmp(action, EAT) && !must_stop(dinner))
         printf("%s%ld %d is eating.%s\n", YELLOW, time, (*philo)->id, COLOUR_RESET);
-    if (!ft_strcmp(action, SLEEP) && !must_stop(dinner, philo))
+    if (!ft_strcmp(action, SLEEP) && !must_stop(dinner))
         printf("%s%ld %d is sleeping.%s\n", LILAC, time, (*philo)->id, COLOUR_RESET);
-    if (!ft_strcmp(action, THINK) && !must_stop(dinner, philo))
+    if (!ft_strcmp(action, THINK) && !must_stop(dinner))
         printf("%s%ld %d is thinking.%s\n", BLUE, time, (*philo)->id, COLOUR_RESET);
-    if (!ft_strcmp(action, DIE))
+    if (!ft_strcmp(action, DIE) && (*dinner)->stop == TRUE)
+    {
         printf("%s%ld %d died.%s\n", BRED, time, (*philo)->id, COLOUR_RESET);
+    }
     pthread_mutex_unlock((*dinner)->print_mutex);
     return ;
 }
