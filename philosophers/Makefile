@@ -31,27 +31,13 @@ $(NAME): $(OBJ)
 
 valgrind: all
 	@echo "Running the program with valgrind..."
-	valgrind --leak-check=full --show-leak-kinds=all --trace-children=yes --track-origins=yes ./philo 50 1000 200 200 1
+	valgrind --leak-check=full --show-leak-kinds=all --trace-children=yes --track-origins=yes ./philo 50 100 200 200 1
 
 run: all
 	@echo "Running the program..."
-	./philo 200 800 500 200
-
-# 105 800 200 200
-# 200 800 200 200
-# No one should die
-
-# 4 200 205 200
-# A philo should die
+	./philo 20 800 200 200 3
 
 bonus: $(NAME_BONUS)
-
-# Target to build the bonus part
-$(NAME_BONUS): $(OBJ_BONUS)
-	@$(CC) $(CFLAGS) $(OBJ) -o $@
-	@echo "$(GREEN)--------------------------------------------------$(END)"
-	@echo "$(GREEN)The [$(CYAN)PHILO$(GREEN)] has been compiled! 🧐🤔📚$(END)"
-	@echo "$(GREEN)--------------------------------------------------$(END)"
 
 # Builds mandatory object files
 $(OBJ_PATH)%.o: src/%.c

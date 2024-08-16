@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_input.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 12:29:08 by gde-souz          #+#    #+#             */
-/*   Updated: 2024/08/15 16:19:02 by root             ###   ########.fr       */
+/*   Updated: 2024/08/16 18:25:57 by gde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static t_bool	ft_isnumeric(char *str)
 
 static long	ft_atoi(const char *nptr)
 {
-	int	i;
+	int		i;
 	long	sign;
 	long	res;
 
@@ -60,10 +60,10 @@ static long	ft_atoi(const char *nptr)
 	return (res * sign);
 }
 
-static t_bool  args_are_valid(int argc, char **argv)
+static t_bool	args_are_valid(int argc, char **argv)
 {
-	int     i;
-	long    temp;
+	int		i;
+	long	temp;
 
 	i = 0;
 	while (++i < argc)
@@ -72,26 +72,26 @@ static t_bool  args_are_valid(int argc, char **argv)
 		if (!ft_isnumeric(argv[i]) || (temp > INT_MAX || temp < 0))
 			return (FALSE);
 	}
-        return (TRUE);
+	return (TRUE);
 }
 
-t_bool  handle_args(int argc, char *argv[], t_dinner **dinner)
+t_bool	handle_args(int argc, char *argv[], t_dinner **dinner)
 {
-        if ((argc != 5 && argc != 6) || !args_are_valid(argc, argv))
-                return (FALSE);
-        (*dinner)->philos_num = ft_atoi(argv[1]);
-        (*dinner)->time_to_die = ft_atoi(argv[2]) * 1000;
-        (*dinner)->time_to_eat = ft_atoi(argv[3]) * 1000;
-        (*dinner)->time_to_sleep = ft_atoi(argv[4]) * 1000;
-        if (argc == 6)
-        {
-                (*dinner)->total_meals = ft_atoi(argv[5]);
-                (*dinner)->infinite_dinner = FALSE;
-        }
-        else
-        {
-                (*dinner)->total_meals = 0;
-                (*dinner)->infinite_dinner = TRUE;
-        }
-        return (TRUE);
+	if ((argc != 5 && argc != 6) || !args_are_valid(argc, argv))
+		return (FALSE);
+	(*dinner)->philos_num = ft_atoi(argv[1]);
+	(*dinner)->time_to_die = ft_atoi(argv[2]) * 1000;
+	(*dinner)->time_to_eat = ft_atoi(argv[3]) * 1000;
+	(*dinner)->time_to_sleep = ft_atoi(argv[4]) * 1000;
+	if (argc == 6)
+	{
+		(*dinner)->total_meals = ft_atoi(argv[5]);
+		(*dinner)->infinite_dinner = FALSE;
+	}
+	else
+	{
+		(*dinner)->total_meals = 0;
+		(*dinner)->infinite_dinner = TRUE;
+	}
+	return (TRUE);
 }

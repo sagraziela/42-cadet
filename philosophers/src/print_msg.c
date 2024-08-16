@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print_msg.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 17:52:25 by root              #+#    #+#             */
-/*   Updated: 2024/08/15 16:22:01 by root             ###   ########.fr       */
+/*   Updated: 2024/08/16 18:36:27 by gde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,33 +22,41 @@ static int	ft_strcmp(const char *s1, const char *s2)
 	return ((unsigned char) s1[i] - (unsigned char) s2[i]);
 }
 
-void    print_action(t_philo **philo, t_dinner **dinner, char *action)
+void	print_action(t_philo **philo, t_dinner **dinner, char *action)
 {
-    size_t  time;
+	size_t	time;
 
-    pthread_mutex_lock((*dinner)->print_mutex);
-    time = get_dinner_time(dinner, get_current_time());
-    if (!ft_strcmp(action, L_FORK) && !must_stop(dinner))
-        printf("%s%ld %d has taken L fork.%s\n", GREEN, time, (*philo)->id, COLOUR_RESET);
-    if (!ft_strcmp(action, R_FORK) && !must_stop(dinner))
-        printf("%s%ld %d has taken R fork.%s\n", GREEN, time, (*philo)->id, COLOUR_RESET);
-    if (!ft_strcmp(action, EAT) && !must_stop(dinner))
-        printf("%s%ld %d is eating.%s\n", YELLOW, time, (*philo)->id, COLOUR_RESET);
-    if (!ft_strcmp(action, SLEEP) && !must_stop(dinner))
-        printf("%s%ld %d is sleeping.%s\n", LILAC, time, (*philo)->id, COLOUR_RESET);
-    if (!ft_strcmp(action, THINK) && !must_stop(dinner))
-        printf("%s%ld %d is thinking.%s\n", BLUE, time, (*philo)->id, COLOUR_RESET);
-    if (!ft_strcmp(action, DIE) && (*dinner)->stop == TRUE)
-    {
-        printf("%s%ld %d died.%s\n", BRED, time, (*philo)->id, COLOUR_RESET);
-    }
-    pthread_mutex_unlock((*dinner)->print_mutex);
-    return ;
+	pthread_mutex_lock((*dinner)->print_mutex);
+	time = get_dinner_time(dinner, get_current_time());
+	if (!ft_strcmp(action, L_FORK) && !must_stop(dinner))
+		printf("%s%ld %d has taken L fork.%s\n",
+			GREEN, time, (*philo)->id, COLOUR_RESET);
+	if (!ft_strcmp(action, R_FORK) && !must_stop(dinner))
+		printf("%s%ld %d has taken R fork.%s\n",
+			GREEN, time, (*philo)->id, COLOUR_RESET);
+	if (!ft_strcmp(action, EAT) && !must_stop(dinner))
+		printf("%s%ld %d is eating.%s\n",
+			YELLOW, time, (*philo)->id, COLOUR_RESET);
+	if (!ft_strcmp(action, SLEEP) && !must_stop(dinner))
+		printf("%s%ld %d is sleeping.%s\n",
+			LILAC, time, (*philo)->id, COLOUR_RESET);
+	if (!ft_strcmp(action, THINK) && !must_stop(dinner))
+		printf("%s%ld %d is thinking.%s\n",
+			BLUE, time, (*philo)->id, COLOUR_RESET);
+	if (!ft_strcmp(action, DIE) && (*dinner)->first_death == TRUE)
+	{
+		(*dinner)->first_death = FALSE;
+		printf("%s%ld %d died.%s\n",
+			BRED, time, (*philo)->id, COLOUR_RESET);
+	}
+	pthread_mutex_unlock((*dinner)->print_mutex);
+	return ;
 }
 
-void    print_error(void)
+// REDUZIR COMPRIMENTO DAS LINHAS
+void	print_error(void)
 {
-    printf("%sThe program must be executed with the following parameters, which shall be given in miliseconds:%s\n\n", LRED, COLOUR_RESET);
-    printf("%s./philo [%snumber_of_philosophers%s] [%stime_to_die%s] [%stime_to_eat%s] [%stime_to_sleep%s]%s\n\n", BRED, BBLUE, LRED, BBLUE, LRED, BBLUE, LRED, BBLUE, LRED, COLOUR_RESET);
-    printf("%s*You may also determine the [%snumber_of_times_each_philosopher_must_eat%s] as a 5th parameter.%s\n", LRED, BBLUE, LRED, COLOUR_RESET);
+	printf("%sThe program must be executed with the following parameters, which shall be given in miliseconds:%s\n\n", LRED, COLOUR_RESET);
+	printf("%s./philo [%snumber_of_philosophers%s] [%stime_to_die%s] [%stime_to_eat%s] [%stime_to_sleep%s]%s\n\n", BRED, BBLUE, LRED, BBLUE, LRED, BBLUE, LRED, BBLUE, LRED, COLOUR_RESET);
+	printf("%s*You may also determine the [%snumber_of_times_each_philosopher_must_eat%s] as a 5th parameter.%s\n", LRED, BBLUE, LRED, COLOUR_RESET);
 }
