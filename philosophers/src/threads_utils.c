@@ -6,7 +6,7 @@
 /*   By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 14:41:40 by gde-souz          #+#    #+#             */
-/*   Updated: 2024/08/16 18:39:23 by gde-souz         ###   ########.fr       */
+/*   Updated: 2024/08/19 14:14:08 by gde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,24 +30,25 @@ void	to_stop(t_dinner **dinner)
 	return ;
 }
 
-void	start_getting_forks(t_dinner **dinner, t_philo **philo)
+int	choose_forks(t_philo **philo, int side)
 {
-	if (((*dinner)->meals_had == 0 && (*philo)->id <= 5))
-	{
-		pthread_mutex_lock((*dinner)->eat_mutex);
-		(*dinner)->can_get_forks = FALSE;
-	}
-	return ;
-}
+	int	f;
 
-void	end_getting_forks(t_dinner **dinner)
-{
-	if ((*dinner)->can_get_forks == FALSE)
+	if ((*philo)->id % 2 == 1)
 	{
-		(*dinner)->can_get_forks = TRUE;
-		pthread_mutex_unlock((*dinner)->eat_mutex);
+		if (side == 1)
+			f = (*philo)->left_fork;
+		else
+			f = (*philo)->right_fork;
 	}
-	return ;
+	else
+	{
+		if (side == 1)
+			f = (*philo)->right_fork;
+		else
+			f = (*philo)->left_fork;
+	}
+	return (f);
 }
 
 t_bool	check_if_alive(t_philo **philo)
@@ -55,7 +56,7 @@ t_bool	check_if_alive(t_philo **philo)
 	size_t	time;
 
 	time = get_current_time();
-	if (time >= (*philo)->time_of_death && !must_stop(&(*philo)->dinner))
+	if (time >= (*philo)->time_of_death)
 	{
 		to_stop(&(*philo)->dinner);
 		print_action(philo, &(*philo)->dinner, DIE);

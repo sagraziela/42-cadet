@@ -6,15 +6,14 @@
 /*   By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 06:59:16 by root              #+#    #+#             */
-/*   Updated: 2024/08/16 18:15:56 by gde-souz         ###   ########.fr       */
+/*   Updated: 2024/08/19 13:57:55 by gde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PHILO_H
 # define PHILO_H
 
-# define L_FORK "l_fork"
-# define R_FORK "r_fork"
+# define FORK "fork"
 # define EAT "eat"
 # define SLEEP "sleep"
 # define THINK "think"
@@ -82,14 +81,11 @@ t_bool		handle_args(int argc, char *argv[], t_dinner **dinner);
 void		handle_eat(t_dinner **dinner, t_philo **philo);
 void		handle_sleep(t_dinner **dinner, t_philo **philo);
 t_bool		lock_forks(t_dinner **dinner, t_philo **philo);
-void		unlock_forks(pthread_mutex_t *left_fork,
-				pthread_mutex_t *right_fork);
 size_t		get_current_time(void);
 size_t		get_dinner_time(t_dinner **dinner, size_t time);
 void		to_stop(t_dinner **dinner);
 t_bool		must_stop(t_dinner **dinner);
-void		start_getting_forks(t_dinner **dinner, t_philo **philo);
-void		end_getting_forks(t_dinner **dinner);
+int			choose_forks(t_philo **philo, int side);
 t_bool		check_if_alive(t_philo **philo);
 void		print_action(t_philo **philo, t_dinner **dinner, char *action);
 void		print_error(void);

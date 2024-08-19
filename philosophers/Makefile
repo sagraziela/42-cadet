@@ -22,6 +22,12 @@ OBJ = $(addprefix $(OBJ_PATH), $(notdir $(SRC:.c=.o)))
 # Default target to compile the mandatory part
 all: $(NAME)
 
+# Color codes of output on terminal
+GREEN = \e[1;32m
+WHITE = \033[1;37m
+CYAN= \033[0;36m
+END = \033[0m
+
 # Target to build the mandatory part
 $(NAME): $(OBJ)
 	@$(CC) $(CFLAGS) $(OBJ) -o $@
@@ -33,9 +39,15 @@ valgrind: all
 	@echo "Running the program with valgrind..."
 	valgrind --leak-check=full --show-leak-kinds=all --trace-children=yes --track-origins=yes ./philo 50 100 200 200 1
 
+helgrind: all
+	@echo "Running the program with valgrind..."
+	valgrind --tool=helgrind ./philo 5 500 200 200 1
+
 run: all
 	@echo "Running the program..."
-	./philo 20 800 200 200 3
+	./philo 20 800 200 200 1
+
+# 4 310 200 100 -- a philo should die
 
 bonus: $(NAME_BONUS)
 
@@ -71,4 +83,4 @@ fclean: clean
 re: fclean all
 
 # Phony targets
-.PHONY: all bonus clean fclean re run valgrind
+.PHONY: all bonus clean fclean re run valgrind helgrind
