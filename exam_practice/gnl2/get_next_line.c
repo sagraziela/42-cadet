@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   gnl.c                                              :+:      :+:    :+:   */
+/*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 12:09:22 by gde-souz          #+#    #+#             */
-/*   Updated: 2024/08/22 13:36:07 by gde-souz         ###   ########.fr       */
+/*   Updated: 2024/08/22 14:30:09 by gde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./gnl.h"
+#include "./get_next_line.h"
 
 void	fill_list(t_list **list, char *buffer)
 {
@@ -135,3 +135,29 @@ char	*get_next_line(int fd)
 	}
 	return (line);
 }
+
+// int	main(int argc, char **argv)
+// {
+// 	int		fd;
+// 	char	*line;
+
+// 	if (argc == 2)
+// 	{
+// 		line = NULL;
+// 		fd = open(argv[1], O_RDONLY);
+// 		if (fd <= 0)
+// 			return (1);
+// 		while (1)
+// 		{
+// 			line = get_next_line(fd);
+// 			if (!line)
+// 				return (0);
+// 			printf("%s", line);
+// 			free(line);
+// 		}
+// 		return (0);
+// 	}
+// 	return (1);
+// }
+
+//cc -Wall -Wextra -Werror -g ./gnl.c ./main.c -I./

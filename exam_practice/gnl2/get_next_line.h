@@ -1,39 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/22 12:13:25 by gde-souz          #+#    #+#             */
-/*   Updated: 2024/08/22 13:32:43 by gde-souz         ###   ########.fr       */
+/*   Created: 2024/08/22 12:09:35 by gde-souz          #+#    #+#             */
+/*   Updated: 2024/08/22 14:52:55 by gde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./gnl.h"
-#include <fcntl.h>
-#include <stdio.h>
+#ifndef GET_NEXT_LINE_H
+# define GET_NEXT_LINE_H
 
-int	main(int argc, char **argv)
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 10
+# endif
+
+# include <unistd.h>
+# include <stdlib.h>
+# include <stdio.h>
+# include <fcntl.h>
+
+typedef struct s_list
 {
-	int		fd;
-	char	*line;
+    unsigned char	c;
+	struct s_list	*next;
+}	t_list;
 
-	if (argc == 2)
-	{
-		line = NULL;
-		fd = open(argv[1], O_RDONLY);
-		if (fd <= 0)
-			return (1);
-		while (1)
-		{
-			line = get_next_line(fd);
-			if (!line)
-				return (0);
-			printf("%s", line);
-			free(line);
-		}
-		return (0);
-	}
-	return (1);
-}
+char	*get_next_line(int fd);
+
+#endif
