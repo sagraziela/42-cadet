@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 06:59:16 by root              #+#    #+#             */
-/*   Updated: 2024/08/19 13:57:55 by gde-souz         ###   ########.fr       */
+/*   Updated: 2024/08/23 15:09:48 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,14 +35,6 @@ typedef enum e_bool
 	FALSE = 0
 }		t_bool;
 
-typedef struct s_time
-{
-	size_t	hour;
-	size_t	min;
-	size_t	sec;
-	size_t	total_millisec;
-}		t_time;
-
 typedef struct s_dinner
 {
 	int				philos_num;
@@ -52,13 +44,11 @@ typedef struct s_dinner
 	pthread_mutex_t	*eat_mutex;
 	t_bool			stop;
 	t_bool			first_death;
-	t_bool			can_get_forks;
-	t_time			*time;
 	size_t			init_time;
 	size_t			time_to_die;
 	size_t			time_to_eat;
 	size_t			time_to_sleep;
-	int				meals_had;
+	int				philos_full;
 	int				total_meals;
 	t_bool			infinite_dinner;
 }		t_dinner;
@@ -70,6 +60,7 @@ typedef struct s_philo
 	size_t		last_meal;
 	size_t		init_time;
 	size_t		time_of_death;
+	int			meals_had;
 	int			left_fork;
 	int			right_fork;
 	t_dinner	*dinner;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 18:26:40 by gde-souz          #+#    #+#             */
-/*   Updated: 2024/08/16 18:29:42 by gde-souz         ###   ########.fr       */
+/*   Updated: 2024/08/23 15:15:16 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ t_philo	**init_philo(t_dinner **dinner, int num)
 	philo = (t_philo **)malloc(sizeof(t_philo *) * (num + 1));
 	if (!philo)
 		return (NULL);
-	i = 0;
-	while (i < num)
+	i = -1;
+	while (++i < num)
 	{
 		philo[i] = malloc(sizeof(t_philo));
 		if (!philo[i])
@@ -29,13 +29,13 @@ t_philo	**init_philo(t_dinner **dinner, int num)
 		philo[i]->id = i + 1;
 		philo[i]->time_of_death = (*dinner)->init_time + (*dinner)->time_to_die;
 		philo[i]->last_meal = 0;
+		philo[i]->meals_had = 0;
 		philo[i]->dinner = *dinner;
 		philo[i]->left_fork = i;
 		if (i + 1 == num)
 			philo[i]->right_fork = 0;
 		else
 			philo[i]->right_fork = philo[i]->id;
-		i++;
 	}
 	philo[num] = NULL;
 	return (philo);
@@ -66,10 +66,9 @@ t_dinner	*init_dinner(int argc, char **argv)
 		return (NULL);
 	}
 	dinner->init_time = get_current_time();
-	dinner->meals_had = 0;
 	dinner->stop = FALSE;
 	dinner->first_death = TRUE;
-	dinner->can_get_forks = TRUE;
+	dinner->philos_full = 0;
 	dinner->stop_mutex = malloc(sizeof(pthread_mutex_t));
 	dinner->print_mutex = malloc(sizeof(pthread_mutex_t));
 	dinner->eat_mutex = malloc(sizeof(pthread_mutex_t));

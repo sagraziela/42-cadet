@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print_msg.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 17:52:25 by root              #+#    #+#             */
-/*   Updated: 2024/08/19 13:59:33 by gde-souz         ###   ########.fr       */
+/*   Updated: 2024/08/23 13:14:27 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,8 @@ static void	acknowledge_first_death(
 	printf("%s%ld %d died.%s\n", BRED, time, (*philo)->id, COLOUR_RESET);
 }
 
-static void	increment_meals_had(
-	t_dinner **dinner, t_philo **philo, long time)
+static void	increment_meals_had(t_philo **philo, long time)
 {
-	(*dinner)->meals_had++;
 	printf("%s%ld %d is eating.%s\n",
 		YELLOW, time, (*philo)->id, COLOUR_RESET);
 }
@@ -47,7 +45,7 @@ void	print_action(t_philo **philo, t_dinner **dinner, char *action)
 		printf("%s%ld %d has taken a fork.%s\n",
 			GREEN, time, (*philo)->id, COLOUR_RESET);
 	if (!ft_strcmp(action, EAT) && !must_stop(dinner))
-		increment_meals_had(dinner, philo, time);
+		increment_meals_had(philo, time);
 	if (!ft_strcmp(action, SLEEP) && !must_stop(dinner))
 		printf("%s%ld %d is sleeping.%s\n",
 			LILAC, time, (*philo)->id, COLOUR_RESET);

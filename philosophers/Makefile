@@ -3,7 +3,7 @@ NAME = philo
 NAME_BONUS = philo_bonus
 
 # Compilation flags
-CFLAGS = -Wall -Wextra -Werror -g
+CFLAGS = -Wall -Wextra -Werror -g -pthread
 INCLUDES = -I ./includes/ -I $(LIBFT_PATH)/
 
 SRC = ./src/main.c \
@@ -37,7 +37,7 @@ $(NAME): $(OBJ)
 
 valgrind: all
 	@echo "Running the program with valgrind..."
-	valgrind --leak-check=full --show-leak-kinds=all --trace-children=yes --track-origins=yes ./philo 50 100 200 200 1
+	valgrind --leak-check=full --show-leak-kinds=all --trace-children=yes --track-origins=yes ./philo 4 310 200 200
 
 helgrind: all
 	@echo "Running the program with valgrind..."
@@ -45,7 +45,7 @@ helgrind: all
 
 run: all
 	@echo "Running the program..."
-	./philo 20 800 200 200 1
+	./philo 4 310 200 100 1
 
 # 4 310 200 100 -- a philo should die
 
