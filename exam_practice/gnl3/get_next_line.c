@@ -6,7 +6,7 @@
 /*   By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 11:59:21 by gde-souz          #+#    #+#             */
-/*   Updated: 2024/08/28 13:07:22 by gde-souz         ###   ########.fr       */
+/*   Updated: 2024/08/28 16:17:02 by gde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,11 @@ char	*save_line(t_list **list)
 	int		i;
 
 	temp = *list;
-	while ((*list)->next)
+	len = 0;
+	while ((*list))
 	{
 		len++;
-		//printf("%c", (*list)->c);
-		if ((*list)->c == '\n' || (*list)->c == '\0')
+		if ((*list)->c == '\n')
 			break;
 		*list = (*list)->next;
 	}
@@ -45,33 +45,42 @@ char	*save_line(t_list **list)
 	return (line);
 }
 
-void	add_node(t_list **list, char content)
+t_bool	update_list(t_list **list, char *buffer, int rd)
 {
 	t_list	*new;
 	t_list	*temp;
+	int		i;
+	t_bool	line_brk;
 
+	i = 0;
+	line_brk = FALSE;
 	temp = *list;
 	while ((*list)->next)
 		*list = (*list)->next;
-	new = malloc(sizeof(t_list));
-	if (!new)
-		return ;
-	new->c = content;
-	new->next = NULL;
-	(*list)->next = new;
-	printf("%c", new->c);
+	while (i < rd)
+	{
+		new = malloc(sizeof(t_list));
+		if (!new)
+			return (line_brk);
+		new->c = buffer[i];
+		new->next = NULL;
+		(*list)->next = new;
+		if (buffer[i] == '\n')
+			line_brk = TRUE;
+		*list = (*list)->next;
+		i++;
+	}
 	*list = temp;
+	return (line_brk);
 }
 
 int	read_file(t_list **list, int fd)
 {
 	int		rd;
-	int		i;
 	char	buffer[BUFFER_SIZE + 1];
 	t_bool	found_brkline;
 
 	rd = 1;
-	i = 0;
 	found_brkline = FALSE;
 	while (rd > 0)
 	{
@@ -79,14 +88,7 @@ int	read_file(t_list **list, int fd)
 		if (rd <= 0)
 			return (rd);
 		buffer[rd] = '\0';
-		//printf("BUFFER: %s\n", buffer);
-		while (i < rd)
-		{
-			add_node(list, buffer[i]);
-			if (buffer[i] == '\n')
-				found_brkline = TRUE;
-			i++;
-		}
+		found_brkline = update_list(list, buffer, rd);
 		if (found_brkline)
 			break ;
 	}
@@ -100,8 +102,7 @@ char	*get_next_line(int fd)
 	char			*line;
 	int				rd;
 
-	//printf("CHEGOU AQUI fd %d\n", fd);
-	if (BUFFER_SIZE == 0 || fd < 1)
+	if (BUFFER_SIZE <= 0 || fd < 0)
 		return (NULL);
 	line = NULL;
 	if (!list)
@@ -114,16 +115,17 @@ char	*get_next_line(int fd)
 	}
 	head = list;
 	rd = read_file(&list, fd);
-	if (rd > 0 && list->next)
-	{
-		list = head;
+	list = head;
+	if (list->next)
 		line = save_line(&list->next);
-	}
-	while (list)
+	if (rd <= 0 && !list->next)
 	{
-		head = list->next;
-		free(list);
-		list = head;
+		while (list)
+		{
+			head = list->next;
+			free(list);
+			list = head;
+		}
 	}
 	return (line);
 }
