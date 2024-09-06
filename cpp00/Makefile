@@ -1,18 +1,11 @@
 # Name of the executable
-NAME = philo
+NAME = cpp00
 
 # Compilation flags
-CFLAGS = -Wall -Wextra -Werror -g -pthread
-INCLUDES = -I ./includes/ -I $(LIBFT_PATH)/
+CPPFLAGS = c++ -Wall -Wextra -Werror -g -std=c++98
+INCLUDES = -I ./includes/
 
-SRC = ./src/main.c \
-		./src/init.c \
-		./src/handle_input.c \
-		./src/threads.c \
-		./src/threads_utils.c \
-		./src/timestamp.c \
-		./src/print_msg.c \
-		./src/clear.c
+SRC = ./src/main.cpp
 
 # Objects
 OBJ_PATH = src/build/
@@ -29,22 +22,18 @@ END = \033[0m
 
 # Target to build the mandatory part
 $(NAME): $(OBJ)
-	@$(CC) $(CFLAGS) $(OBJ) -o $@
+	@ $(CPPFLAGS) $(OBJ) -o $@
 	@echo "$(GREEN)--------------------------------------------------$(END)"
-	@echo "$(GREEN)The [$(CYAN)PHILO$(GREEN)] has been compiled! 🧐🤔📚$(END)"
+	@echo "$(GREEN)The [$(CYAN)CPP-00$(GREEN)] has been compiled! 🧐🤔📚$(END)"
 	@echo "$(GREEN)--------------------------------------------------$(END)"
 
 valgrind: all
 	@echo "Running the program with valgrind..."
-	valgrind --leak-check=full --show-leak-kinds=all --trace-children=yes --track-origins=yes ./philo 4 310 200 200
-
-helgrind: all
-	@echo "Running the program with valgrind..."
-	valgrind --tool=helgrind ./philo 5 500 200 200 1
+	valgrind --leak-check=full --show-leak-kinds=all --trace-children=yes --track-origins=yes ./philo 
 
 run: all
 	@echo "Running the program..."
-	./philo 4 310 200 100
+	./philo
 
 
 # Builds mandatory object files
@@ -74,4 +63,4 @@ fclean: clean
 re: fclean all
 
 # Phony targets
-.PHONY: all clean fclean re run valgrind helgrind
+.PHONY: all clean fclean re run valgrind
