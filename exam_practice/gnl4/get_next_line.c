@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 11:54:12 by root              #+#    #+#             */
-/*   Updated: 2024/10/24 13:59:19 by root             ###   ########.fr       */
+/*   Updated: 2024/10/25 10:14:17 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,9 @@
 #include <fcntl.h>
 #include <stdio.h>
 
-#define BUFFER_SIZE 10
+#ifndef BUFFER_SIZE
+# define BUFFER_SIZE 10
+#endif
 
 typedef struct s_list
 {
@@ -33,10 +35,12 @@ char    *save_line(t_list **list)
     len = 0;
     i = 0;
     temp = *list;
-    while (*list && (*list)->c != '\n')
+
+    while (*list)
     {
         len++;
-        printf("%c", (*list)->c);
+        if ((*list)->c == '\n')
+            break ;
         *list = (*list)->next;
     }
     *list = temp;
@@ -50,7 +54,6 @@ char    *save_line(t_list **list)
         *list = temp;
         i++;
     }
-    //printf("LINE: %s", line);
     return (line);
 }
 
@@ -76,8 +79,8 @@ int    fill_list(t_list **list, char *buffer)
         new = malloc(sizeof(t_list));
         new->c = buffer[i];
         new->next = NULL;
-        //printf("new->c = %c\n", new->c);
         (*list)->next = new;
+        *list = (*list)->next;
         i++;
     }
     *list = temp;
@@ -98,7 +101,6 @@ t_list  *read_file(int fd, t_list **list)
         if (rd <= 0)
         {
             free(buffer);
-            printf("RD <= 0\n");
             break ;
         }
         else
@@ -116,7 +118,6 @@ t_list  *read_file(int fd, t_list **list)
 char	  *get_next_line(int fd)
 {
     static  t_list  *list;
-    //t_list  *head;
     char    *line;
     
     if (fd < 0 || BUFFER_SIZE <= 0)
@@ -128,7 +129,6 @@ char	  *get_next_line(int fd)
         list->c = '*';
         list->next = NULL;
     }
-    //head = list;
     read_file(fd, &list);
     if (list->next)
         line = save_line(&list->next);
@@ -142,7 +142,7 @@ int main(void)
     int fd;
     char *line;
     
-    fd = open("./test", O_RDONLY);
+    fd = open("./teste", O_RDONLY);
     while (1)
     {
         line = get_next_line(fd);
