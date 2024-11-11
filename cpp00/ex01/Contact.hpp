@@ -1,5 +1,6 @@
 #ifndef CONTACT_HPP
 # define CONTACT_HPP
+//#pragma once
 
 # include <iostream>
 # include <string>

@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   phonebook_utils.cpp                                :+:      :+:    :+:   */
+/*   utils.cpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 12:21:27 by root              #+#    #+#             */
-/*   Updated: 2024/10/01 14:17:19 by root             ###   ########.fr       */
+/*   Updated: 2024/11/11 12:06:19 by gde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./phonebook_utils.hpp"
+#include "./utils.hpp"
 
 std::string fit_str(std::string str, size_t max)
 {

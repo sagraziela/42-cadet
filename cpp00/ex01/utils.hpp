@@ -2,7 +2,7 @@
 # define PHONEBOOK_UTILS_HPP
 
 # include <iostream>
-# include "./contact.hpp"
+# include "./Contact.hpp"
 
 std::string fit_str(std::string str, size_t max);
 std::string print_details(Contact contact, std::string str);

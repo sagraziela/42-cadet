@@ -1,19 +1,19 @@
-#include "./phonebook.hpp"
+#include "./PhoneBook.hpp"
 
-Phonebook::Phonebook(void)
+PhoneBook::PhoneBook(void)
 {
     this->_index = 0;
     std::cout << \
-            "Welcome to Crappy! Created an empty phonebook for up to 8 contacts" \
+            "Welcome to Crappy! Created an empty phonebook for up to 8 contacts." \
             << std::endl;
 }
 
-Phonebook::~Phonebook(void)
+PhoneBook::~PhoneBook(void)
 {
-    std::cout << "See you soon" << std::endl;
+    std::cout << "See you soon! 👋" << std::endl;
 }
 
-void    Phonebook::add(void)
+void    PhoneBook::add(void)
 {
     std::string str;
 
@@ -58,7 +58,7 @@ void    Phonebook::add(void)
     this->_index++;
 }
 
-void    Phonebook::search(void)
+void    PhoneBook::search(void)
 {
     int         i;
     std::string str;

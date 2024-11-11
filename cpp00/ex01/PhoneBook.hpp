@@ -2,18 +2,18 @@
 # define PHONEBOOK_HPP
 
 # include <iostream>
-# include "./phonebook_utils.hpp"
-# include "./contact.hpp"
+# include "./utils.hpp"
+# include "./Contact.hpp"
 
-class Phonebook
+class PhoneBook
 {
     private:
             Contact _contacts[8];
             int _index;
 
     public:
-            Phonebook(void);
-            ~Phonebook(void);
+            PhoneBook(void);
+            ~PhoneBook(void);
             void add(void);
             void search(void);
 };

@@ -1,10 +1,6 @@
-NAME = phonebook
+NAME = megaphone
 CPPFLAGS = c++ -Wall -Wextra -Werror -g -std=c++98
-INCLUDES = -I ./
-SRC = ./main.cpp \
-		./Contact.cpp \
-		./PhoneBook.cpp \
-		./utils.cpp
+SRC = ./megaphone.cpp
 
 # Objects
 OBJ = $(notdir $(SRC:.c=.o))
@@ -20,18 +16,18 @@ END = \033[0m
 
 # Target to build the mandatory part
 $(NAME): $(OBJ)
-	@ $(CPPFLAGS) $(OBJ) -o $@ $(INCLUDES)
+	@ $(CPPFLAGS) $(OBJ) -o $@
 	@echo "$(GREEN)--------------------------------------------------$(END)"
-	@echo "$(GREEN)The [$(CYAN)CPP-00 PHONEBOOK$(GREEN)] has been compiled!$(END)"
+	@echo "$(GREEN)The [$(CYAN)CPP-00 MEGAPHONE$(GREEN)] has been compiled!$(END)"
 	@echo "$(GREEN)--------------------------------------------------$(END)"
 
 valgrind: all
 	@echo "Running the program with valgrind..."
-	valgrind --leak-check=full --show-leak-kinds=all --trace-children=yes --track-origins=yes ./phonebook 
+	valgrind --leak-check=full --show-leak-kinds=all --trace-children=yes --track-origins=yes ./megaphone 
 
 run: all
 	@echo "Running the program..."
-	./phonebook
+	./megaphone
 
 # Builds mandatory object files
 %.o: %.c
