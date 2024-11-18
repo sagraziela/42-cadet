@@ -2,13 +2,20 @@
 # define PHONEBOOK_HPP
 
 # include <iostream>
-# include "./utils.hpp"
+# include <iomanip>
+# include <string>
+# include <stdlib.h>
+# include <cstdlib>
+#include <limits>
+# include "./phonebook_utils.hpp"
 # include "./Contact.hpp"
+
+# define MAX_CONTACTS 3
 
 class PhoneBook
 {
     private:
-            Contact _contacts[8];
+            Contact _contacts[MAX_CONTACTS];
             int _index;
 
     public:
@@ -16,6 +23,7 @@ class PhoneBook
             ~PhoneBook(void);
             void add(void);
             void search(void);
+            void print_list_contacts(void);
 };
 
 #endif

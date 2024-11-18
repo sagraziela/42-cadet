@@ -4,7 +4,7 @@ INCLUDES = -I ./
 SRC = ./main.cpp \
 		./Contact.cpp \
 		./PhoneBook.cpp \
-		./utils.cpp
+		./phonebook_utils.cpp
 
 # Objects
 OBJ = $(notdir $(SRC:.c=.o))
