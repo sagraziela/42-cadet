@@ -3,7 +3,7 @@ CPPFLAGS = c++ -Wall -Wextra -Werror -g -std=c++98
 SRC = ./megaphone.cpp
 
 # Objects
-OBJ = $(notdir $(SRC:.c=.o))
+OBJ = $(notdir $(SRC:.cpp=.o))
 
 # Default target to compile the mandatory part
 all: $(NAME)
@@ -30,7 +30,7 @@ run: all
 	./megaphone
 
 # Builds mandatory object files
-%.o: %.c
+%.o: %.cpp
 	$(CC) -c $(CFLAGS) $< -o $@
 
 # Cleans object files and dependencies
