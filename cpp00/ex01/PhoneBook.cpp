@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   PhoneBook.cpp                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 12:54:26 by gde-souz          #+#    #+#             */
-/*   Updated: 2024/11/18 15:54:36 by gde-souz         ###   ########.fr       */
+/*   Updated: 2024/11/19 14:02:43 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 PhoneBook::PhoneBook(void)
 {
     this->_index = 0;
+    this->_oldest = 0;
     std::cout << \
             "Welcome to Crappy! It was created an empty phonebook for up to " << MAX_CONTACTS << " contacts.\n" \
             << std::endl;
@@ -30,62 +31,58 @@ void    PhoneBook::add(void)
     std::string str;
 
     str = "";
-    if (is_list_full(this->_contacts, this->_index))
+    if (is_list_full(this->_contacts, this->_index, this->_oldest))
         return ;
     else if (this->_index == MAX_CONTACTS)
+    {
         this->_index = 0;
+        if (this->_oldest < MAX_CONTACTS - 1)
+            this->_oldest++;
+        else
+            this->_oldest = 0;
+    }
     while (str == "") {
         std::cout << "Enter the contact's 1st name > ";
-        if (!std::getline(std::cin, str)) {
-            if (std::cin.eof()) {
-                std::cout << "Input ended (Ctrl+D or EOF). Exiting...\n";
-                exit(EXIT_FAILURE);
-            } else if (std::cin.fail()) {
-                std::cout << "Input error or interrupted (Ctrl+C). Exiting...\n";
-                std::cin.clear(); 
-                //std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-                exit(EXIT_FAILURE);
-            }
-            
-        } else if (str != "") {
+        if (!std::getline(std::cin, str))
+            return ;    
+        else if (str != "")
             this->_contacts[this->_index].set_fname(str);
-        }
     }
     str = "";
-    while (!std::cin.eof() && str == "")
+    while (str == "")
     {
         std::cout << "Enter the contact's last name > ";
-        if (std::getline(std::cin, str) && str != "")
+        if (!std::getline(std::cin, str))
+            return ;    
+        else if (str != "")
             this->_contacts[this->_index].set_lname(str);
-        else if (std::cin.eof())
-            return ;
     }
     str = "";
-    while (!std::cin.eof() && str == "")
+    while (str == "")
     {
         std::cout << "Enter the contact's nickname > ";
-        if (std::getline(std::cin, str) && str != "")
+        if (!std::getline(std::cin, str))
+            return ;    
+        else if (str != "")
             this->_contacts[this->_index].set_nick(str);
-        else if (std::cin.eof())
-            return ;
     }
     str = "";
-    while (!std::cin.eof() && str == "")
+    while (str == "")
     {
         std::cout << "Enter the phone number > ";
-        if (std::getline(std::cin, str) && str != "")
+        if (!std::getline(std::cin, str))
+            return ;    
+        else if (str != "")
             this->_contacts[this->_index].set_phone_num(str);
-        else if (std::cin.eof())
-            return ;
     }
     str = "";
-    while (!std::cin.eof() && str == "")
+    while (str == "")
     {
         std::cout << "Enter the darkest secret > ";
-        if (std::getline(std::cin, str) && str != "")
+        if (!std::getline(std::cin, str))
+            return ;    
+        else if (str != "")
             this->_contacts[this->_index].set_secret(str);
-        else if (std::cin.eof())
-            return ;
     }
     std::cout << "THE CONTACT WAS SUCESSFULLY SAVED!" << std::endl;
     this->_index++;
@@ -117,7 +114,7 @@ void    PhoneBook::print_list_contacts(void)
 
 void    PhoneBook::search(void)
 {
-    std::string str;
+    std::string str = "";
 
     if (this->_index < 1)
     {
@@ -125,16 +122,16 @@ void    PhoneBook::search(void)
         return ;
     }
     print_list_contacts();
-    while (!std::cin.eof() && str == "")
+    while (str == "")
     {
         str = "";
-        std::cout << "Enter the index of a contact to see its details [0-" << MAX_CONTACTS << "] > ";
-        if (std::getline(std::cin, str) && str != "")
+        std::cout << "Enter the index of a contact to see its details [0-" << MAX_CONTACTS - 1 << "] > ";
+        if (!std::getline(std::cin, str) || std::cin.eof())
+            return ;    
+        else if (str != "")
         {
-            if (!str[1] && str[0] >= 48 && str[0] <= 48 + MAX_CONTACTS)
-            {
+            if (!str[1] && str[0] >= 48 && str[0] < 48 + MAX_CONTACTS)
                 str = print_details(this->_contacts[str[0] - 48], str);
-            }
             else
             {
                 std::cout << "THE INDEX " << str << " DOES NOT EXIST." << std::endl;

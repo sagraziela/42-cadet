@@ -4,18 +4,18 @@
 # include <iostream>
 # include <iomanip>
 # include <string>
-# include <stdlib.h>
 # include <cstdlib>
-#include <limits>
+# include <limits>
 # include "./phonebook_utils.hpp"
 # include "./Contact.hpp"
 
-# define MAX_CONTACTS 3
+# define MAX_CONTACTS 2
 
 class PhoneBook
 {
     private:
             Contact _contacts[MAX_CONTACTS];
+            int _oldest;
             int _index;
 
     public:

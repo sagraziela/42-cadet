@@ -6,10 +6,8 @@
 # include "./Contact.hpp"
 # include "./PhoneBook.hpp"
 
-# define MAX_CONTACTS 3
-
 std::string fit_str(std::string str);
 std::string print_details(Contact contact, std::string str);
-int         is_list_full(Contact contact[MAX_CONTACTS], int index);
+int         is_list_full(Contact *contact, int index, int oldest);
 
 #endif
