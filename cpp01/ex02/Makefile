@@ -4,7 +4,7 @@ INCLUDES = -I ./
 SRC = ./main.cpp
 
 # Objects
-OBJ = $(notdir $(SRC:.c=.o))
+OBJ = $(notdir $(SRC:.cpp=.o))
 
 # Default target to compile the mandatory part
 all: $(NAME)
@@ -19,19 +19,15 @@ END = \033[0m
 $(NAME): $(OBJ)
 	@ $(CPPFLAGS) $(OBJ) -o $@ $(INCLUDES)
 	@echo "$(GREEN)--------------------------------------------------$(END)"
-	@echo "$(GREEN)The [$(CYAN)CPP-02 HI THIS IS BRAIN$(GREEN)] has been compiled!$(END)"
+	@echo "$(GREEN)The [$(CYAN)CPP-02 HI, THIS IS BRAIN$(GREEN)] has been compiled!$(END)"
 	@echo "$(GREEN)--------------------------------------------------$(END)"
-
-valgrind: all
-	@echo "Running the program with valgrind..."
-	valgrind --leak-check=full --show-leak-kinds=all --trace-children=yes --track-origins=yes ./main.cpp 
 
 run: all
 	@echo "Running the program..."
 	./main.cpp
 
 # Builds mandatory object files
-%.o: %.c
+%.o: %.cpp
 	$(CC) -c $(CFLAGS) $< -o $@
 
 # Cleans object files and dependencies

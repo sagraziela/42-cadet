@@ -4,7 +4,7 @@ INCLUDES = -I ./
 SRC = ./main.cpp
 
 # Objects
-OBJ = $(notdir $(SRC:.c=.o))
+OBJ = $(notdir $(SRC:.cpp=.o))
 
 # Default target to compile the mandatory part
 all: $(NAME)
@@ -31,7 +31,7 @@ run: all
 	./main.cpp
 
 # Builds mandatory object files
-%.o: %.c
+%.o: %.cpp
 	$(CC) -c $(CFLAGS) $< -o $@
 
 # Cleans object files and dependencies

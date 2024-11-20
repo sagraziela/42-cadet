@@ -5,7 +5,8 @@ SRC = ./main.cpp \
 		./Harl.cpp
 
 # Objects
-OBJ = $(notdir $(SRC:.c=.o))
+OBJ_PATH = build/
+OBJ = $(addprefix $(OBJ_PATH), $(notdir $(SRC:.cpp=.o)))
 
 # Default target to compile the mandatory part
 all: $(NAME)
@@ -32,12 +33,14 @@ run: all
 	./main.cpp
 
 # Builds mandatory object files
-%.o: %.c
+$(OBJ_PATH)%.o: %.cpp
+	@mkdir -p $(OBJ_PATH)
 	$(CC) -c $(CFLAGS) $< -o $@
 
 # Cleans object files and dependencies
 clean:
 	@rm -f %.o
+	@rm -rf $(OBJ_PATH)
 	@echo "$(WHITE)---------------------------------------$(END)"
 	@echo "$(WHITE)    Object files were cleaned! 🧹✨$(END)"
 	@echo "$(WHITE)---------------------------------------$(END)"

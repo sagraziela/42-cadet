@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 10:36:13 by root              #+#    #+#             */
-/*   Updated: 2024/10/08 10:54:32 by root             ###   ########.fr       */
+/*   Updated: 2024/11/20 11:49:00 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int main(void)
 {
-    std::string str = "HI, THIS IS BRAIN";
+    std::string str = "HI THIS IS BRAIN";
     std::string *stringPTR = &str;
     std::string &stringREF = str;
 

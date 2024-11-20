@@ -7,7 +7,8 @@ SRC = ./main.cpp \
 		./randomChump.cpp
 
 # Objects
-OBJ = $(notdir $(SRC:.c=.o))
+OBJ_PATH = build/
+OBJ = $(addprefix $(OBJ_PATH), $(notdir $(SRC:.cpp=.o)))
 
 # Default target to compile the mandatory part
 all: $(NAME)
@@ -25,21 +26,19 @@ $(NAME): $(OBJ)
 	@echo "$(GREEN)The [$(CYAN)CPP-01 BraiiiiiiinnnzzzZ$(GREEN)] has been compiled!$(END)"
 	@echo "$(GREEN)--------------------------------------------------$(END)"
 
-valgrind: all
-	@echo "Running the program with valgrind..."
-	valgrind --leak-check=full --show-leak-kinds=all --trace-children=yes --track-origins=yes ./main.cpp 
-
 run: all
 	@echo "Running the program..."
 	./main.cpp
 
 # Builds mandatory object files
-%.o: %.c
+$(OBJ_PATH)%.o: %.cpp
+	@mkdir -p $(OBJ_PATH)
 	$(CC) -c $(CFLAGS) $< -o $@
 
 # Cleans object files and dependencies
 clean:
 	@rm -f %.o
+	@rm -rf $(OBJ_PATH)
 	@echo "$(WHITE)---------------------------------------$(END)"
 	@echo "$(WHITE)    Object files were cleaned! 🧹✨$(END)"
 	@echo "$(WHITE)---------------------------------------$(END)"
