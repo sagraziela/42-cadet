@@ -3,68 +3,59 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 10:46:11 by root              #+#    #+#             */
-/*   Updated: 2024/10/15 14:06:54 by root             ###   ########.fr       */
+/*   Updated: 2024/11/21 15:32:37 by gde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <iostream>
 #include <fstream>
+#include <string>
 
-int compare(std::string str, char *arg, int i)
+std::string    replace_str(std::string str, const std::string& toFind, const std::string& toReplace)
 {
-    int pos;
+    int i = 0;
 
-    pos = 0;
-    if (str[i] == arg[pos])
+    while (str.find(toFind, i) != std::string::npos)
     {
-        while (arg[pos] && str[i + pos] == arg[pos])
-            pos++;
-        if (!arg[pos])
-            i += pos - 1;
+        i = str.find(toFind, i);
+        str.erase(i, toFind.length());
+        str.insert(i, toReplace);
+        i += toReplace.length();
     }
-    return i;
-}
-
-void    replace_str(std::string str, char **argv)
-{
-    std::ofstream   outfile;
-    int             pos;
-
-    outfile.open((std::string(argv[1]) + ".replace").c_str());
-    for (int i = 0; str[i] != '\0'; i++)
-    {
-        pos = compare(str, argv[2], i);
-        if (pos > i)
-        {
-            for (int j = 0; argv[3][j]; j++)
-                outfile << argv[3][j];
-            i = pos;
-        }
-        else
-            outfile << str[i];
-    }
-    outfile.close();
+    return str;
 }
 
 int main(int argc, char **argv)
 {
-    std::ifstream   infile;
+    std::ifstream   infile(argv[1]);
+    
     std::string     str;
     char            c;
     
     if (argc != 4)
     {
-        std::cout << "You should give 3 parameters in order to execute this program." << std::endl;
+        std::cout << "Usage:\n<FILENAME> <STR1> <STR2>\n\n";
         return 1;
     }
-    infile.open(argv[1]);
-    // ADD ERRO NA ABERTURA DO ARQUIVO
-    while (!infile.eof() && infile >> std::noskipws >> c)
-        str += c;
-    replace_str(str, argv);
+    if (!infile.is_open())
+        return (std::cout << "Error: " << argv[1] << " file not found.\n", 1);
+    
+    std::string     filename = std::string(argv[1]).append(".replace");
+    std::ofstream   outfile(filename.c_str());
+    
+    if (!outfile.is_open())
+		return (std::cout << "Error: failed to create output file.\n", infile.close(), 1);
+    while (std::getline(infile, str))
+    {
+        str = replace_str(str, argv[2], argv[3]);
+        outfile << str;
+        if (!infile.eof())
+            outfile << '\n';
+    }
+    outfile.close();
     infile.close();
     return 0;
 }

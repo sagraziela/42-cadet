@@ -24,10 +24,6 @@ $(NAME): $(OBJ)
 	@echo "$(GREEN)The [$(CYAN)CPP-ex05 HARL$(GREEN)] has been compiled!$(END)"
 	@echo "$(GREEN)--------------------------------------------------$(END)"
 
-valgrind: all
-	@echo "Running the program with valgrind..."
-	valgrind --leak-check=full --show-leak-kinds=all --trace-children=yes --track-origins=yes ./main.cpp 
-
 run: all
 	@echo "Running the program..."
 	./main.cpp
@@ -56,4 +52,4 @@ fclean: clean
 re: fclean all
 
 # Phony targets
-.PHONY: all clean fclean re run valgrind
+.PHONY: all clean fclean re run
