@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Fixed.cpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 11:20:07 by root              #+#    #+#             */
-/*   Updated: 2024/10/22 11:51:14 by root             ###   ########.fr       */
+/*   Updated: 2024/11/22 11:33:43 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,10 @@ Fixed::Fixed(Fixed const &copy)
 
 Fixed &Fixed::operator = (Fixed const &copy)
 {
-    
+	if (this != &copy)
+		this->_nbr = copy.getRawBits();
+    std::cout << "Copy assignment operator called\n";
+	return *this;
 }
 
 int Fixed::getRawBits(void) const

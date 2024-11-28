@@ -21,7 +21,7 @@ END = \033[0m
 $(NAME): $(OBJ)
 	@ $(CPPFLAGS) $(OBJ) -o $@ $(INCLUDES)
 	@echo "$(GREEN)--------------------------------------------------$(END)"
-	@echo "$(GREEN)The [$(CYAN)CPP-02 FIXED$(GREEN)] has been compiled!$(END)"
+	@echo "$(GREEN)The [$(CYAN)CPP-02 FIXED 01$(GREEN)] has been compiled!$(END)"
 	@echo "$(GREEN)--------------------------------------------------$(END)"
 
 run: all
