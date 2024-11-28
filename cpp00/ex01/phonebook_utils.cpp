@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   phonebook_utils.cpp                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 12:21:27 by root              #+#    #+#             */
-/*   Updated: 2024/11/19 14:01:36 by root             ###   ########.fr       */
+/*   Updated: 2024/11/21 10:56:05 by gde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,8 @@ int is_list_full(Contact *contact, int index, int oldest)
     std::string str;
 
     str = "";
-    if (index == MAX_CONTACTS)
+    if (index == MAX_CONTACTS || oldest > 0)
     {
-        //PRECISA REVISAR O CÁLCULO DO CONTATO MAIS ANTIGO!!!!
         std::cout << "-------------------------------------------------------\n\n";
         std::cout << "You have reached the limit of " << MAX_CONTACTS << " contacts." << std::endl;
         std::cout << "If you add another contact, the oldest one of your list will be excluded." << std::endl;

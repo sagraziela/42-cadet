@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   PhoneBook.cpp                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 12:54:26 by gde-souz          #+#    #+#             */
-/*   Updated: 2024/11/19 14:02:43 by root             ###   ########.fr       */
+/*   Updated: 2024/11/21 11:01:49 by gde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ PhoneBook::PhoneBook(void)
 
 PhoneBook::~PhoneBook(void)
 {
-    std::cout << "See you soon! 👋" << std::endl;
+    std::cout << "See you soon! 👋\n";
 }
 
 void    PhoneBook::add(void)
@@ -84,7 +84,7 @@ void    PhoneBook::add(void)
         else if (str != "")
             this->_contacts[this->_index].set_secret(str);
     }
-    std::cout << "THE CONTACT WAS SUCESSFULLY SAVED!" << std::endl;
+    std::cout << "THE CONTACT WAS SUCESSFULLY SAVED!\n";
     this->_index++;
 }
 
@@ -93,13 +93,13 @@ void    PhoneBook::print_list_contacts(void)
     std::string str;
 
     str = "";
-    std::cout << "|----------|----------|----------|----------|" << std::endl;
+    std::cout << "|----------|----------|----------|----------|\n";
     std::cout << "|" << std::setw(10) << "INDEX"
             << "|" << std::setw(10) << "FIRST NAME"
             << "|" << std::setw(10) << "LAST NAME"
             << "|" << std::setw(10) << "NICKNAME"
             << "|" << std::endl;
-    std::cout << "|----------|----------|----------|----------|" << std::endl;
+    std::cout << "|----------|----------|----------|----------|\n";
     for (int i = 0; (i < MAX_CONTACTS && this->_contacts[i].get_fname().size()); i++)
     {
         std::cout << "|" << std::setw(10) << i << "|";
@@ -118,7 +118,7 @@ void    PhoneBook::search(void)
 
     if (this->_index < 1)
     {
-        std::cout << "The list is still empty." << std::endl;
+        std::cout << "The list is still empty.\n";
         return ;
     }
     print_list_contacts();

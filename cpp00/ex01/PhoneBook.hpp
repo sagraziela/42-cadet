@@ -9,7 +9,7 @@
 # include "./phonebook_utils.hpp"
 # include "./Contact.hpp"
 
-# define MAX_CONTACTS 2
+# define MAX_CONTACTS 3
 
 class PhoneBook
 {

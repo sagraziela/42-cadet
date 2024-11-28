@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 13:06:18 by root              #+#    #+#             */
-/*   Updated: 2024/11/19 14:07:38 by root             ###   ########.fr       */
+/*   Updated: 2024/11/21 11:04:30 by gde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int main(void)
     while(1)
     {
         std::cout << "What do you want to do? Enter ADD, SEARCH or EXIT > ";
-        if (!std::getline(std::cin, str) || std::cin.eof() || std::cin.fail())
+        if (!std::getline(std::cin, str) || std::cin.eof())
         {
             std::cout << std::endl;
             std::exit(EXIT_FAILURE);
