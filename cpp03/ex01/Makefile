@@ -2,7 +2,8 @@ NAME = scavTrap
 CPPFLAGS = c++ -Wall -Wextra -Werror -g -std=c++98
 INCLUDES = -I ./
 SRC = ./main.cpp \
-		./ClapTrap.cpp
+		./ClapTrap.cpp \
+		./ScavTrap.cpp
 
 # Objects
 OBJ_PATH = build/

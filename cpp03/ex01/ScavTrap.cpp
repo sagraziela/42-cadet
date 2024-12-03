@@ -1,38 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ClapTrap.cpp                                       :+:      :+:    :+:   */
+/*   ScavTrap.cpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/25 14:23:58 by gde-souz          #+#    #+#             */
-/*   Updated: 2024/12/03 13:21:02 by root             ###   ########.fr       */
+/*   Created: 2024/12/03 12:39:26 by root              #+#    #+#             */
+/*   Updated: 2024/12/03 13:17:57 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./ClapTrap.hpp"
+#include "./ScavTrap.hpp"
 
-ClapTrap::ClapTrap(std::string name)
+ScavTrap::ScavTrap(std::string name) : ClapTrap(name)
 {
-    this->_name = name;
-    std::cout << name << " was created.\n";
+    std::cout << this->_name << " ScavTrap was created.\n";
 }
 
-ClapTrap::ClapTrap(void)
+ScavTrap::ScavTrap(void) : ClapTrap()
 {
-    this->_name = "(null)";
-    std::cout << this->_name << " was created.\n";
+    std::cout << "Default ScavTrap was created.\n";
 }
 
-ClapTrap::ClapTrap(ClapTrap const &src)
+ScavTrap::ScavTrap(ScavTrap const &src) : ClapTrap(src)
 {
 	std::cout << "ScavTrap copy constructor called.\n";
 	*this = src;
 }
 
-ClapTrap &ClapTrap::operator=(ClapTrap const &src)
+ScavTrap &ScavTrap::operator=(ScavTrap const &src)
 {
-	std::cout << "ClapTrap copy assignment operator called.\n";
+	std::cout << "ScavTrap copy assignment operator called.\n";
 	if (this != &src)
 	{
 		this->_name = src._name;
@@ -43,55 +41,60 @@ ClapTrap &ClapTrap::operator=(ClapTrap const &src)
 	return *this;
 }
 
-ClapTrap::~ClapTrap(void)
+ScavTrap::~ScavTrap(void)
 {
     std::cout << this->_name << " was destroyed.\n";
 }
 
-void ClapTrap::attack(const std::string& target)
+void ScavTrap::attack(const std::string& target)
 {
     if (this->_hit <= 0)
     {
-        std::cout << "ClapTrap " << this->_name << "cannot attack 'cause it doesn't have any HIT points.\n";
+        std::cout << "ScavTrap " << this->_name << "cannot attack 'cause it doesn't have any HIT points.\n";
         return ;
     }
     if (this->_energy <= 0)
     {
-        std::cout << "ClapTrap " << this->_name << "cannot attack 'cause it doesn't have any ENERGY points.\n";
+        std::cout << "ScavTrap " << this->_name << "cannot attack 'cause it doesn't have any ENERGY points.\n";
         return ;
     }
     this->_energy--;
-    std::cout << "ClapTrap " << this->_name;
+    std::cout << "ScavTrap " << this->_name;
     std::cout << " attacks " << target;
     std::cout << ", causing " << this->_hit << " point(s) of damage!\n";
 }
 
-void ClapTrap::takeDamage(unsigned int amount)
+void ScavTrap::takeDamage(unsigned int amount)
 {
     if (this->_hit <= 0)
     {
-        std::cout << "ClapTrap " << this->_name << "is already DEAD. It has 0 HIT points.\n";
+        std::cout << "ScavTrap " << this->_name << "is already DEAD. It has 0 HIT points.\n";
         return ;
     }
     this->_hit -= amount;
-    std::cout << "ClapTrap " << this->_name;
+    std::cout << "ScavTrap " << this->_name;
     std::cout << " takes damage of " << amount << " point(s).\n";
 }
 
-void ClapTrap::beRepaired(unsigned int amount)
+void ScavTrap::beRepaired(unsigned int amount)
 {
     if (this->_hit <= 0)
     {
-        std::cout << "ClapTrap " << this->_name << "doesn't have energy points to get repaired.\n";
+        std::cout << "ScavTrap " << this->_name << "doesn't have energy points to get repaired.\n";
         return ;
     }
     if (this->_energy <= 0)
     {
-        std::cout << "ClapTrap " << this->_name << "doesn't have energy to get repaired.\n";
+        std::cout << "ScavTrap " << this->_name << "doesn't have energy to get repaired.\n";
         return ;
     }
     this->_hit += amount;
-    std::cout << "ClapTrap " << this->_name;
+    std::cout << "ScavTrap " << this->_name;
     std::cout << " is repaired with " << amount << " point(s).\n";
     std::cout << "Now it has the total of " << this->_hit << " Hit point(s).\n";
+}
+
+void ScavTrap::guardGate()
+{
+	std::cout << "ScavTrap is now in gate keeper mode.\n";
 }

@@ -3,21 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 14:27:17 by gde-souz          #+#    #+#             */
-/*   Updated: 2024/11/28 15:30:45 by gde-souz         ###   ########.fr       */
+/*   Updated: 2024/12/03 13:19:03 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./ClapTrap.hpp"
+#include "./ScavTrap.hpp"
 
 int main(void)
 {
-    ClapTrap A("John");
-    ClapTrap B("Billy");
+    ScavTrap A("John");
 
-    B.attack("John");
-    B.takeDamage(1);
-    B.beRepaired(1);
+    A.attack("Billy");
+    A.takeDamage(5);
+    A.beRepaired(1);
+    A.guardGate();
 }
