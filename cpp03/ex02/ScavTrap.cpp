@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 12:39:26 by root              #+#    #+#             */
-/*   Updated: 2024/12/03 13:17:57 by root             ###   ########.fr       */
+/*   Updated: 2024/12/05 11:30:29 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,17 @@
 
 ScavTrap::ScavTrap(std::string name) : ClapTrap(name)
 {
+    this->_hit = 100;
+    this->_energy = 50;
+    this->_attackDamage = 20;
     std::cout << this->_name << " ScavTrap was created.\n";
 }
 
 ScavTrap::ScavTrap(void) : ClapTrap()
 {
+    this->_hit = 100;
+    this->_energy = 50;
+    this->_attackDamage = 20;
     std::cout << "Default ScavTrap was created.\n";
 }
 
@@ -43,7 +49,7 @@ ScavTrap &ScavTrap::operator=(ScavTrap const &src)
 
 ScavTrap::~ScavTrap(void)
 {
-    std::cout << this->_name << " was destroyed.\n";
+    std::cout << this->_name << " ScavTrap was destroyed.\n";
 }
 
 void ScavTrap::attack(const std::string& target)
@@ -62,36 +68,6 @@ void ScavTrap::attack(const std::string& target)
     std::cout << "ScavTrap " << this->_name;
     std::cout << " attacks " << target;
     std::cout << ", causing " << this->_hit << " point(s) of damage!\n";
-}
-
-void ScavTrap::takeDamage(unsigned int amount)
-{
-    if (this->_hit <= 0)
-    {
-        std::cout << "ScavTrap " << this->_name << "is already DEAD. It has 0 HIT points.\n";
-        return ;
-    }
-    this->_hit -= amount;
-    std::cout << "ScavTrap " << this->_name;
-    std::cout << " takes damage of " << amount << " point(s).\n";
-}
-
-void ScavTrap::beRepaired(unsigned int amount)
-{
-    if (this->_hit <= 0)
-    {
-        std::cout << "ScavTrap " << this->_name << "doesn't have energy points to get repaired.\n";
-        return ;
-    }
-    if (this->_energy <= 0)
-    {
-        std::cout << "ScavTrap " << this->_name << "doesn't have energy to get repaired.\n";
-        return ;
-    }
-    this->_hit += amount;
-    std::cout << "ScavTrap " << this->_name;
-    std::cout << " is repaired with " << amount << " point(s).\n";
-    std::cout << "Now it has the total of " << this->_hit << " Hit point(s).\n";
 }
 
 void ScavTrap::guardGate()

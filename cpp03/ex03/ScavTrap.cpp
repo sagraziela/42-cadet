@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 12:39:26 by root              #+#    #+#             */
-/*   Updated: 2024/12/05 11:27:04 by root             ###   ########.fr       */
+/*   Updated: 2024/12/05 14:03:02 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,23 +49,23 @@ ScavTrap &ScavTrap::operator=(ScavTrap const &src)
 
 ScavTrap::~ScavTrap(void)
 {
-    std::cout << this->_name << " was destroyed.\n";
+    std::cout << this->_name << " ScavTrap was destroyed.\n";
 }
 
 void ScavTrap::attack(const std::string& target)
 {
     if (this->_hit <= 0)
     {
-        std::cout << "ScavTrap " << this->_name << "cannot attack 'cause it doesn't have any HIT points.\n";
+        std::cout << "ScavTrap " << ClapTrap::_name << "cannot attack 'cause it doesn't have any HIT points.\n";
         return ;
     }
     if (this->_energy <= 0)
     {
-        std::cout << "ScavTrap " << this->_name << "cannot attack 'cause it doesn't have any ENERGY points.\n";
+        std::cout << "ScavTrap " << ClapTrap::_name << "cannot attack 'cause it doesn't have any ENERGY points.\n";
         return ;
     }
     this->_energy--;
-    std::cout << "ScavTrap " << this->_name;
+    std::cout << "ScavTrap " << ClapTrap::_name;
     std::cout << " attacks " << target;
     std::cout << ", causing " << this->_hit << " point(s) of damage!\n";
 }

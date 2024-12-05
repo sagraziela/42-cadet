@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 14:23:58 by gde-souz          #+#    #+#             */
-/*   Updated: 2024/12/03 14:04:22 by root             ###   ########.fr       */
+/*   Updated: 2024/12/05 11:21:34 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,18 @@
 ClapTrap::ClapTrap(std::string name)
 {
     this->_name = name;
+    this->_hit = 10;
+    this->_energy = 10;
+    this->_attackDamage = 0;
     std::cout << name << " ClapTrap was created.\n";
 }
 
 ClapTrap::ClapTrap(void)
 {
     this->_name = "(null)";
+    this->_hit = 10;
+    this->_energy = 10;
+    this->_attackDamage = 0;
     std::cout << this->_name << " ClapTrap was created.\n";
 }
 

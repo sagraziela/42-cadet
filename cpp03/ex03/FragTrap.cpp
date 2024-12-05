@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 12:39:26 by root              #+#    #+#             */
-/*   Updated: 2024/12/05 11:31:01 by root             ###   ########.fr       */
+/*   Updated: 2024/12/05 12:06:14 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,5 +56,5 @@ FragTrap::~FragTrap(void)
 
 void FragTrap::highFivesGuys(void)
 {
-	std::cout << this->_name << "FragTrap requests a HIGH FIVE.\n";
+	std::cout << this->_name << " FragTrap requests a HIGH FIVE.\n";
 }

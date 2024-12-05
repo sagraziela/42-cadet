@@ -1,10 +1,11 @@
-NAME = fragTrap
-CPPFLAGS = c++ -Wall -Wextra -Werror -g -std=c++98
+NAME = diamontTrap
+CPPFLAGS = c++ -Wall -Wextra -Werror -Wshadow -g -std=c++98
 INCLUDES = -I ./
 SRC = ./main.cpp \
 		./ClapTrap.cpp \
 		./ScavTrap.cpp \
-		./FragTrap.cpp
+		./FragTrap.cpp \
+		./DiamondTrap.cpp
 
 # Objects
 OBJ_PATH = build/
@@ -23,7 +24,7 @@ END = \033[0m
 $(NAME): $(OBJ)
 	@ $(CPPFLAGS) $(OBJ) -o $@ $(INCLUDES)
 	@echo "$(GREEN)--------------------------------------------------$(END)"
-	@echo "$(GREEN)The [$(CYAN)CPP-03 SCAVTRAP$(GREEN)] has been compiled!$(END)"
+	@echo "$(GREEN)The [$(CYAN)CPP-03 DIAMONDTRAP$(GREEN)] has been compiled!$(END)"
 	@echo "$(GREEN)--------------------------------------------------$(END)"
 
 run: all
