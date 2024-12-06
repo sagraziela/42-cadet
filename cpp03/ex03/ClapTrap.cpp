@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ClapTrap.cpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 14:23:58 by gde-souz          #+#    #+#             */
-/*   Updated: 2024/12/05 11:21:02 by root             ###   ########.fr       */
+/*   Updated: 2024/12/06 12:25:41 by gde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ ClapTrap::ClapTrap(void)
     this->_hit = 10;
     this->_energy = 10;
     this->_attackDamage = 0;
-    std::cout << this->_name << " ClapTrap was created.\n";
+    std::cout << "Default ClapTrap was created.\n";
 }
 
 ClapTrap::ClapTrap(ClapTrap const &src)
