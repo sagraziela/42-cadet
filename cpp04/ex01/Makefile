@@ -7,6 +7,7 @@ SRC = ./main.cpp \
 		./Cat.cpp \
 		./WrongAnimal.cpp \
 		./WrongCat.cpp \
+		./Brain.cpp
 
 # Objects
 OBJ_PATH = build/
@@ -25,7 +26,7 @@ END = \033[0m
 $(NAME): $(OBJ)
 	@ $(CPPFLAGS) $(OBJ) -o $@ $(INCLUDES)
 	@echo "$(GREEN)--------------------------------------------------$(END)"
-	@echo "$(GREEN)The [$(CYAN)CPP-04 ex00$(GREEN)] has been compiled!$(END)"
+	@echo "$(GREEN)The [$(CYAN)CPP-04 ex01$(GREEN)] has been compiled!$(END)"
 	@echo "$(GREEN)--------------------------------------------------$(END)"
 
 run: all

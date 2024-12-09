@@ -7,13 +7,13 @@
 class Animal
 {
     protected:
-        std::string _type;
-
-    public:
         Animal(std::string name);
         Animal();
         Animal(Animal const &src);
 		Animal &operator=(Animal const &src);
+        std::string _type;
+
+    public:
         ~Animal();
 
         std::string getType() const;

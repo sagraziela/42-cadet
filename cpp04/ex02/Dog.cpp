@@ -2,6 +2,7 @@
 
 Dog::Dog(std::string type) : Animal(type)
 {
+	this->brain = new Brain();
     std::cout << this->_type << " Dog was created.\n";
 }
 
@@ -29,6 +30,7 @@ Dog &Dog::operator=(Dog const &src)
 
 Dog::~Dog()
 {
+	delete this->brain;
     std::cout << this->_type << " Dog was destroyed.\n";
 }
 

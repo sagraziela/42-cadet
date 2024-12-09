@@ -3,15 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 14:27:17 by gde-souz          #+#    #+#             */
-/*   Updated: 2024/12/06 14:51:43 by gde-souz         ###   ########.fr       */
+/*   Updated: 2024/12/09 12:34:05 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./Animal.hpp"
 #include "./Dog.hpp"
+#include "./Cat.hpp"
+#include "./WrongAnimal.hpp"
+#include "./WrongCat.hpp"
 
 int main()
 {
@@ -24,5 +27,17 @@ int main()
     j->makeSound();
     meta->makeSound();
 
-    return 0;
+    const WrongAnimal* wmeta = new WrongAnimal();
+	const WrongCat* wc = new WrongCat();
+	std::cout << wc->getType() << " " << std::endl;
+	wc->makeSound();
+	wmeta->makeSound();
+	delete wc;
+	delete wmeta;
+
+	delete i;
+	delete j;
+	delete meta;
+	return 0;
 }
+
