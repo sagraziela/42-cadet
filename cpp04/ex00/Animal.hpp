@@ -14,7 +14,7 @@ class Animal
         Animal();
         Animal(Animal const &src);
 		Animal &operator=(Animal const &src);
-        ~Animal();
+        virtual ~Animal();
 
         std::string getType() const;
         void setType(std::string str);

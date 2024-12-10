@@ -14,7 +14,7 @@ Animal::Animal()
 
 Animal::Animal(Animal const &src)
 {
-	std::cout << " Animal copy constructor called.\n";
+	std::cout << "Animal copy constructor called.\n";
 	*this = src;
 }
 
@@ -41,9 +41,4 @@ std::string Animal::getType() const
 void Animal::setType(std::string str)
 {
 	this->_type = str;
-}
-
-void Animal::makeSound() const
-{
-    std::cout << "*ANIMAL SOUND*\n";
 }

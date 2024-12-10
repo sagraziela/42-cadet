@@ -6,29 +6,29 @@
 
 int main()
 {
-const Animal* j = new Dog();
-const Animal* i = new Cat();
-const Animal* arr[SIZE];
+    const Animal* j = new Dog();
+    const Animal* i = new Cat();
+    Animal* arr[SIZE + 1];
 
-std::cout << std::endl;
-
-for (int i = 0; i < SIZE; i++)
-{
-    if (i <= SIZE / 2)
-        arr[i] = new Dog();
-    else
-        arr[i] = new Cat();
-    arr[i]->makeSound();
     std::cout << std::endl;
-}
 
-for (int i = 0; i < SIZE; i++)
-    delete arr[i];
+    for (int i = 0; i < SIZE; i++)
+    {
+        if (i < SIZE / 2)
+            arr[i] = new Dog();
+        else
+            arr[i] = new Cat();
+        arr[i]->makeSound();
+        std::cout << std::endl;
+    }
 
-std::cout << std::endl;
+    for (int i = 0; i < SIZE; i++)
+        delete arr[i];
 
-delete j;//should not create a leak
-delete i;
+    std::cout << std::endl;
 
-return 0;
+    delete j;//should not create a leak
+    delete i;
+
+    return 0;
 }

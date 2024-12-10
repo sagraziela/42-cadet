@@ -2,20 +2,23 @@
 
 Dog::Dog(std::string type) : Animal(type)
 {
+	this->_type= "Dog";
 	this->brain = new Brain();
-    std::cout << this->_type << " Dog was created.\n";
+    std::cout << "Dog was created.\n";
 }
 
 Dog::Dog() : Animal()
 {
-    this->_type= "default";
-    std::cout << "Default Dog was created.\n";
+    this->_type= "Dog";
+	this->brain = new Brain();
+    std::cout << "Dog was created.\n";
 }
 
 Dog::Dog(Dog const &src) : Animal(src)
 {
-	std::cout << "Dog copy constructor called.\n";
 	*this = src;
+	this->brain = new Brain(*src.brain);
+	std::cout << "Dog copy constructor called.\n";
 }
 
 Dog &Dog::operator=(Dog const &src)
@@ -24,6 +27,8 @@ Dog &Dog::operator=(Dog const &src)
 	if (this != &src)
 	{
 		this->_type = src._type;
+		delete this->brain;
+        this->brain = new Brain(*src.brain);
 	}
 	return *this;
 }
@@ -31,7 +36,7 @@ Dog &Dog::operator=(Dog const &src)
 Dog::~Dog()
 {
 	delete this->brain;
-    std::cout << this->_type << " Dog was destroyed.\n";
+    std::cout << "Dog was destroyed.\n";
 }
 
 void Dog::makeSound() const
