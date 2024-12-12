@@ -1,13 +1,12 @@
 NAME = exec
-CPPFLAGS = c++ -Wall -Wextra -Werror -g -std=c++98 -fpermissive
+CPPFLAGS = c++ -Wall -Wextra -Werror -g -std=c++98
 INCLUDES = -I ./
 SRC = ./main.cpp \
-		./Animal.cpp \
-		./Dog.cpp \
-		./Cat.cpp \
-		./WrongAnimal.cpp \
-		./WrongCat.cpp \
-		./Brain.cpp
+		./AMateria.cpp \
+		./Ice.cpp \
+		./Cure.cpp \
+		./MateriaSource.cpp \
+		./Character.cpp
 
 # Objects
 OBJ_PATH = build/
@@ -26,7 +25,7 @@ END = \033[0m
 $(NAME): $(OBJ)
 	@ $(CPPFLAGS) $(OBJ) -o $@ $(INCLUDES)
 	@echo "$(GREEN)--------------------------------------------------$(END)"
-	@echo "$(GREEN)The [$(CYAN)CPP-04 ex02$(GREEN)] has been compiled!$(END)"
+	@echo "$(GREEN)The [$(CYAN)CPP-04 ex03$(GREEN)] has been compiled!$(END)"
 	@echo "$(GREEN)--------------------------------------------------$(END)"
 
 run: all
