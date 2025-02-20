@@ -3,6 +3,9 @@
 #include <string.h>
 #include <sys/wait.h>
 
+// https://github.com/TalhaAksoy/microshellExam/blob/main/main.c
+// https://github.com/shackbei/microshell-42/blob/main/microshell.c
+
 int main(int argc, char *argv[], char *env[])
 {
     int fd[2];
