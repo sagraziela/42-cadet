@@ -3,37 +3,39 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lmiguel- <lmiguel-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/28 14:22:22 by gde-souz          #+#    #+#             */
-/*   Updated: 2024/01/23 15:15:42 by gde-souz         ###   ########.fr       */
+/*   Created: 2023/10/03 12:23:39 by lmiguel-          #+#    #+#             */
+/*   Updated: 2023/10/20 12:57:14 by lmiguel-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/libft.h"
+#include "libft.h"
 
-long	ft_atoi(const char *nptr)
+int	ft_atoi(const char *str)
 {
-	int		i;
-	long	sign;
-	long	res;
+	int	result;
+	int	sign;
 
-	i = 0;
-	res = 0;
+	result = 0;
 	sign = 1;
-	while ((nptr[i] >= '\t' && nptr[i] <= '\r') || nptr[i] == ' ')
-		i++;
-	if (nptr[i] == '-')
-	{
+	while (*str == ' ' || (*str >= 9 && *str <= 13))
+		str++;
+	if (*str == '-')
 		sign = -1;
-		i++;
-	}
-	else if ((nptr[i] == '+'))
-		i++;
-	while (nptr[i] >= 48 && nptr[i] <= 57)
+	if (*str == '-' || *str == '+')
+		str++;
+	while (*str >= '0' && *str <= '9')
 	{
-		res = (res * 10) + (nptr[i] - 48);
-		i++;
+		result = result * 10 + *str - 48;
+		str++;
 	}
-	return (res * sign);
+	return (sign * result);
 }
+/*
+int	main(void)
+{
+	char str[] = "-1there stands the grass";
+	printf("%d\n", ft_atoi(str));
+	return (0);
+}*/

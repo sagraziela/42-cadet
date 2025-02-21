@@ -3,23 +3,42 @@
 /*                                                        :::      ::::::::   */
 /*   ft_striteri.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lmiguel- <lmiguel-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/04 15:45:28 by gde-souz          #+#    #+#             */
-/*   Updated: 2023/11/21 13:34:17 by gde-souz         ###   ########.fr       */
+/*   Created: 2023/10/17 14:15:57 by lmiguel-          #+#    #+#             */
+/*   Updated: 2023/10/20 15:51:32 by lmiguel-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/libft.h"
+#include "libft.h"
 
 void	ft_striteri(char *s, void (*f)(unsigned int, char*))
 {
-	unsigned int	i;
+	int	i;
 
 	i = 0;
-	while (s[i])
+	if (!s)
+		return ;
+	while (s[i] != '\0')
 	{
-		f(i, &s[i]);
+		f(i, s + i);
 		i++;
 	}
 }
+
+/*
+void test(unsigned int i, char *str)
+{
+	i = 32;
+	if (*str >= 'a' && *str <= 'z')
+		*str = *str - i;
+}
+
+int main(void)
+{
+	char str1[9] = "up we go";
+	
+	ft_striteri(str1, test);
+	printf("%s", str1);
+}
+*/

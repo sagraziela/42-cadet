@@ -3,18 +3,33 @@
 /*                                                        :::      ::::::::   */
 /*   ft_isalpha.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lmiguel- <lmiguel-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/19 11:54:56 by gde-souz          #+#    #+#             */
-/*   Updated: 2023/11/21 13:32:08 by gde-souz         ###   ########.fr       */
+/*   Created: 2023/10/03 12:31:26 by lmiguel-          #+#    #+#             */
+/*   Updated: 2023/10/20 12:57:43 by lmiguel-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/libft.h"
+#include "libft.h"
 
 int	ft_isalpha(int c)
 {
-	if ((c >= 65 && c <= 90) || (c >= 97 && c <= 122))
+	if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z'))
 		return (1);
-	return (0);
+	else
+		return (0);
 }
+/*
+int	main(void)
+{
+	int	a = 'g';
+	int	b = 'G';
+	int	c = '0';
+	int	d = '\n';
+
+	printf("%d\n", ft_isalpha(a));
+	printf("%d\n", ft_isalpha(b));
+	printf("%d\n", ft_isalpha(c));
+	printf("%d\n", ft_isalpha(d));
+	return (0);
+}*/

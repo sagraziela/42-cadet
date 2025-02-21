@@ -8,6 +8,7 @@ int main()
 {
     const Animal* j = new Dog();
     const Animal* i = new Cat();
+    //const Animal* w = new Animal();
     Animal* arr[SIZE + 1];
 
     std::cout << std::endl;
@@ -27,7 +28,7 @@ int main()
 
     std::cout << std::endl;
 
-    delete j;//should not create a leak
+    delete j;
     delete i;
 
     return 0;

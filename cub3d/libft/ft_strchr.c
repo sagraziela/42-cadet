@@ -3,29 +3,36 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lmiguel- <lmiguel-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/25 17:32:41 by gde-souz          #+#    #+#             */
-/*   Updated: 2023/11/21 13:34:08 by gde-souz         ###   ########.fr       */
+/*   Created: 2023/10/06 17:10:30 by lmiguel-          #+#    #+#             */
+/*   Updated: 2023/10/20 12:58:41 by lmiguel-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/libft.h"
+#include "libft.h"
 
 char	*ft_strchr(const char *s, int c)
 {
-	int		i;
+	char	*str;
 
-	i = 0;
-	if ((unsigned char) c == '\0')
+	str = (char *)s;
+	while (*str != '\0')
 	{
-		return ((char *)s + ft_strlen(s));
+		if (*str == (char) c)
+			return (str);
+		str++;
 	}
-	while (s[i] != '\0')
-	{
-		if (s[i] == (unsigned char) c)
-			return ((char *)s + i);
-		i++;
-	}
-	return (NULL);
+	if (*str == '\0' && (char)c == '\0')
+		return (str);
+	return (0);
 }
+/*
+int	main(void)
+{
+	char	str1[10] = "teste";
+
+	printf("%s\n",ft_strchr(0x5566e3d08020: "teste", 357: 'e'));
+	printf("%s\n",ft_strchr(str1, 'e'));
+	return (0);
+}*/

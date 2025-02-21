@@ -3,17 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   ft_putchar_fd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lmiguel- <lmiguel-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/04 15:58:50 by gde-souz          #+#    #+#             */
-/*   Updated: 2023/12/13 11:21:22 by gde-souz         ###   ########.fr       */
+/*   Created: 2023/10/17 14:43:05 by lmiguel-          #+#    #+#             */
+/*   Updated: 2023/10/20 13:21:04 by lmiguel-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/libft.h"
+#include "libft.h"
 
-int	ft_putchar_fd(char c, int fd)
+void	ft_putchar_fd(char c, int fd)
 {
+	if (fd < 0)
+		return ;
 	write(fd, &c, 1);
-	return (1);
 }
+
+/*
+int main(void)
+{
+	ft_putchar_fd('x', 1);
+}
+*/

@@ -3,27 +3,33 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lmiguel- <lmiguel-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/27 14:56:15 by gde-souz          #+#    #+#             */
-/*   Updated: 2023/11/21 13:32:45 by gde-souz         ###   ########.fr       */
+/*   Created: 2023/10/06 14:53:52 by lmiguel-          #+#    #+#             */
+/*   Updated: 2023/10/20 12:58:00 by lmiguel-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/libft.h"
+#include "libft.h"
 
 void	*ft_memchr(const void *s, int c, size_t n)
 {
-	size_t	i;
+	const unsigned char	*ptr;
 
-	i = 0;
-	if (n == 0)
-		return (NULL);
-	while (i < n)
+	ptr = (const unsigned char *) s;
+	while (n != 0)
 	{
-		if (((unsigned char *)s)[i] == (unsigned char)c)
-			return ((void *)s + i);
-		i++;
+		if (*ptr == (unsigned char) c)
+			return ((unsigned char *)ptr);
+		n--;
+		ptr++;
 	}
-	return (NULL);
+	return (0);
 }
+/*
+int	main(void)
+{
+	char	str[] = "Ground";
+	printf("%s\n", (char *)ft_memchr(str, 'o', 5));
+	return (0);
+}*/

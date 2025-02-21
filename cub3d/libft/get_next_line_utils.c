@@ -3,89 +3,69 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lmiguel- <lmiguel-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/31 13:59:55 by gde-souz          #+#    #+#             */
-/*   Updated: 2024/01/23 15:45:39 by gde-souz         ###   ########.fr       */
+/*   Created: 2023/11/02 14:38:55 by lmiguel-          #+#    #+#             */
+/*   Updated: 2024/02/01 16:24:25 by lmiguel-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/libft.h"
+#include "get_next_line.h"
 
-t_list	*create_node(char c)
+char	*ft_strchr_gnl(const char *s, int c)
 {
-	t_list	*new_node;
+	char	*str;
 
-	if (!c)
+	str = (char *)s;
+	if (!str)
 		return (NULL);
-	new_node = (t_list *)malloc(sizeof(t_list));
-	if (!new_node)
-		return (NULL);
-	new_node->content = c;
-	new_node->next = NULL;
-	return (new_node);
-}
-
-t_list	*ft_listadd(t_list *lst, char *buffer, t_list *head)
-{
-	t_list	*last;
-	int		i;
-
-	i = 0;
-	if (head == NULL)
+	if ((char)c == 0)
+		return (str);
+	while (*str != '\0')
 	{
-		lst = create_node(buffer[i]);
-		head = lst;
-		i++;
-	}
-	while (buffer[i] != '\0')
-	{
-		while ((lst)->next)
-			lst = (lst)->next;
-		last = lst;
-		last->next = create_node(buffer[i]);
-		i++;
-	}
-	return (head);
-}
-
-int	find_line_break(t_list *list)
-{
-	while (list)
-	{
-		if (list->content == '\n')
-			return (1);
-		list = list->next;
+		if (*str == (char) c)
+			return (str);
+		str++;
 	}
 	return (0);
 }
 
-size_t	find_line_len(t_list *list)
+char	*ft_strjoin_gnl(char *s1, char*s2)
 {
-	size_t	counter;
+	int		i;
+	int		j;
+	size_t	len1;	
+	char	*str;
 
-	counter = 0;
-	while (list)
+	len1 = (ft_strlen_gnl(s1) + ft_strlen_gnl(s2));
+	str = (char *)malloc(sizeof(char) * (len1 + 1));
+	if (str == NULL)
+		return (NULL);
+	i = 0;
+	j = 0;
+	while (s1 && s1[i])
 	{
-		counter++;
-		if (list->content == '\n' || list->content == '\0')
-			break ;
-		list = list->next;
+		str[i] = s1[i];
+		i++;
 	}
-	return (counter);
+	while (s2 && s2[j])
+		str[i++] = s2[j++];
+	str[i] = '\0';
+	if (s1)
+		free (s1);
+	if (s2)
+		free (s2);
+	return (str);
 }
 
-t_list	*dealloc(t_list *head, char *buffer)
+size_t	ft_strlen_gnl(const char *str)
 {
-	t_list	*temp;
+	size_t	i;
 
-	temp = NULL;
-	while (head)
-	{
-		temp = (head)->next;
-		free(head);
-		head = temp;
-	}
-	free(buffer);
-	return (NULL);
+	i = 0;
+	if (str == NULL)
+		return (0);
+	while (str[i] != '\0')
+		i++;
+	return (i);
 }

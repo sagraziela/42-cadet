@@ -3,34 +3,49 @@
 /*                                                        :::      ::::::::   */
 /*   ft_substr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lmiguel- <lmiguel-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/31 18:24:20 by root              #+#    #+#             */
-/*   Updated: 2023/11/21 13:35:16 by gde-souz         ###   ########.fr       */
+/*   Created: 2023/10/11 13:09:28 by lmiguel-          #+#    #+#             */
+/*   Updated: 2023/10/23 12:58:19 by lmiguel-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/libft.h"
+#include "libft.h"
 
 char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
+	char	*str;
 	size_t	i;
-	size_t	s_len;
-	char	*memory;
+	size_t	j;
 
-	i = 0;
-	s_len = ft_strlen(s);
-	if (start >= s_len)
-		return (ft_strdup(""));
-	if (len >= s_len)
-		len = (s_len - (size_t)start);
-	memory = ft_calloc((len + 1), sizeof(char));
-	if (memory == NULL)
+	if (start > ft_strlen(s))
+		len = 0;
+	else if (start + len > ft_strlen(s))
+		len = (ft_strlen(s) - start);
+	str = (char *)malloc(sizeof(char) * (len + 1));
+	if (str == NULL)
 		return (NULL);
-	while (i < len && s[start + i])
+	i = 0;
+	j = 0;
+	while (s[i])
 	{
-		memory[i] = s[start + i];
+		if (i >= start && j < len)
+		{
+			str[j] = s[i];
+			j++;
+		}
 		i++;
 	}
-	return (memory);
+	str[j] = '\0';
+	return (str);
 }
+
+/*
+int main(void)
+{
+	char str1[] = "can't spell successes without esses";
+	
+	printf("%s\n", ft_substr(str1, 6, 30));
+	return (0);
+}
+*/

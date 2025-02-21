@@ -3,125 +3,91 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: lmiguel- <lmiguel-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/04 10:34:51 by gde-souz          #+#    #+#             */
-/*   Updated: 2024/02/07 16:19:56 by root             ###   ########.fr       */
+/*   Created: 2023/10/24 16:45:14 by lmiguel-          #+#    #+#             */
+/*   Updated: 2023/11/07 13:14:31 by lmiguel-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/libft.h"
+#include "ft_printf.h"
 
-int	ft_putnbr_base(long long nbr, char *base)
+/*
+neccessary conversions: c = Ascii; s = string; 
+p = void * pointer argument as hexadecimal;
+d,i = decimal; u = unsigned decimal; x = hexadecimal using abcdef; 
+X = hexadecimal using ABCDEF;
+% = prints %, conversion specification MUST be %%
+*/
+
+static int	ft_detect_arg(va_list args, const char format)
 {
-	int		length;
-	long	base_len;
-
-	length = 0;
-	base_len = (long)ft_strlen(base);
-	if (nbr < 0)
-	{
-		write(1, "-", 1);
-		length++;
-		nbr *= -1;
-	}
-	if (nbr >= base_len)
-		length += ft_putnbr_base(nbr / base_len, base);
-	write(1, &base[nbr % base_len], 1);
-	length++;
-	return (length);
-}
-
-static int	ft_putptr(unsigned long nbr, char *base)
-{
-	int				length;
-	unsigned long	base_len;
-
-	if (!nbr)
-	{
-		write(1, "(nil)", 5);
-		return (5);
-	}
-	length = 0;
-	base_len = (long)ft_strlen(base);
-	if (nbr >= base_len)
-	{
-		length += ft_putptr(nbr / base_len, base);
-	}
+	if (format == 'c')
+		return (ft_putchar(va_arg (args, int)));
+	else if (format == 's')
+		return (ft_putstr(va_arg(args, char *)));
+	else if (format == 'p')
+		return (ft_print_ptr((va_arg(args, unsigned long long))));
+	else if (format == 'd' || format == 'i')
+		return (ft_putnbr(va_arg(args, int)));
+	else if (format == 'u')
+		return (ft_print_unsigned(va_arg(args, unsigned int)));
+	else if (format == 'x' || format == 'X')
+		return (ft_print_hex(va_arg(args, unsigned int), format));
+	else if (format == '%')
+		return (ft_putchar('%'));
 	else
-	{
-		write(1, "0x", 2);
-		length += 2;
-	}
-	write(1, &base[nbr % base_len], 1);
-	length++;
-	return (length);
+		return (ft_putchar('%') + ft_putchar(format));
+	return (0);
 }
 
-static int	handle_data_type(char type, va_list args)
-{
-	int	length;
-
-	length = 0;
-	if (type == 'c')
-		length += ft_putchar_fd(va_arg(args, int), 1);
-	if (type == 's')
-		length += ft_putstr_fd(va_arg(args, char *), 1);
-	if (type == 'p')
-		length += ft_putptr(va_arg(args, unsigned long), HEXALOW);
-	if (type == 'd' || type == 'i')
-		length += ft_putnbr_base(va_arg(args, int), DECIMAL);
-	if (type == 'u')
-		length += ft_putnbr_base(va_arg(args, unsigned int), DECIMAL);
-	if (type == 'x')
-		length += ft_putnbr_base(va_arg(args, unsigned int), HEXALOW);
-	if (type == 'X')
-		length += ft_putnbr_base(va_arg(args, unsigned int), HEXAUP);
-	if (type == '%')
-		length += ft_putchar_fd('%', 1);
-	return (length);
-}
-
-static int	decode_variable(char *str, va_list args)
-{
-	int		i;
-	int		length;
-	char	*temp;
-
-	i = 0;
-	length = 0;
-	temp = str;
-	if (ft_strchr(FLAGS, str[i + 1]))
-		length += handle_flags(&temp[++i], args);
-	else if (ft_strchr(DATA_TYPES, str[i + 1]))
-		length += handle_data_type(str[++i], args);
-	return (length);
-}
-
-int	ft_printf(const char *str, ...)
+int	ft_printf(const char *input, ...)
 {
 	va_list	args;
-	int		length;
-	int		i;
+	size_t	i;
+	int		len;
 
-	va_start(args, str);
-	length = 0;
-	i = 0;
-	if (!str)
+	if (!input)
 		return (-1);
-	while (str[i] != '\0')
+	i = 0;
+	len = 0;
+	va_start(args, input);
+	while (input[i])
 	{
-		if (str[i] == '%')
+		if (input[i] == '%')
 		{
-			length += decode_variable(&((char *)str)[i], args);
+			len = len + ft_detect_arg(args, input[i + 1]);
 			i++;
-			while (ft_strchr(FLAGS, str[i]))
-				i++;
 		}
 		else
-			length += (int)write(1, &str[i], 1);
+			len = len + ft_putchar(input[i]);
 		i++;
 	}
 	va_end(args);
-	return (length);
+	return (len);
 }
+/* 
+int	main(void)
+{
+	printf("This is a string: %s\n", "Hello my friends");
+	printf("This is a decimal: %d\n", 451);
+	printf("This is a decimal: %i\n", 451);
+	printf("This is a pointer: %p\n", (void *)19278959);
+	printf("This is a null pointer: %p\n", (void *)0);
+	printf("This is an unsigned int: %u\n", 4294967295);
+	printf("This is a lowercase hex: %x %X\n", 4294967294);
+	printf("This is an uppercase hex: %X\n", 4294967295);
+	printf("This is a percentage sign: %s");
+
+	ft_printf("\nThis is a string: %s\n", "Hello my friends");
+	ft_printf("This is a decimal: %d\n", 451);
+	ft_printf("This is a decimal: %i\n", 451);
+	ft_printf("This is a pointer: %p\n", (void *)4294967295);
+	ft_printf("This is a null pointer: %p\n", (void *)0);
+	ft_printf("This is an unsigned int: %u\n", 4294967295);
+	ft_printf("This is a lowercase hex: %x\n", 4294967294);
+	ft_printf("This is an uppercase hex: %X\n", 4294967295);
+	ft_printf("This is a percentage sign: %s, \n");
+	return (0);
+}
+*/

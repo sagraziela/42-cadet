@@ -3,35 +3,59 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strlcat.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lmiguel- <lmiguel-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/25 15:49:06 by gde-souz          #+#    #+#             */
-/*   Updated: 2023/11/21 13:34:27 by gde-souz         ###   ########.fr       */
+/*   Created: 2023/10/09 11:56:55 by lmiguel-          #+#    #+#             */
+/*   Updated: 2023/10/20 12:58:50 by lmiguel-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/libft.h"
+#include "libft.h"
+/*
+int	ft_strlen(const char *s1)
+{
+	int	i;
 
+	i = 0;
+	while (s1[i] != '\0')
+		i++;
+	return (i);
+}
+*/
 size_t	ft_strlcat(char *dst, const char *src, size_t size)
 {
-	size_t	d_len;
-	size_t	s_len;
-	size_t	i;
+	const char	*s;
+	char		*d;
+	size_t		n;
+	size_t		dstlen;
 
-	d_len = ft_strlen(dst);
-	s_len = ft_strlen(src);
-	i = 0;
-	if (size > d_len + 1)
+	d = dst;
+	s = src;
+	n = size;
+	while (n-- != '\0' && *d != '\0')
+		d++;
+	dstlen = d - dst;
+	n = size - dstlen;
+	if (n == '\0')
+		return (dstlen + ft_strlen(s));
+	while (*s != '\0')
 	{
-		while ((d_len + i + 1 < size) && (src[i] != '\0'))
+		if (n != 1)
 		{
-			dst[d_len + i] = src[i];
-			i++;
+			*d++ = *s;
+			n--;
 		}
+		s++;
 	}
-	dst[d_len + i] = '\0';
-	if (size < d_len)
-		return (size + s_len);
-	else
-		return (s_len + d_len);
+	*d = '\0';
+	return (dstlen + (s - src));
 }
+/*
+int	main(void)
+{
+	char	str1[20] = "Go big";
+	char	str2[20] = "or go home";
+
+	printf("%ld\n", ft_strlcat(str1, str2, 20));
+	return (0);
+}*/

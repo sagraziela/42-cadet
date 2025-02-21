@@ -3,23 +3,34 @@
 /*                                                        :::      ::::::::   */
 /*   ft_bzero.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lmiguel- <lmiguel-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/21 11:55:26 by gde-souz          #+#    #+#             */
-/*   Updated: 2023/11/21 13:31:49 by gde-souz         ###   ########.fr       */
+/*   Created: 2023/10/06 12:27:49 by lmiguel-          #+#    #+#             */
+/*   Updated: 2023/10/20 12:57:32 by lmiguel-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/libft.h"
+#include "libft.h"
 
 void	ft_bzero(void *s, size_t n)
 {
-	size_t	i;
+	unsigned char	*ptr;
 
-	i = 0;
-	while (i < n)
+	ptr = s;
+	while (n > 0)
 	{
-		((char *)s)[i] = '\0';
-		i++;
+		*ptr = '\0';
+		n--;
+		ptr++;
 	}
 }
+/*
+int	main(void)
+{
+	char	str[11] = "Erase this";
+
+	ft_bzero(str, 5);
+//	bzero(str, 5);
+	printf("%s\n", str);
+	return (0);
+}*/

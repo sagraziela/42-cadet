@@ -3,24 +3,34 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memset.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lmiguel- <lmiguel-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/19 13:28:06 by gde-souz          #+#    #+#             */
-/*   Updated: 2023/11/21 13:33:08 by gde-souz         ###   ########.fr       */
+/*   Created: 2023/10/04 18:00:16 by lmiguel-          #+#    #+#             */
+/*   Updated: 2023/10/20 12:58:27 by lmiguel-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/libft.h"
+#include "libft.h"
 
 void	*ft_memset(void *s, int c, size_t n)
 {
-	size_t			i;
+	unsigned char	*ptr;
 
-	i = 0;
-	while (i < n)
+	ptr = s;
+	while (n > 0)
 	{
-		((unsigned char *)s)[i] = (unsigned char) c;
-		i++;
+		*ptr = c;
+		n--;
+		ptr++;
 	}
 	return (s);
 }
+/*
+int	main(void)
+{
+	char str[30] = "Switch this with that.";
+	ft_memset(str, 'O', 30);
+	//memset(str, 'O', 30);
+	printf("%s\n", str);
+	return (0);
+}*/

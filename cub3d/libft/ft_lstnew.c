@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstnew.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lmiguel- <lmiguel-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/07 16:22:41 by gde-souz          #+#    #+#             */
-/*   Updated: 2023/08/09 12:17:00 by gde-souz         ###   ########.fr       */
+/*   Created: 2023/10/17 17:23:12 by lmiguel-          #+#    #+#             */
+/*   Updated: 2023/10/23 13:19:30 by lmiguel-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,22 @@
 
 t_list	*ft_lstnew(void *content)
 {
-	t_list	*new_node;
+	t_list	*newnode;
 
-	new_node = (t_list *)malloc(sizeof(t_list));
-	if (!new_node)
+	newnode = malloc(sizeof(t_list));
+	if (!newnode)
 		return (NULL);
-	new_node->content = content;
-	new_node->next = NULL;
-	return (new_node);
+	newnode->content = content;
+	newnode->next = NULL;
+	return (newnode);
 }
+
+/*
+int main(void)
+{
+	t_list *list1;
+	
+	list1 = ft_lstnew("123");
+	printf("%s\n", (char *)list1->content);
+}
+*/

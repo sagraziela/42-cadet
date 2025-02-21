@@ -3,117 +3,74 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lmiguel- <lmiguel-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/29 15:42:54 by root              #+#    #+#             */
-/*   Updated: 2024/02/14 11:08:01 by gde-souz         ###   ########.fr       */
+/*   Created: 2023/11/10 14:02:39 by lmiguel-          #+#    #+#             */
+/*   Updated: 2024/03/06 15:01:20 by lmiguel-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/libft.h"
+#include "get_next_line.h"
 
-static t_list	*update_list(t_list **list)
+static char	*set_result(char *buffer)
 {
-	t_list	*temp;
+	int		n;
+	int		len;
+	char	*result;
+	char	*newline;
 
-	if (!list)
+	n = -1;
+	newline = ft_strchr_gnl(buffer, '\n');
+	len = ft_strlen_gnl(buffer) - ft_strlen_gnl(newline) + 1;
+	result = (char *)malloc (sizeof(char) * len + 1);
+	if (!result)
 		return (NULL);
-	while (*list)
-	{
-		temp = (*list)->next;
-		if ((*list)->content == '\n' || !temp)
-			break ;
-		free(*list);
-		*list = temp;
-	}
-	free(*list);
-	*list = temp;
-	return (*list);
-}
-
-static char	*save_line(t_list *list)
-{
-	size_t	i;
-	size_t	line_len;
-	char	*line;
-
-	if (!list)
-		return (NULL);
-	line_len = find_line_len(list);
-	line = (char *)malloc(sizeof(char) * (line_len + 1));
-	if (!line)
-		return (NULL);
-	i = 0;
-	while (i < line_len)
-	{
-		line[i] = list->content;
-		list = list->next;
-		i++;
-	}
-	line[i] = '\0';
-	return (line);
-}
-
-static t_list	*read_file(t_list *list, int fd, t_list *head)
-{
-	int		rd;
-	char	*buffer;
-
-	rd = 1;
-	while (!find_line_break(list))
-	{
-		buffer = (char *)malloc(BUFFER_SIZE + 1);
-		if (!buffer)
-			return (NULL);
-		rd = read(fd, buffer, BUFFER_SIZE);
-		if (rd == 0)
-		{
-			free(buffer);
-			return (head);
-		}
-		if (rd == -1)
-			return (dealloc(list, buffer));
-		buffer[rd] = '\0';
-		head = ft_listadd(list, buffer, head);
-		list = head;
-		if (!head)
-			return (dealloc(head, buffer));
-		free(buffer);
-	}
-	return (head);
-}
-
-static char	*quit(t_list **head, t_list **list)
-{
-	free(*head);
-	*list = NULL;
-	return (NULL);
+	while (++n < len)
+		result[n] = (buffer)[n];
+	result[n] = '\0';
+	n = -1;
+	while (++n < (int)ft_strlen_gnl(newline) - 1)
+		buffer[n] = newline[n + 1];
+	while (n < BUFFER_SIZE)
+		buffer[n++] = 0;
+	return (result);
 }
 
 char	*get_next_line(int fd)
 {
-	static t_list	*list[1024];
-	t_list			*head;
-	char			*line;
+	static char		buffer[FOPEN_MAX][BUFFER_SIZE + 1];
+	char			*result;
+	int				bytes;
 
-	if (fd < 0 || BUFFER_SIZE <= 0)
+	if (fd > FOPEN_MAX || fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-	head = create_node('*');
-	if (list[fd])
+	result = NULL;
+	if (buffer[fd][0])
+		result = ft_strjoin_gnl(result, set_result(buffer[fd]));
+	while (!ft_strchr_gnl(result, '\n'))
 	{
-		head->next = list[fd];
-		list[fd] = read_file(list[fd], fd, head->next);
-		if (list[fd] == NULL)
-			return (quit(&head, &list[fd]));
+		bytes = read(fd, buffer[fd], BUFFER_SIZE);
+		if (bytes < 0)
+		{
+			if (result)
+				free (result);
+			return (NULL);
+		}
+		if (bytes == 0)
+			return (result);
+		result = ft_strjoin_gnl(result, set_result(buffer[fd]));
 	}
-	else if (!list[fd])
-		head->next = read_file(list[fd], fd, head->next);
-	list[fd] = head->next;
-	if (!head->next)
-		return (quit(&head, &list[fd]));
-	line = save_line(list[fd]);
-	list[fd] = head->next;
-	list[fd] = update_list(&list[fd]);
-	free(head);
-	return (line);
+	return (result);
 }
+
+/* int main(void)
+{
+	int fd = open ("test.txt", O_RDWR | O_CREAT);
+
+	printf("%s", get_next_line(fd));
+	printf("%s", get_next_line(fd));
+	printf("%s", get_next_line(fd));
+	printf("%s", get_next_line(fd));
+	close (fd);
+	return (0);
+} */

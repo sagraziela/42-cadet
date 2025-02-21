@@ -3,65 +3,74 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lmiguel- <lmiguel-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/03 15:41:46 by gde-souz          #+#    #+#             */
-/*   Updated: 2023/11/21 13:32:38 by gde-souz         ###   ########.fr       */
+/*   Created: 2023/10/13 12:55:18 by lmiguel-          #+#    #+#             */
+/*   Updated: 2023/10/23 14:41:52 by lmiguel-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/libft.h"
+#include "libft.h"
 
-static int	count_digits(long int n)
+static size_t	ft_numlen(int n)
 {
-	int	counter;
+	int	i;
 
-	counter = 0;
+	i = 0;
 	if (n == 0)
-		counter++;
+		i = 1;
+	if (n == -2147483648)
+		return (11);
 	if (n < 0)
 	{
-		n *= -1;
-		counter++;
+		i++;
+		n = n * -1;
 	}
 	while (n != 0)
 	{
 		n = n / 10;
-		counter++;
+		i++;
 	}
-	return (counter);
+	return (i);
 }
 
-static char	convert_to_char(char *str, long nbr, int len)
+static char	*ft_setnbr(long number, char *str, size_t len)
 {
-	int	i;
-
-	i = len - 1;
-	if (nbr < 0)
+	if (number == 0)
+		str[0] = '0';
+	if (number < 0)
 	{
 		str[0] = '-';
-		nbr *= -1;
+		number = number * -1;
 	}
-	while (i >= 0 && str[i] != '-')
+	len--;
+	while (number != 0)
 	{
-		str[i] = (nbr % 10) + 48;
-		nbr = nbr / 10;
-		i--;
+		str[len] = number % 10 + '0';
+		number = number / 10;
+		len--;
 	}
-	return (*str);
+	return (str);
 }
 
 char	*ft_itoa(int n)
 {
-	long	nbr;
-	int		length;
-	char	*str;
+	char		*str;
+	size_t		len;
+	long		number;
 
-	nbr = n;
-	length = count_digits(nbr);
-	str = ft_calloc((length + 1), sizeof(char));
+	len = 0;
+	number = (long) n;
+	len = ft_numlen(n);
+	str = (char *)malloc(sizeof(char) * (len + 1));
 	if (!str)
 		return (NULL);
-	convert_to_char(str, nbr, length);
+	str = ft_setnbr(number, str, len);
+	str[len] = '\0';
 	return (str);
 }
+/*
+int	main(void)
+{
+	printf("%s\n", ft_itoa(-1234));
+}*/

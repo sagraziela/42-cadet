@@ -3,25 +3,38 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strrchr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lmiguel- <lmiguel-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/26 16:12:54 by gde-souz          #+#    #+#             */
-/*   Updated: 2023/11/21 13:34:57 by gde-souz         ###   ########.fr       */
+/*   Created: 2023/10/06 17:23:37 by lmiguel-          #+#    #+#             */
+/*   Updated: 2023/10/20 12:59:06 by lmiguel-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/libft.h"
+#include "libft.h"
 
 char	*ft_strrchr(const char *s, int c)
 {
-	int	i;
+	char	*str;
 
-	i = ft_strlen(s);
-	while (i >= 0)
+	str = NULL;
+	while (*s != '\0')
 	{
-		if (s[i] == (char) c)
-			return ((char *)s + i);
-		i--;
+		if (*s == (char) c)
+			str = (char *) s;
+		s++;
 	}
-	return (NULL);
+	if (*s == '\0' && (char)c != '\0')
+		return (str);
+	if (*s == '\0' && (char)c == '\0')
+		return ((char *) s);
+	return (0);
 }
+/*
+int	main(void)
+{
+	char	str1[9] = "";
+
+	printf("%s\n", strrchr(str1, 'i'));
+	printf("%s\n", ft_strrchr(str1, 'i'));
+	return (0);
+}*/

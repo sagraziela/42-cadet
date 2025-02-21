@@ -1,15 +1,15 @@
 NAME = exec
 CPPFLAGS = c++ -Wall -Wextra -Werror -g -std=c++98
 INCLUDES = -I ./
-SRC = ./main.cpp \
-		./AMateria.cpp \
-		./Ice.cpp \
-		./Cure.cpp \
-		./MateriaSource.cpp \
-		./Character.cpp
+SRC = ./src/main.cpp \
+		./src/AMateria.cpp \
+		./src/Ice.cpp \
+		./src/Cure.cpp \
+		./src/MateriaSource.cpp \
+		./src/Character.cpp
 
 # Objects
-OBJ_PATH = build/
+OBJ_PATH = src/build/
 OBJ = $(addprefix $(OBJ_PATH), $(notdir $(SRC:.cpp=.o)))
 
 # Default target to compile the mandatory part
@@ -33,7 +33,7 @@ run: all
 	./main.cpp
 
 # Builds mandatory object files
-$(OBJ_PATH)%.o: %.cpp
+$(OBJ_PATH)%.o: src/%.cpp
 	@mkdir -p $(OBJ_PATH)
 	$(CC) -c $(CFLAGS) $< -o $@
 

@@ -3,22 +3,47 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: lmiguel- <lmiguel-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/21 15:54:36 by gde-souz          #+#    #+#             */
-/*   Updated: 2024/02/07 16:17:02 by root             ###   ########.fr       */
+/*   Created: 2023/10/06 16:43:24 by lmiguel-          #+#    #+#             */
+/*   Updated: 2023/10/23 14:52:46 by lmiguel-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/libft.h"
+#include "libft.h"
 
 void	*ft_memmove(void *dest, const void *src, size_t n)
 {
-	if (dest == NULL && src == NULL)
-		return (dest);
-	if (dest < src)
-		return (ft_memcpy(dest, src, n));
-	while (n--)
-		((char *) dest)[n] = ((char *) src)[n];
+	char		*pdest;
+	char		*ldest;
+	const char	*lsrc;
+	const char	*psrc;
+
+	pdest = dest;
+	psrc = src;
+	ldest = dest + (n - 1);
+	lsrc = src + (n - 1);
+	if (pdest == NULL && psrc == NULL)
+		return (NULL);
+	if (pdest < psrc)
+	{
+		while (n--)
+			*pdest++ = *psrc++;
+	}
+	else
+	{
+		while (n--)
+			*ldest-- = *lsrc--;
+	}
 	return (dest);
 }
+/*
+int	main(void)
+{
+	char	str1[] = "Fast";
+	char	str2[] = "Lasting";
+
+//	printf("%s\n", (char *)ft_memmove(str1, str2, 1));
+	printf("%s\n", (char *)ft_memmove(str2, str1, 1));
+	return (0);
+}*/

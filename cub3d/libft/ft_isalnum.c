@@ -3,18 +3,36 @@
 /*                                                        :::      ::::::::   */
 /*   ft_isalnum.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gde-souz <gde-souz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lmiguel- <lmiguel-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/19 12:36:01 by gde-souz          #+#    #+#             */
-/*   Updated: 2023/11/21 13:32:02 by gde-souz         ###   ########.fr       */
+/*   Created: 2023/10/03 14:18:54 by lmiguel-          #+#    #+#             */
+/*   Updated: 2023/10/20 12:57:41 by lmiguel-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/libft.h"
+#include "libft.h"
 
 int	ft_isalnum(int c)
 {
-	if ((c >= 65 && c <= 90) || (c >= 97 && c <= 122) || (c >= 48 && c <= 57))
+	if ((c >= '0' && c <= '9')
+		|| ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z')))
 		return (1);
-	return (0);
+	else
+		return (0);
 }
+/*
+int	main(void)
+{
+	int	a = '5';
+	int	b = 'g';
+	int	c = 'G';
+	int	d = '~';
+	int	e = '\n';
+
+	printf("%d\n", ft_isalnum(a));
+	printf("%d\n", ft_isalnum(b));
+	printf("%d\n", ft_isalnum(c));
+	printf("%d\n", ft_isalnum(d));
+	printf("%d\n", ft_isalnum(e));
+	return (0);
+}*/
