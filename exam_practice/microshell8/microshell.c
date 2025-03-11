@@ -13,30 +13,26 @@
 #define TYPE_PIPE   2
 
 #define FD_OUT  0
-#define FD_IN   1
-
-#ifdef TEST_SH
-# define TEST		1
-#else
-# define TEST		0
-#endif
+#define FD_IN   0
 
 typedef struct s_list
 {
-    char    **args;
-    int     length;
-    int     type;
-    int     pipes[2];
-    struct s_list *prev;
-    struct s_list *next;
+    char            **args;
+    int             length;
+    int             type;
+    int             pipes[2];
+    struct s_list   *prev;
+    struct s_list   *next;
 }   t_list;
+
+
 
 void    clear_list(t_list **list)
 {
     t_list  *tmp;
     int     i;
 
-    if (!list)
+    if (!*list)
         return ;
     if ((*list)->prev)
     {
@@ -45,59 +41,64 @@ void    clear_list(t_list **list)
     }
     while (*list)
     {
-        i = 0;
         tmp = (*list)->next;
+        i = 0;
         if ((*list)->args)
         {
             while ((*list)->args[i])
                 free((*list)->args[i++]);
+            free((*list)->args);
         }
-        free((*list)->args);
         free(*list);
         *list = tmp;
     }
+    return ;
 }
 
-int fatal_error(t_list *list)
+int fatal_error(t_list *cmds)
 {
-    write(2, "error: fatal\n", 14);
-    if (list)
-        clear_list(&list);
+    write(STDERR, "error: fatal\n", 14);
+    if (cmds)
+        clear_list(&cmds);
     return (EXIT_FAILURE);
 }
 
-int ft_strerr(char *msg, char *arg, t_list *list)
+int ft_strerr(t_list *cmds, char *msg, char *arg, int is_exec)
 {
     int i;
 
     i = 0;
     while (msg[i])
-        write(2, &msg[i++], 1);
+        write(STDERR, &msg[i++], 1);
     if (arg)
     {
         i = 0;
         while (arg[i])
-            write(2, &arg[i++], 1);
+            write(STDERR, &arg[i++], 1);
     }
-    write(2, "\n", 1);
-    clear_list(&list);
+    write(STDERR, "\n", 1);
+    if (is_exec)
+    {
+        clear_list(&cmds);
+        exit(EXIT_FAILURE);
+    }
     return (EXIT_FAILURE);
 }
 
 char    *ft_strdup(char *str)
 {
     char    *dup;
+    int     len;
     int     i;
 
     i = 0;
-    dup = NULL;
-    while (str[i])
-        i++;
-    dup = (char *)malloc(sizeof(char) * i + 1);
+    len = 0;
+    while (str[len])
+        len++;
+    dup = malloc(sizeof(char) * len + 1);
     if (!dup)
         return (NULL);
-    i = 0;
-    while (str[i])
+    while (i < len)
     {
         dup[i] = str[i];
         i++;
@@ -105,10 +106,11 @@ char    *ft_strdup(char *str)
     dup[i] = '\0';
     return (dup);
 }
+
 int add_arg(t_list *cmd, char *arg)
 {
-    int i;
-    char **new_args;
+    char    **new_args;
+    int     i;
 
     new_args = (char **)malloc(sizeof(char *) * (cmd->length + 2));
     if (!new_args)
@@ -120,7 +122,7 @@ int add_arg(t_list *cmd, char *arg)
         i++;
     }
     free(cmd->args);
-    new_args[i++] = ft_strdup(arg);
+    new_args[i++] = ft_strdup(arg); //não trata erro se retornar NULL
     new_args[i] = NULL;
     cmd->args = new_args;
     cmd->length++;
@@ -130,14 +132,13 @@ int add_arg(t_list *cmd, char *arg)
 int list_push(t_list **cmds, char *arg)
 {
     t_list  *new;
-    
-    //printf("push: %s\n", arg);
+
     new = malloc(sizeof(t_list));
     if (!new)
         return (fatal_error(*cmds));
     new->args = NULL;
     new->length = 0;
-    new->type  = TYPE_END;
+    new->type = TYPE_END;
     new->prev = NULL;
     new->next = NULL;
     if (*cmds)
@@ -173,23 +174,21 @@ int parse_args(t_list **cmds, char *arg)
     return (EXIT_SUCCESS);
 }
 
-char    *get_cmd_path(char *cmd)
+char    *get_cmd(char *cmd)
 {
     char    *full_cmd;
     char    *path;
     int     i;
     int     len;
 
-    if (cmd[0] == '/' && cmd[1])
-        return (ft_strdup(cmd));
+    if (strncmp(cmd, "/usr", 4) == 0 || (strncmp(cmd, "/bin", 4) == 0))
+        return (cmd);
     path = "/usr/bin/";
+    i = 0;
     len = 0;
     while (cmd[len])
         len++;
-    full_cmd = malloc(sizeof(char) * len + 9 + 1);
-    if (!cmd)
-        return (NULL);
-    i = 0;
+    full_cmd = malloc(sizeof(char) * len + 10);
     while (path[i])
     {
         full_cmd[i] = path[i];
@@ -197,9 +196,7 @@ char    *get_cmd_path(char *cmd)
     }
     len = 0;
     while (cmd[len])
-    {
         full_cmd[i++] = cmd[len++];
-    }
     full_cmd[i] = '\0';
     return (full_cmd);
 }
@@ -208,8 +205,8 @@ int exec_cmd(t_list *cmd, char **env)
 {
     pid_t   pid;
     int     status;
-    int     pipe_open;
     int     ret;
+    int     pipe_open;
     char    *full_cmd;
 
     ret = EXIT_SUCCESS;
@@ -217,7 +214,7 @@ int exec_cmd(t_list *cmd, char **env)
     if (cmd->type == TYPE_PIPE || (cmd->prev && cmd->prev->type == TYPE_PIPE))
     {
         pipe_open = 1;
-        if (pipe(cmd->pipes))
+        if (pipe(cmd->pipes) != 0)
             return (fatal_error(cmd));
     }
     pid = fork();
@@ -228,20 +225,20 @@ int exec_cmd(t_list *cmd, char **env)
         if (cmd->type == TYPE_PIPE && dup2(cmd->pipes[FD_IN], STDOUT) < 0)
             return (fatal_error(cmd));
         if (cmd->prev && cmd->prev->type == TYPE_PIPE
-            && dup2(cmd->prev->pipes[FD_OUT], STDIN) < 0)
+            && dup2(cmd->pipes[FD_OUT], STDIN) < 0)
             return (fatal_error(cmd));
-        full_cmd = get_cmd_path(cmd->args[0]);
+        full_cmd = get_cmd(cmd->args[0]);
         if (!full_cmd)
             return (fatal_error(cmd));
         ret = execve(full_cmd, cmd->args, env);
-        exit(ft_strerr("error: cannot execute ", cmd->args[0], cmd));
+        return(ft_strerr(cmd, "error: cannot execute ", cmd->args[0], 1));
     }
     else if (pid > 0)
     {
         waitpid(pid, &status, 0);
         if (pipe_open)
         {
-            close(cmd->pipes[FD_IN]);
+            close (cmd->pipes[FD_IN]);
             if (!cmd->next || cmd->type == TYPE_BREAK)
                 close(cmd->pipes[FD_OUT]);
             if (cmd->prev && cmd->prev->type == TYPE_PIPE)
@@ -251,7 +248,7 @@ int exec_cmd(t_list *cmd, char **env)
             return (WEXITSTATUS(status));
         return (EXIT_FAILURE);
     }
-    return (ret) ;
+    return (ret);
 }
 
 int exec_cmds(t_list **cmds, char **env)
@@ -268,9 +265,9 @@ int exec_cmds(t_list **cmds, char **env)
         if (strcmp((*cmds)->args[0], "cd") == 0)
         {
             if ((*cmds)->length != 2)
-                return (ft_strerr("error: cd: bad arguments", NULL, *cmds));
-            if (chdir((*cmds)->args[1]))
-                return (ft_strerr("error: cd: cannot change directory to ", (*cmds)->args[1], *cmds));
+                return (ft_strerr(*cmds, "error: cd: bad arguments", NULL, 0));
+            else if (chdir((*cmds)->args[1]))
+                return (ft_strerr(*cmds, "error: cd: cannot change directory to ", (*cmds)->args[1], 0));
         }
         else
             ret = exec_cmd(*cmds, env);
@@ -286,17 +283,20 @@ int main(int argc, char **argv, char **env)
     int     i;
     int     ret;
 
+    ret = EXIT_SUCCESS;
     if (argc < 2)
-        return (EXIT_SUCCESS);
+        return (ret);
     cmds = NULL;
     i = 1;
     while (argv[i])
-        parse_args(&cmds, argv[i++]);
+        ret = parse_args(&cmds, argv[i++]);
     if (cmds)
         ret = exec_cmds(&cmds, env);
     clear_list(&cmds);
-    return(ret);
+    return (ret);
 }
+
+
 
 
 // gcc ./microshell.c -Wall -Wextra -Werror -g3
@@ -310,8 +310,4 @@ int main(int argc, char **argv, char **env)
 
 // ./a.out /bin/echo "Hello World" | /usr/bin/tee output.txt | /usr/bin/wc -w
 
-// ./a.out seq 1 10 | /usr/bin/xargs -n1 echo "Number:"
-
-// ./a.out /bin/echo "Hello File" > file.txt
-// ./a.out /bin/cat < file.txt
-// ./a.out /bin/cat < file.txt | /usr/bin/grep Hello
+// ./a.out seq 1 10 "|" /usr/bin/xargs -n1 echo "Number:"

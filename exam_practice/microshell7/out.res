@@ -1,3 +1,13 @@
+/bin/ls
+a.out
+microshell
+microshell.c
+out.res
+test.sh
+test2.output
+user_output_test2
+
+/bin/cat microshell.c
 #include <unistd.h>
 #include <stdlib.h>
 #include <string.h>
@@ -306,12 +316,93 @@ int main(int argc, char **argv, char **env)
 // $>./microshell /bin/ls "|" /usr/bin/grep microshell ";" /bin/echo hello world
 // microshell
 
-// ./a.out diff -U 3 user_output_test2 test2.output | cat -e        ///com o 'cat -e' retorna 0 ||| sem o 'cat -e' retorna 1 se forem arquivos diferentes, 0 se forem iguais e 2 se der erro.
+// ./a.out diff -U 3 user_output_test2 test2.output | cat -e
+/bin/ls microshell.c
+microshell.c
 
-// ./a.out /bin/echo "Hello World" | /usr/bin/tee output.txt | /usr/bin/wc -w
+/bin/ls salut
 
-// ./a.out seq 1 10 | /usr/bin/xargs -n1 echo "Number:"
+;
 
-// ./a.out /bin/echo "Hello File" > file.txt
-// ./a.out /bin/cat < file.txt
-// ./a.out /bin/cat < file.txt | /usr/bin/grep Hello
+; ;
+
+; ; /bin/echo OK
+OK
+
+; ; /bin/echo OK ;
+OK
+
+; ; /bin/echo OK ; ;
+
+; ; /bin/echo OK ; ; ; /bin/echo OK
+
+/bin/ls | /usr/bin/grep microshell
+microshell
+microshell.c
+
+/bin/ls | /usr/bin/grep microshell | /usr/bin/grep micro
+microshell
+microshell.c
+
+/bin/ls | /usr/bin/grep microshell | /usr/bin/grep micro | /usr/bin/grep shell | /usr/bin/grep micro | /usr/bin/grep micro | /usr/bin/grep micro | /usr/bin/grep micro | /usr/bin/grep micro | /usr/bin/grep micro | /usr/bin/grep micro | /usr/bin/grep micro | /usr/bin/grep micro | /usr/bin/grep micro | /usr/bin/grep micro | /usr/bin/grep micro | /usr/bin/grep micro | /usr/bin/grep micro | /usr/bin/grep micro | /usr/bin/grep micro | /usr/bin/grep micro | /usr/bin/grep micro | /usr/bin/grep micro | /usr/bin/grep micro | /usr/bin/grep micro | /usr/bin/grep micro | /usr/bin/grep micro | /usr/bin/grep micro | /usr/bin/grep micro | /usr/bin/grep micro | /usr/bin/grep micro | /usr/bin/grep micro | /usr/bin/grep micro | /usr/bin/grep micro | /usr/bin/grep micro | /usr/bin/grep micro | /usr/bin/grep micro | /usr/bin/grep micro
+microshell
+microshell.c
+
+/bin/ls | /usr/bin/grep microshell | /usr/bin/grep micro | /usr/bin/grep shell | /usr/bin/grep micro | /usr/bin/grep micro | /usr/bin/grep micro | /usr/bin/grep micro | /usr/bin/grep micro | /usr/bin/grep micro | /usr/bin/grep micro | /usr/bin/grep micro | /usr/bin/grep micro | /usr/bin/grep micro | /usr/bin/grep micro | /usr/bin/grep micro | /usr/bin/grep micro | /usr/bin/grep micro | /usr/bin/grep micro | /usr/bin/grep micro | /usr/bin/grep micro | /usr/bin/grep micro | /usr/bin/grep micro | /usr/bin/grep micro | /usr/bin/grep micro | /usr/bin/grep micro | /usr/bin/grep micro | /usr/bin/grep micro | /usr/bin/grep micro | /usr/bin/grep micro | /usr/bin/grep micro | /usr/bin/grep micro | /usr/bin/grep micro | /usr/bin/grep micro | /usr/bin/grep micro | /usr/bin/grep micro | /usr/bin/grep micro | /usr/bin/grep shell | /usr/bin/grep shell | /usr/bin/grep shell | /usr/bin/grep shell | /usr/bin/grep shell | /usr/bin/grep shell | /usr/bin/grep shell | /usr/bin/grep shell | /usr/bin/grep shell | /usr/bin/grep shell | /usr/bin/grep shell | /usr/bin/grep shell | /usr/bin/grep shell | /usr/bin/grep shell | /usr/bin/grep shell | /usr/bin/grep shell | /usr/bin/grep shell | /usr/bin/grep shell | /usr/bin/grep shell | /usr/bin/grep shell | /usr/bin/grep shell | /usr/bin/grep shell | /usr/bin/grep shell | /usr/bin/grep shell | /usr/bin/grep shell | /usr/bin/grep shell | /usr/bin/grep shell | /usr/bin/grep shell | /usr/bin/grep shell | /usr/bin/grep shell | /usr/bin/grep shell | /usr/bin/grep shell | /usr/bin/grep shell | /usr/bin/grep shell | /usr/bin/grep shell | /usr/bin/grep shell | /usr/bin/grep shell | /usr/bin/grep shell | /usr/bin/grep shell
+microshell
+microshell.c
+
+/bin/ls ewqew | /usr/bin/grep micro | /bin/cat -n ; /bin/echo dernier ; /bin/echo
+dernier
+
+
+/bin/ls | /usr/bin/grep micro | /bin/cat -n ; /bin/echo dernier ; /bin/echo ftest ;
+     1	microshell
+     2	microshell.c
+dernier
+ftest
+
+/bin/echo ftest ; /bin/echo ftewerwerwerst ; /bin/echo werwerwer ; /bin/echo qweqweqweqew ; /bin/echo qwewqeqrtregrfyukui ;
+ftest
+ftewerwerwerst
+werwerwer
+qweqweqweqew
+qwewqeqrtregrfyukui
+
+/bin/ls ftest ; /bin/ls ; /bin/ls werwer ; /bin/ls microshell.c ; /bin/ls subject.fr.txt ;
+a.out
+leaks.res
+microshell
+microshell.c
+out.res
+test.sh
+test2.output
+user_output_test2
+microshell.c
+
+/bin/ls | /usr/bin/grep micro ; /bin/ls | /usr/bin/grep micro ; /bin/ls | /usr/bin/grep micro ; /bin/ls | /usr/bin/grep micro ;
+microshell
+microshell.c
+microshell
+microshell.c
+microshell
+microshell.c
+microshell
+microshell.c
+
+/bin/cat subject.fr.txt | /usr/bin/grep a | /usr/bin/grep b ; /bin/cat subject.fr.txt ;
+
+/bin/cat subject.fr.txt | /usr/bin/grep a | /usr/bin/grep w ; /bin/cat subject.fr.txt ;
+
+/bin/cat subject.fr.txt | /usr/bin/grep a | /usr/bin/grep w ; /bin/cat subject.fr.txt
+
+/bin/cat subject.fr.txt ; /bin/cat subject.fr.txt | /usr/bin/grep a | /usr/bin/grep b | /usr/bin/grep z ; /bin/cat subject.fr.txt
+
+; /bin/cat subject.fr.txt ; /bin/cat subject.fr.txt | /usr/bin/grep a | /usr/bin/grep b | /usr/bin/grep z ; /bin/cat subject.fr.txt
+
+blah | /bin/echo OK
+OK
+
+blah | /bin/echo OK ;
+OK
+
