@@ -1,19 +1,19 @@
-#include <unistd.h>
 #include <stdlib.h>
+#include <unistd.h>
 #include <string.h>
 #include <sys/wait.h>
 #include <stdio.h>
 
-#define STDIN 0
-#define STDOUT 1
-#define STDERR 2
+#define STDIN   0
+#define STDOUT   1
+#define STDERR   2
 
-#define TYPE_END 0
-#define TYPE_BREAK 1
-#define TYPE_PIPE 2
+#define TYPE_END   0
+#define TYPE_BREAK   1
+#define TYPE_PIPE   2
 
-#define FD_OUT 0
-#define FD_IN 1
+#define FD_OUT   0
+#define FD_IN   1
 
 typedef struct s_list
 {
@@ -21,22 +21,19 @@ typedef struct s_list
     int     length;
     int     type;
     int     pipes[2];
-    struct s_list *prev;
-    struct s_list *next;
+    struct s_list   *prev;
+    struct s_list   *next;
 }   t_list;
 
 void    clear_list(t_list **list)
 {
     t_list  *tmp;
-    int     i;
+    int     i = 0;
 
-    if (!*list || !list)
+    if (!*list)
         return ;
-    if ((*list)->prev)
-    {
-        while ((*list)->prev)
-            *list = (*list)->prev;
-    }
+    while ((*list)->prev)
+        *list = (*list)->prev;
     while (*list)
     {
         tmp = (*list)->next;
@@ -50,19 +47,13 @@ void    clear_list(t_list **list)
         free(*list);
         *list = tmp;
     }
+    return ;
 }
 
-int fatal_error(void)
+int ft_stderr(char *msg, char *arg, t_list *cmds, int is_execerr)
 {
-    write(STDERR, "error: fatal\n", 14);
-    return (EXIT_FAILURE);
-}
+    int i = 0;
 
-int ft_strerr(t_list *cmds, char *msg, char *arg, int is_exec)
-{
-    int i;
-
-    i = 0;
     while (msg[i])
         write(STDERR, &msg[i++], 1);
     if (arg)
@@ -72,26 +63,30 @@ int ft_strerr(t_list *cmds, char *msg, char *arg, int is_exec)
             write(STDERR, &arg[i++], 1);
     }
     write(STDERR, "\n", 1);
-    clear_list(&cmds);
-    if (is_exec)
+    if (is_execerr)
+    {
+        clear_list(&cmds);
         exit(EXIT_FAILURE);
+    }
+    return (EXIT_FAILURE);
+}
+
+int fatal_error(void)
+{
+    write(STDERR, "error: fatal\n", 14);
     return (EXIT_FAILURE);
 }
 
 char    *ft_strdup(char *str)
 {
-    int     i;
-    int     len;
+    int i = 0;
+    int len = 0;
     char    *dup;
 
-    len = 0;
     while (str[len])
         len++;
     dup = malloc(sizeof(char) * (len + 1));
-    if (!dup)
-        return (NULL);
-    i = 0;
-    while (i < len)
+    while (str[i])
     {
         dup[i] = str[i];
         i++;
@@ -103,18 +98,20 @@ char    *ft_strdup(char *str)
 int add_arg(t_list *cmds, char *arg)
 {
     char    **new_args;
-    int     i;
+    int     i = 0;;
 
     new_args = (char **)malloc(sizeof(char *) * (cmds->length + 2));
     if (!new_args)
         return (fatal_error());
-    i = 0;
-    while (i < cmds->length)
+    if (cmds->args)
     {
-        new_args[i] = cmds->args[i];
-        i++;
+        while (cmds->args[i])
+        {
+            new_args[i] = cmds->args[i];
+            i++;
+        }
+        free(cmds->args);
     }
-    free(cmds->args);
     new_args[i++] = ft_strdup(arg);
     new_args[i] = NULL;
     cmds->args = new_args;
@@ -145,11 +142,9 @@ int push_list(t_list **cmds, char *arg)
 
 int parse_args(t_list **cmds, char *arg)
 {
-    int is_break;
-    int is_pipe;
+    int is_break = 0;
+    int is_pipe = 0;
 
-    is_break = 0;
-    is_pipe = 0;
     if (strcmp(arg, ";") == 0)
         is_break = 1;
     if (strcmp(arg, "|") == 0)
@@ -167,65 +162,59 @@ int parse_args(t_list **cmds, char *arg)
     return (EXIT_SUCCESS);
 }
 
-char    *get_cmd_path(char *cmd)
+char *get_cmd(char *str)
 {
-    char    *full_cmd;
+    int len = 0;
+    int i = 0;
     char    *path = "/usr/bin/";
-    int     i = 0;
-    int     len = 0;
+    char    *cmd;
 
-    if (strncmp(cmd, path, 9) == 0 || strncmp(cmd, "/bin/", 5) == 0)
-        return (cmd);
-    while (cmd[len])
+    if (!strncmp(str, "/usr/", 5) || !strncmp(str, "/bin/", 5))
+        return (ft_strdup(str));
+    while (str[len])
         len++;
-    full_cmd = malloc(sizeof(char) * (len + 10));
+    cmd = malloc(sizeof(char) * (len + 10));
     while (path[i])
     {
-        full_cmd[i] = path[i];
+        cmd[i] = path[i];
         i++;
     }
     len = 0;
-    while (cmd[len])
-        full_cmd[i++] = cmd[len++];
-    full_cmd[i] = '\0';
-    return (full_cmd);
+    while (str[len])
+        cmd[i++] = str[len++];
+    return (cmd);
 }
 
 int exec_cmd(t_list *cmd, char **env)
 {
     pid_t   pid;
-    int     ret;
+    int     res = EXIT_FAILURE;
     int     status;
-    int     pipe_open;
-    char    *cmd_path;
+    int     pipe_open = 0;
+    char    *full_cmd;
 
-    ret = EXIT_FAILURE;
-    pipe_open = 0;
     if (cmd->type == TYPE_PIPE || (cmd->prev && cmd->prev->type == TYPE_PIPE))
     {
-        
         pipe_open = 1;
         if (pipe(cmd->pipes))
             return (fatal_error());
     }
     pid = fork();
     if (pid < 0)
-        return (fatal_error());
-    else if (pid == 0) //child
+        return (res);
+    else if (pid == 0)
     {
         if (cmd->type == TYPE_PIPE && dup2(cmd->pipes[FD_IN], STDOUT) < 0)
             return (fatal_error());
         if (cmd->prev && cmd->prev->type == TYPE_PIPE
             && dup2(cmd->prev->pipes[FD_OUT], STDIN) < 0)
             return (fatal_error());
-        cmd_path = get_cmd_path(cmd->args[0]);
-        if (!cmd_path)
-            return (fatal_error());
-        ret = execve(cmd_path, cmd->args, env);
-        free(cmd_path);
-        return (ft_strerr(cmd, "error: cannot execute ", cmd->args[0], 1));
+        full_cmd = get_cmd(cmd->args[0]);
+        res = execve(full_cmd, cmd->args, env);
+        free(full_cmd);
+        ft_stderr("error: failed to execute ", cmd->args[0], cmd, 1);
     }
-    else if (pid > 0) // parent
+    else if (pid > 0)
     {
         waitpid(pid, &status, 0);
         if (pipe_open)
@@ -240,57 +229,53 @@ int exec_cmd(t_list *cmd, char **env)
             return (WEXITSTATUS(status));
         return (EXIT_FAILURE);
     }
-    return (ret);
+    return (res);
 }
 
 int exec_cmds(t_list **cmds, char **env)
 {
     t_list  *tmp;
-    int     ret = EXIT_FAILURE;
+    int     res = EXIT_FAILURE;
 
-    while ((*cmds)->prev)
-        *cmds = (*cmds)->prev;
+    if ((*cmds)->prev)
+    {
+        while ((*cmds)->prev)
+            *cmds = (*cmds)->prev;
+    }
     tmp = *cmds;
     while (*cmds)
     {
         if (strcmp((*cmds)->args[0], "cd") == 0)
         {
             if ((*cmds)->length != 2)
-                return (ft_strerr(*cmds, "error: cd: bad arguments", NULL, 0));
+                return (ft_stderr("error: cd: bad arguments", NULL, NULL, 0));
             if (chdir((*cmds)->args[1]))
-                return (ft_strerr(*cmds, "error: cd: cannot change directory to ", (*cmds)->args[1], 0));
+                return (ft_stderr("error: cd: cannot change to directory ", (*cmds)->args[1], NULL, 0));
         }
-        else 
-            ret = exec_cmd(*cmds, env);
+        else
+            res = exec_cmd(*cmds, env);
         *cmds = (*cmds)->next;
     }
     *cmds = tmp;
-    return (ret);
+    return (res);
 }
 
 int main(int argc, char **argv, char **env)
 {
-    t_list  *cmds;
-    int     ret;
-    int     ret_parse;
-    int     i;
+    t_list  *cmds = NULL;
+    int     i = 1;
+    int     res = EXIT_SUCCESS;
+    int     res_parse = EXIT_SUCCESS;
 
     if (argc < 2)
-        return (EXIT_SUCCESS);
-    cmds = NULL;
-    ret = EXIT_SUCCESS;
-    ret_parse = EXIT_SUCCESS;
-    i = 1;
-    while (argv[i] && ret_parse == EXIT_SUCCESS)
-        ret_parse = parse_args(&cmds, argv[i++]);
-    if (ret_parse == EXIT_SUCCESS && cmds)
-        ret = exec_cmds(&cmds, env);
-    if (cmds)
-        clear_list(&cmds);
-    //printf("parse = %d, ret = %d\n", ret_parse, ret);
-    if (ret_parse == EXIT_FAILURE || ret == EXIT_FAILURE)
-        return (EXIT_FAILURE);
-    return (EXIT_SUCCESS);
+        return (res);
+    while (argv[i] && res_parse == EXIT_SUCCESS)
+        res_parse = parse_args(&cmds, argv[i++]);
+    if (res_parse == EXIT_SUCCESS && cmds)
+        res = exec_cmds(&cmds, env);
+    (void)env;
+    clear_list(&cmds);
+    return (res);
 }
 
 
@@ -298,7 +283,7 @@ int main(int argc, char **argv, char **env)
 
 // gcc ./microshell.c -Wall -Wextra -Werror -g3
 
-// valgrind --leak-check=full --show-leak-kinds=all ./a.out /usr/bin/ls ";" /usr/bin/echo HELLO WORLD
+// valgrind --leak-check=full --show-leak-kinds=all ./a.out ls ";" echo HELLO WORLD
 
 // $>./a.out /bin/ls "|" /usr/bin/grep microshell ";" /bin/echo hello world
 // microshell

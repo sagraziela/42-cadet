@@ -311,3 +311,5 @@ int main(int argc, char **argv, char **env)
 // ./a.out /bin/echo "Hello World" | /usr/bin/tee output.txt | /usr/bin/wc -w
 
 // ./a.out seq 1 10 "|" /usr/bin/xargs -n1 echo "Number:"
+
+// ./a.out ls "|" grep microshell ";" ";" echo hello

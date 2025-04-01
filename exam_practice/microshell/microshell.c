@@ -107,3 +107,5 @@ int main(int argc, char *argv[], char *env[])
 }
 
 // gcc ./microshell.c -Wall -Wextra -Werror -g3
+
+// ./a.out /usr/bin/ls "|" /usr/bin/grep microshell ";" ";" /usr/bin/echo hello
